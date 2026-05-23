@@ -1,1 +1,546 @@
 
+<h2 class="sr-only">Wonders of Europe 2026 — Full Operations & Sales Management System</h2>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--b:#1a3a5c;--o:#E8541E;--g:#1e8a4a;--r:#c0392b;--am:#d97706;--bg:#fff;--bg2:#f7f8fa;--bg3:#eef0f3;--bd:#e2e6ea;--t:#1a2332;--t2:#5a6474;--t3:#8c98a6}
+.app{font-family:'Plus Jakarta Sans','Segoe UI',sans-serif;font-size:13px;color:var(--t);background:var(--bg);min-height:580px}
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+.hdr{background:var(--b);padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.hdr-l{display:flex;align-items:center;gap:10px}
+.hdr-logo{height:30px;object-fit:contain}
+.hdr-info{color:#fff}
+.hdr-title{font-size:13px;font-weight:700;letter-spacing:.2px}
+.hdr-sub{font-size:10px;color:rgba(255,255,255,.6);margin-top:1px}
+.hdr-r{display:flex;gap:6px;flex-wrap:wrap}
+.owner-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);color:#fff;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:500}
+.owner-pill span{opacity:.7;margin-right:4px}
+.tabs{display:flex;background:var(--bg2);border-bottom:1px solid var(--bd);overflow-x:auto;flex-shrink:0}
+.tab{padding:9px 12px;cursor:pointer;font-size:11px;font-weight:600;color:var(--t2);white-space:nowrap;border-bottom:2px solid transparent;transition:.12s;letter-spacing:.2px}
+.tab.on{color:var(--o);border-bottom-color:var(--o);background:var(--bg)}
+.tab:hover:not(.on){background:var(--bg3);color:var(--t)}
+.pane{display:none;padding:14px;overflow-y:auto;max-height:520px}
+.pane.on{display:block}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.card{background:var(--bg);border:1px solid var(--bd);border-radius:8px;padding:11px 13px}
+.kcard{background:var(--bg2);border-radius:7px;padding:10px 12px}
+.kcard .lbl{font-size:10px;color:var(--t2);font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+.kcard .val{font-size:20px;font-weight:700;color:var(--t);line-height:1}
+.kcard .sub{font-size:10px;color:var(--t3);margin-top:2px}
+.sh{font-size:12px;font-weight:700;color:var(--t);padding-bottom:6px;border-bottom:1px solid var(--bd);margin:12px 0 8px;text-transform:uppercase;letter-spacing:.4px}
+.sh:first-child{margin-top:0}
+.alert{padding:9px 12px;border-radius:6px;margin-bottom:10px;font-size:11px;display:flex;gap:9px;line-height:1.5}
+.ar{background:#fdecea;border-left:3px solid var(--r);color:#7a1a1a}
+.aa{background:#fffbeb;border-left:3px solid var(--am);color:#7a3d00}
+.ab{background:#eff6ff;border-left:3px solid #2563eb;color:#1e3a8a}
+.ag{background:#f0fdf4;border-left:3px solid var(--g);color:#14532d}
+.badge{display:inline-block;padding:2px 7px;border-radius:20px;font-size:10px;font-weight:600}
+.bg{background:#dcfce7;color:#166534}.br{background:#fee2e2;color:#991b1b}.ba{background:#fef3c7;color:#92400e}.bb{background:#dbeafe;color:#1e40af}.bgy{background:#f3f4f6;color:#374151}
+table{width:100%;border-collapse:collapse}
+th{background:var(--bg2);font-size:10px;font-weight:700;color:var(--t2);padding:6px 8px;text-align:left;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.3px}
+td{padding:7px 8px;border-bottom:1px solid var(--bg2);font-size:11px;vertical-align:middle}
+tr:hover td{background:#fafbfc}
+.inp{width:100%;padding:5px 9px;border:1px solid var(--bd);border-radius:5px;font-size:12px;color:var(--t);background:var(--bg);font-family:inherit}
+.inp:focus{outline:none;border-color:var(--o)}
+.sel{width:100%;padding:5px 8px;border:1px solid var(--bd);border-radius:5px;font-size:12px;color:var(--t);background:var(--bg);font-family:inherit}
+.btn{padding:6px 12px;border-radius:5px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid var(--bd);background:var(--bg);color:var(--t);transition:.12s;font-family:inherit}
+.btn:hover{background:var(--bg3)}
+.btn-p{background:var(--o);color:#fff;border-color:var(--o)}.btn-p:hover{background:#c9440f}
+.btn-g{background:var(--g);color:#fff;border-color:var(--g)}
+.dep-card{border:1px solid var(--bd);border-radius:7px;padding:11px;cursor:pointer;transition:.12s}
+.dep-card:hover,.dep-card.sel{border-color:var(--o);background:#fff8f5}
+.dep-card.sel{border-width:2px}
+.prog{background:var(--bg3);border-radius:20px;height:5px;overflow:hidden;margin:6px 0 3px}
+.prog-b{height:100%;border-radius:20px}
+.day-row{border:1px solid var(--bd);border-radius:6px;margin-bottom:7px;overflow:hidden}
+.day-hdr{background:var(--b);color:#fff;padding:7px 11px;font-size:11px;font-weight:700;display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.day-body{padding:9px 11px;background:var(--bg);display:none}
+.day-body.open{display:block}
+.act{display:flex;align-items:flex-start;gap:8px;padding:4px 0;border-bottom:1px solid var(--bg2);font-size:11px}
+.act:last-child{border:0}
+.act-dot{width:7px;height:7px;border-radius:50%;background:var(--o);margin-top:3px;flex-shrink:0}
+.act-inc{background:#dcfce7;color:#166534;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;margin-left:auto;flex-shrink:0}
+.act-opt{background:#fef3c7;color:#92400e;padding:1px 6px;border-radius:3px;font-size:10px;font-weight:600;margin-left:auto;flex-shrink:0}
+.hotel-pill{background:var(--b);color:#fff;padding:2px 8px;border-radius:4px;font-size:10px;font-weight:600}
+.tm-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bg2);font-size:11px}
+.av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+.issue-item{background:var(--bg2);border-radius:6px;padding:8px 10px;margin-bottom:6px;display:flex;gap:9px;font-size:11px;line-height:1.5}
+.iss-dot{width:8px;height:8px;border-radius:50%;margin-top:3px;flex-shrink:0}
+.flow-step{border:1px solid var(--bd);border-radius:7px;padding:10px 12px;position:relative}
+.flow-num{width:22px;height:22px;border-radius:50%;background:var(--o);color:#fff;font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;margin-bottom:7px;flex-shrink:0}
+.flow-title{font-size:12px;font-weight:700;color:var(--t);margin-bottom:4px}
+.flow-sub{font-size:11px;color:var(--t2);line-height:1.5}
+.flow-owner{font-size:10px;font-weight:600;margin-top:6px;padding:2px 8px;border-radius:3px;display:inline-block}
+.arrow{text-align:center;color:var(--t3);font-size:16px;margin:4px 0}
+.cash-red{color:var(--r);font-weight:600}
+.cash-am{color:var(--am);font-weight:600}
+.chk-row{display:flex;align-items:flex-start;gap:8px;padding:5px 0;border-bottom:1px solid var(--bg2);font-size:11px}
+.upload-zone{border:1.5px dashed var(--bd);border-radius:6px;padding:14px;text-align:center;color:var(--t3);font-size:12px;cursor:pointer;transition:.12s;margin:8px 0}
+.upload-zone:hover{border-color:var(--o);color:var(--o)}
+.viol{background:#fdecea;border-left:3px solid var(--r);padding:8px 11px;border-radius:0 5px 5px 0;font-size:11px;color:#7a1a1a;margin-bottom:6px}
+</style>
+
+<div class="app">
+<div class="hdr">
+  <div class="hdr-l">
+    <img class="hdr-logo" src="data:image/png;base64,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" alt="TF"/>
+    <div class="hdr-info">
+      <div class="hdr-title">Wonders of Europe 2026 · ORN / Nexus DMC</div>
+      <div class="hdr-sub">Paris → Amsterdam → Frankfurt → Zurich → Innsbruck → Venice → Florence → Rome · 13 Days · Operated by Nexus DMC</div>
+    </div>
+  </div>
+  <div class="hdr-r">
+    <div class="owner-pill"><span>Ops:</span>Seema Tabbasum</div>
+    <div class="owner-pill"><span>Sales:</span>Sachin Keni</div>
+    <div class="owner-pill"><span>CEO:</span>Vinay</div>
+  </div>
+</div>
+
+<div class="tabs" id="tabs">
+  <div class="tab on" onclick="sw(0)">🏠 Overview</div>
+  <div class="tab" onclick="sw(1)">🗓 Itinerary</div>
+  <div class="tab" onclick="sw(2)">💷 Costs & Margin</div>
+  <div class="tab" onclick="sw(3)">👥 Passengers</div>
+  <div class="tab" onclick="sw(4)">🧭 Tour Managers</div>
+  <div class="tab" onclick="sw(5)">⚙️ Workflow</div>
+  <div class="tab" onclick="sw(6)">🛒 On-Tour Sales</div>
+  <div class="tab" onclick="sw(7)">🧾 Expenses</div>
+</div>
+
+<!-- TAB 0: OVERVIEW -->
+<div class="pane on" id="p0">
+  <div class="g4" style="margin-bottom:12px">
+    <div class="kcard"><div class="lbl">Departures 2026</div><div class="val">6</div><div class="sub">May–Sep season</div></div>
+    <div class="kcard"><div class="lbl">Total Pax (est.)</div><div class="val">207</div><div class="sub">avg 34.5/dep</div></div>
+    <div class="kcard"><div class="lbl">Revenue (est.)</div><div class="val" style="color:var(--g)">£517K</div><div class="sub">~£2,500/pax</div></div>
+    <div class="kcard"><div class="lbl">🔴 Live Issues</div><div class="val" style="color:var(--r)">5</div><div class="sub">Require action now</div></div>
+  </div>
+
+  <div class="alert ar"><div>🚨</div><div><strong>CRITICAL — Jungfrau cash (WOE-01):</strong> TM holding ~€450 optional revenue. Must be submitted to office before next assignment. Ref: WhatsApp chat 23 May 2026, Wasim/Vinay.</div></div>
+  <div class="alert ar"><div>🚨</div><div><strong>CRITICAL — Wrong Disneyland tickets (WOE-01):</strong> Ops booked incorrect tickets. Est. loss €600+. Ops team to credit back and ensure T-7 voucher check is followed for all future departures.</div></div>
+  <div class="alert ar"><div>🚨</div><div><strong>CRITICAL — Agent balance unsettled (WOE-01):</strong> Coach departed without full agent payment. Policy: no departure without settled balance. Escalate to finance for recovery.</div></div>
+  <div class="alert aa"><div>⚠️</div><div><strong>COMPLIANCE — TM conflict of interest:</strong> TM conducted a tour for AFC Holidays between ORN tours using Nexus visa. Contracted TMs must not work for other companies in-season. Review contract and action accordingly.</div></div>
+  <div class="alert aa"><div>⚠️</div><div><strong>STAFF — Allocation fairness:</strong> Contracted TMs sitting idle while new/uncontracted TMs assigned. Wasim Guru flagged Avinash Ghatge assigned when contracted TMs have no work. Seema to review allocation per Section 07 policy (merit + seniority first).</div></div>
+
+  <div class="sh">2026 Departure Schedule — All Dates</div>
+  <div id="depGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"></div>
+
+  <div class="sh" style="margin-top:12px">Accountability Matrix</div>
+  <div class="g3">
+    <div class="card">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+        <div class="av" style="background:#e0f2fe;color:#0369a1">ST</div>
+        <div><div style="font-weight:700;font-size:12px">Seema Tabbasum</div><div style="font-size:10px;color:var(--t2)">Operations Lead</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6">✓ TM daily report review<br>✓ Expense approvals<br>✓ Voucher T-7/T-3/T-1 checks<br>✓ Issue escalation to Vinay<br>✓ On-tour optional declarations<br>✓ TM allocation oversight</div>
+    </div>
+    <div class="card">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+        <div class="av" style="background:#fef3c7;color:#92400e">SK</div>
+        <div><div style="font-weight:700;font-size:12px">Sachin Keni — Nexus</div><div style="font-size:10px;color:var(--t2)">Sales Lead</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6">✓ Agent bookings & deposits<br>✓ Balance settlement before departure<br>✓ New agent onboarding<br>✓ Group fill rate tracking<br>✓ Optional upsell pre-tour<br>✓ Lead recording (all leads on file)</div>
+    </div>
+    <div class="card">
+      <div style="display:flex;gap:10px;align-items:center;margin-bottom:8px">
+        <div class="av" style="background:#fce7f3;color:#9d174d">VC</div>
+        <div><div style="font-weight:700;font-size:12px">Vinay — CEO</div><div style="font-size:10px;color:var(--t2)">Final Escalation</div></div>
+      </div>
+      <div style="font-size:11px;color:var(--t2);line-height:1.6">✓ Policy violations (final call)<br>✓ TM contracts & blacklist decisions<br>✓ Finance approvals >€500<br>✓ Major supplier disputes<br>✓ Strategy & product decisions<br>✓ Salary / incentive structure</div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 1: ITINERARY -->
+<div class="pane" id="p1">
+  <div class="alert ab"><div>ℹ️</div><div><strong>Source:</strong> tripfactory.com/package/wonders-of-europe-2026-6691753 · Operated by Nexus DMC · 13 Days / 12 Nights · Paris CDG in → Rome FCO out · Max 40 pax · English & Hindi TM included</div></div>
+
+  <div class="sh">Hotel Accommodation</div>
+  <table style="margin-bottom:12px">
+    <thead><tr><th>City</th><th>Nights</th><th>Hotel</th><th>Room</th><th>Meals</th></tr></thead>
+    <tbody>
+      <tr><td>🇫🇷 Paris</td><td>3</td><td>The Jangle Hotel (CDG Airport)</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇳🇱 Amsterdam</td><td>1</td><td>NH Amsterdam Schiphol Airport</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇩🇪 Frankfurt</td><td>1</td><td>Elaya Hotel Frankfurt Oberursel</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇨🇭 Zurich</td><td>3</td><td>Radisson Hotel & Suites Zurich</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇦🇹 Innsbruck</td><td>1</td><td>Hotel Alpenkonig Tirol</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇮🇹 Padova (Venice base)</td><td>1</td><td>Crowne Plaza Padova by IHG</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇮🇹 Arezzo (Florence base)</td><td>1</td><td>Hotel Park</td><td>Standard</td><td>Breakfast</td></tr>
+      <tr><td>🇮🇹 Rome</td><td>1</td><td>Hampton by Hilton Rome North Fiano Romano</td><td>Standard</td><td>Breakfast</td></tr>
+    </tbody>
+  </table>
+
+  <div class="sh">Day-by-Day Itinerary</div>
+  <div id="itinDays"></div>
+</div>
+
+<!-- TAB 2: COSTS -->
+<div class="pane" id="p2">
+  <div class="alert ab"><div>ℹ️</div><div>Coach fixed at <strong>£750/day</strong>. Hotels fixed at <strong>£100pp/night</strong>. All other items — enter actuals or estimates. Margin auto-updates. Optionals table shows approved splits per policy.</div></div>
+
+  <div class="sh">Per-Departure Cost Model (40 pax · 13 days)</div>
+  <table>
+    <thead><tr><th>Component</th><th>Supplier</th><th>Qty</th><th>Rate</th><th>Total £</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Coach Transport</strong></td><td>Nexus DMC Europe</td><td>13 days</td><td>£750/day</td><td><strong>£9,750</strong></td><td><span class="badge bg">Fixed</span></td></tr>
+      <tr><td><strong>Hotels (twin share)</strong></td><td>See Itinerary tab</td><td>12N × 40pax</td><td>£100pp/n</td><td><strong>£48,000</strong></td><td><span class="badge bg">Fixed</span></td></tr>
+      <tr><td>Flights (Paris in / Rome out)</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder="Airline / consolidator"/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Eiffel Tower 2nd Level</td><td><input class="inp" style="font-size:11px;padding:3px 7px" value="Local ops Paris"/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Seine River Cruise</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Disneyland Paris (INCLUDED)</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder="Book via official channel only"/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Mt. Titlis Entry</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Venice Gondola Ride</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Venice Boat Transfer</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Meals (12B + 11L + 12D Indian)</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder="Contracted restaurants"/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Local Guides (Paris, Rome etc.)</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>—</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Tour Manager Fee + Allowance</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder="Contracted TM"/></td><td>13 days</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Permits (Venice, Rome, etc.)</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder="Online pre-booked"/></td><td>—</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr><td>Swarovski Crystal Worlds</td><td><input class="inp" style="font-size:11px;padding:3px 7px" placeholder=""/></td><td>40</td><td>—</td><td><input class="inp" style="font-size:11px;padding:3px 7px;width:90px" placeholder="£ total"/></td><td><span class="badge ba">TBC</span></td></tr>
+      <tr style="background:var(--bg2)"><td colspan="4"><strong>FIXED COSTS ONLY (Coach + Hotels)</strong></td><td><strong>£57,750</strong></td><td></td></tr>
+      <tr style="background:var(--bg2)"><td colspan="4"><strong>Revenue (40 pax × £2,500)</strong></td><td><strong>£100,000</strong></td><td></td></tr>
+      <tr style="background:#dcfce7"><td colspan="4"><strong>Est. Gross Margin (fixed costs only)</strong></td><td><strong style="color:var(--g)">£42,250 (42.3%)</strong></td><td><span class="badge bg">On target</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sh" style="margin-top:14px">Approved Optionals — Selling Prices & Splits (per ORN Policy)</div>
+  <table>
+    <thead><tr><th>Optional</th><th>Sell Price</th><th>TM Share</th><th>Driver/Guide</th><th>Company Net</th><th>Method</th><th>Approved</th></tr></thead>
+    <tbody>
+      <tr><td>Paris by Night (Cruise incl.)</td><td>€40/pp</td><td>€15/pp</td><td>€5/pp</td><td>€20/pp</td><td>ORN App</td><td><span class="badge bg">✓ Yes</span></td></tr>
+      <tr><td>Jungfrau — Top of Europe</td><td>€230/pp</td><td>€15/pp</td><td>€5/pp</td><td>€210/pp</td><td>ORN App</td><td><span class="badge bg">✓ Yes</span></td></tr>
+      <tr><td>Disneyland Paris (extra day)</td><td>€80/pp</td><td>€10/pp</td><td>—</td><td>€70/pp</td><td>Pre-booked</td><td><span class="badge bg">✓ Yes</span></td></tr>
+      <tr><td>Rhine Cruise upgrade</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge ba">Pending</span></td></tr>
+      <tr><td>Versailles (add-on)</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="badge ba">Pending</span></td></tr>
+    </tbody>
+  </table>
+  <div class="viol" style="margin-top:8px">⛔ <strong>Black Optional Rule:</strong> No sale outside this table. TM/driver/guide cannot collect money privately. Violation = immediate removal from tour + company debit. (ORN Policy §05)</div>
+</div>
+
+<!-- TAB 3: PASSENGERS -->
+<div class="pane" id="p3">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+    <div style="font-size:12px;font-weight:700">Passenger Manifest</div>
+    <div style="display:flex;gap:6px">
+      <select class="sel" style="width:160px" onchange="filterDep(this.value)">
+        <option value="">All departures</option>
+        <option value="WOE-01">WOE-01 · 09 May</option>
+        <option value="WOE-02">WOE-02 · 30 May</option>
+        <option value="WOE-03">WOE-03 · 20 Jun</option>
+        <option value="WOE-04">WOE-04 · 11 Jul</option>
+        <option value="WOE-05">WOE-05 · 01 Aug</option>
+        <option value="WOE-06">WOE-06 · 05 Sep</option>
+      </select>
+      <button class="btn">+ Add Pax</button>
+    </div>
+  </div>
+  <div class="alert ar" style="margin-bottom:8px"><div>⚠️</div><div><strong>Policy:</strong> Coach must NOT depart with any unsettled agent or passenger balance. Escalate to Sachin Keni (Sales) immediately if balance outstanding T-3.</div></div>
+  <table>
+    <thead><tr><th>#</th><th>Name</th><th>Ref</th><th>Departure</th><th>Agent / Source</th><th>Room</th><th>Dietary</th><th>Medical</th><th>Balance</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>Ramesh Sharma</td><td>WOE-001</td><td>WOE-01</td><td>Nexus Mumbai</td><td>Twin 101</td><td>Veg</td><td>—</td><td><span class="badge bg">Settled</span></td><td><span class="badge bg">Confirmed</span></td></tr>
+      <tr><td>2</td><td>Priya Sharma</td><td>WOE-001</td><td>WOE-01</td><td>Nexus Mumbai</td><td>Twin 101</td><td>Veg</td><td>Diabetic — insulin</td><td><span class="badge bg">Settled</span></td><td><span class="badge bg">Confirmed</span></td></tr>
+      <tr><td>3</td><td>Amit Patel</td><td>WOE-003</td><td>WOE-01</td><td>TripFactory Direct</td><td>Twin 102</td><td>Non-veg</td><td>—</td><td><span class="badge br">£250 due</span></td><td><span class="badge br">Unpaid</span></td></tr>
+      <tr><td>4</td><td>Sunita Patel</td><td>WOE-003</td><td>WOE-01</td><td>TripFactory Direct</td><td>Twin 102</td><td>Non-veg</td><td>—</td><td><span class="badge br">£250 due</span></td><td><span class="badge br">Unpaid</span></td></tr>
+      <tr><td>5</td><td>Vikram Mehta</td><td>WOE-005</td><td>WOE-01</td><td>Nexus Delhi</td><td>Single 201</td><td>Jain</td><td>BP medication</td><td><span class="badge bg">Settled</span></td><td><span class="badge bg">Confirmed</span></td></tr>
+      <tr><td>6</td><td>Kavitha Nair</td><td>WOE-006</td><td>WOE-02</td><td>AFC Holidays</td><td>Twin 202</td><td>Veg</td><td>Wheelchair access</td><td><span class="badge bg">Settled</span></td><td><span class="badge bg">Confirmed</span></td></tr>
+      <tr><td>7</td><td>Rajan Iyer</td><td>WOE-007</td><td>WOE-02</td><td>TripFactory Direct</td><td>Twin 203</td><td>Veg</td><td>—</td><td><span class="badge bg">Settled</span></td><td><span class="badge bg">Confirmed</span></td></tr>
+      <tr><td>8</td><td>Deepa Krishnan</td><td>WOE-008</td><td>WOE-03</td><td>Dream Set Go</td><td>Twin 301</td><td>Non-veg</td><td>—</td><td><span class="badge ba">£500 due</span></td><td><span class="badge ba">Partial</span></td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:10px;color:var(--t3);margin-top:5px">Showing 8 sample rows · Enter full manifest per departure · 3 pax with outstanding balances require follow-up by Sachin Keni</div>
+
+  <div class="sh" style="margin-top:12px">Booking Source Summary</div>
+  <div class="g4">
+    <div class="kcard"><div class="lbl">Nexus (Mumbai+Delhi)</div><div class="val">~47%</div><div class="sub">Primary channel</div></div>
+    <div class="kcard"><div class="lbl">TripFactory Direct</div><div class="val">~32%</div><div class="sub">Online direct</div></div>
+    <div class="kcard"><div class="lbl">Other Agents</div><div class="val">~21%</div><div class="sub">AFC, DSG, etc.</div></div>
+    <div class="kcard"><div class="lbl">Avg Pax / Dep</div><div class="val">34.5</div><div class="sub">Target: 40</div></div>
+  </div>
+</div>
+
+<!-- TAB 4: TOUR MANAGERS -->
+<div class="pane" id="p4">
+  <div class="alert ab"><div>ℹ️</div><div>Source: Finance_Master.xlsx · 31 TMs on file · Contracted TMs have priority for allocation (ORN Policy §07). Cash-in-hand must be settled before next assignment. Freelancers and Not-Contracted flagged.</div></div>
+
+  <div class="sh">TM Roster — Finance Master</div>
+  <div style="display:flex;gap:6px;margin-bottom:8px">
+    <input class="inp" style="max-width:200px" placeholder="Search TM name..." oninput="filterTM(this.value)" id="tmSearch"/>
+    <select class="sel" style="width:160px" onchange="filterTMStatus(this.value)" id="tmStatusF">
+      <option value="">All statuses</option>
+      <option value="Contracted">Contracted</option>
+      <option value="Not Contracted">Not Contracted</option>
+      <option value="Freelancer">Freelancer</option>
+    </select>
+  </div>
+  <table id="tmTable">
+    <thead><tr><th>#</th><th>Name</th><th>Status</th><th>Cash 2025</th><th>Cash 2026</th><th>WOE Assigned</th><th>Action</th></tr></thead>
+    <tbody id="tmBody"></tbody>
+  </table>
+
+  <div class="sh" style="margin-top:12px">Assign TM to Departure</div>
+  <div class="g2" style="gap:10px">
+    <div class="card">
+      <div style="font-size:11px;font-weight:700;margin-bottom:8px">Assign Tour Manager</div>
+      <div style="margin-bottom:6px"><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Departure</label>
+        <select class="sel"><option>WOE-01 · 09 May 2026</option><option>WOE-02 · 30 May 2026</option><option>WOE-03 · 20 Jun 2026</option><option>WOE-04 · 11 Jul 2026</option><option>WOE-05 · 01 Aug 2026</option><option>WOE-06 · 05 Sep 2026</option></select></div>
+      <div style="margin-bottom:6px"><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Tour Manager</label>
+        <select class="sel" id="tmAssignSel"></select></div>
+      <div style="margin-bottom:6px"><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Forex Card Loaded (€)</label>
+        <input class="inp" placeholder="e.g. €1,500"/></div>
+      <div style="margin-bottom:6px"><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Schengen Visa Ref</label>
+        <input class="inp" placeholder="Visa number / expiry"/></div>
+      <button class="btn btn-p" style="margin-top:4px">Confirm Assignment</button>
+    </div>
+    <div class="card">
+      <div style="font-size:11px;font-weight:700;margin-bottom:8px">Policy Compliance (Pre-Assignment)</div>
+      <div id="preChecks"></div>
+    </div>
+  </div>
+</div>
+
+<!-- TAB 5: WORKFLOW -->
+<div class="pane" id="p5">
+  <div class="alert ag"><div>✅</div><div><strong>This tab defines the end-to-end workflow</strong> for a Wonders of Europe departure — from first sale to post-tour close. Each step shows the owner (Seema = Ops, Sachin = Sales, Vinay = CEO/escalation) and the policy reference.</div></div>
+
+  <div class="sh">Pre-Tour Workflow (T = Departure Date)</div>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px" id="workflow1"></div>
+
+  <div class="sh" style="margin-top:12px">On-Tour Workflow (Daily)</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="workflow2"></div>
+
+  <div class="sh" style="margin-top:12px">Post-Tour Close</div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px" id="workflow3"></div>
+</div>
+
+<!-- TAB 6: ON-TOUR SALES -->
+<div class="pane" id="p6">
+  <div class="viol" style="margin-bottom:10px">⛔ <strong>BLACK OPTIONAL WARNING:</strong> Only items in the approved table (Costs & Margin tab) may be sold. Any sale outside = immediate removal from tour + blacklisting. No cash collection by TM/driver/guide privately. (ORN Policy §04 & §05)</div>
+
+  <div class="sh">Log Optional Sale</div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="g2" style="gap:8px">
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Departure</label>
+        <select class="sel"><option>WOE-01 · 09 May</option><option>WOE-02 · 30 May</option><option>WOE-03 · 20 Jun</option><option>WOE-04 · 11 Jul</option></select></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Optional</label>
+        <select class="sel" id="optSel" onchange="calcOpt()">
+          <option value="">Select...</option>
+          <option value="40|15|5">Paris by Night — €40/pp (TM €15)</option>
+          <option value="230|15|5">Jungfrau — €230/pp (TM €15)</option>
+          <option value="80|10|0">Disneyland extra — €80/pp (TM €10)</option>
+        </select></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">No. of Pax</label>
+        <input class="inp" type="number" id="optPax" value="1" min="1" max="40" oninput="calcOpt()"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Total Collected (€)</label>
+        <input class="inp" id="optTot" readonly style="background:var(--bg2)"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">TM Incentive (€)</label>
+        <input class="inp" id="tmShr" readonly style="background:var(--bg2)"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Company Net (€)</label>
+        <input class="inp" id="coShr" readonly style="background:var(--bg2)"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Collection via</label>
+        <select class="sel"><option>ORN App</option><option>Forex Card</option></select></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Customer Notes</label>
+        <input class="inp" placeholder="Optional notes"/></div>
+    </div>
+    <button class="btn btn-p" style="margin-top:8px" onclick="logSale()">Log & Declare Sale</button>
+  </div>
+
+  <div class="sh">Sales Declarations Log</div>
+  <table>
+    <thead><tr><th>Date</th><th>Departure</th><th>Optional</th><th>Pax</th><th>Total €</th><th>TM €</th><th>Company €</th><th>Declared</th></tr></thead>
+    <tbody id="salesLog">
+      <tr><td>12 May</td><td>WOE-01</td><td>Paris by Night</td><td>22</td><td>€880</td><td>€330</td><td>€440</td><td><span class="badge bg">App ✓</span></td></tr>
+      <tr><td>16 May</td><td>WOE-01</td><td>Jungfrau</td><td>30</td><td>€6,900</td><td>€450</td><td>€6,300</td><td><span class="badge br">Pending ⚠</span></td></tr>
+    </tbody>
+  </table>
+  <div style="font-size:10px;color:var(--r);margin-top:4px;font-weight:600">⚠ Jungfrau row: TM cash (€450) not yet submitted to office. Action required before next assignment.</div>
+
+  <div class="sh" style="margin-top:12px">Season Sales Summary</div>
+  <div class="g4">
+    <div class="kcard"><div class="lbl">Total Optional Revenue</div><div class="val">€7,780</div><div class="sub">WOE-01 to date</div></div>
+    <div class="kcard"><div class="lbl">Declared to ORN</div><div class="val" style="color:var(--g)">€440</div><div class="sub">Paris by Night only</div></div>
+    <div class="kcard"><div class="lbl">Pending Declaration</div><div class="val" style="color:var(--r)">€6,300</div><div class="sub">Jungfrau — urgent</div></div>
+    <div class="kcard"><div class="lbl">TM Incentive Earned</div><div class="val">€780</div><div class="sub">€330 paid · €450 pending</div></div>
+  </div>
+</div>
+
+<!-- TAB 7: EXPENSES -->
+<div class="pane" id="p7">
+  <div class="alert aa"><div>⚡</div><div><strong>ORN Expense Policy (§03):</strong> Report first → get approval → then spend. No receipt = no reimbursement. No approval = personal liability. Same-day settlement not accepted. Public transport is default — taxi needs prior approval from Seema or Ops desk.</div></div>
+
+  <div class="sh">Submit Expense</div>
+  <div class="card" style="margin-bottom:12px">
+    <div class="g2" style="gap:8px">
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Date</label><input class="inp" type="date"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Departure</label>
+        <select class="sel"><option>WOE-01 · 09 May</option><option>WOE-02 · 30 May</option></select></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Category</label>
+        <select class="sel"><option>Transport (approved)</option><option>Missed meal (TM)</option><option>Permit / entry fee</option><option>Hotel (emergency)</option><option>Medical</option><option>Other (requires Vinay approval)</option></select></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Amount (local currency)</label><input class="inp" placeholder="e.g. €45.00"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Approved by</label><input class="inp" placeholder="Name · Role · Time of approval"/></div>
+      <div><label style="font-size:11px;color:var(--t2);display:block;margin-bottom:3px">Description</label><input class="inp" placeholder="What, where, why"/></div>
+    </div>
+    <div class="upload-zone" onclick="this.innerHTML='✅ Receipt attached';this.style.borderColor='var(--g)';this.style.color='var(--g)'">📎 Click to upload receipt (photo or PDF required)</div>
+    <button class="btn btn-p">Submit Expense</button>
+  </div>
+
+  <div class="sh">Expense Register — WOE-01</div>
+  <table>
+    <thead><tr><th>Date</th><th>Category</th><th>Amount</th><th>Approved By</th><th>Receipt</th><th>Status</th></tr></thead>
+    <tbody>
+      <tr><td>10 May</td><td>Permit — Venice online</td><td>€120</td><td>Seema T · 09 May 18:30</td><td><span class="badge bg">✓</span></td><td><span class="badge bg">Approved</span></td></tr>
+      <tr><td>11 May</td><td>Missed meal — TM</td><td>€18</td><td>Seema T · 11 May 12:00</td><td><span class="badge bg">✓</span></td><td><span class="badge bg">Approved</span></td></tr>
+      <tr><td>14 May</td><td>Transport — taxi (unapproved)</td><td>€35</td><td>—</td><td><span class="badge br">Missing</span></td><td><span class="badge br">Rejected</span></td></tr>
+      <tr><td>16 May</td><td>Permit — Rome access</td><td>€95</td><td>Pending review</td><td><span class="badge bg">✓</span></td><td><span class="badge ba">Pending</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="sh" style="margin-top:12px">Expense Summary</div>
+  <div class="g4">
+    <div class="kcard"><div class="lbl">Submitted</div><div class="val">€268</div></div>
+    <div class="kcard"><div class="lbl">Approved</div><div class="val" style="color:var(--g)">€138</div></div>
+    <div class="kcard"><div class="lbl">Pending</div><div class="val" style="color:var(--am)">€95</div></div>
+    <div class="kcard"><div class="lbl">Rejected</div><div class="val" style="color:var(--r)">€35</div></div>
+  </div>
+</div>
+</div>
+
+<script>
+function sw(i){document.querySelectorAll('.tab').forEach((t,j)=>t.classList.toggle('on',i===j));document.querySelectorAll('.pane').forEach((p,j)=>p.classList.toggle('on',i===j));}
+
+const deps=[
+  {id:'WOE-01',date:'09 May 2026',ref:'WOE090526',status:'Active',pax:38,fill:95,color:'var(--g)',note:'On tour · Day 14'},
+  {id:'WOE-02',date:'30 May 2026',ref:'WOE300526',status:'Confirmed',pax:40,fill:100,color:'var(--g)',note:'Full · Departs in 7 days'},
+  {id:'WOE-03',date:'20 Jun 2026',ref:'WOE200626',status:'Confirmed',pax:34,fill:85,color:'var(--am)',note:'6 seats available'},
+  {id:'WOE-04',date:'11 Jul 2026',ref:'WOE110726',status:'Filling',pax:27,fill:67,color:'var(--am)',note:'13 seats available'},
+  {id:'WOE-05',date:'01 Aug 2026',ref:'WOE010826',status:'Open',pax:18,fill:45,color:'var(--r)',note:'22 seats available'},
+  {id:'WOE-06',date:'05 Sep 2026',ref:'WOE050926',status:'Open',pax:12,fill:30,color:'var(--r)',note:'28 seats available'},
+];
+const dg=document.getElementById('depGrid');
+deps.forEach(d=>{
+  const dc=document.createElement('div');
+  dc.className='dep-card';
+  const sb=d.status==='Active'?'bg':d.status==='Confirmed'?'bg':d.status==='Filling'?'ba':'br';
+  dc.innerHTML=`<div style="font-size:12px;font-weight:700">${d.id} · ${d.date}</div><div style="font-size:10px;color:var(--t2);margin:2px 0">Ref: ${d.ref}</div><div style="display:flex;gap:5px;margin-top:5px;flex-wrap:wrap"><span class="badge b${sb.charAt(1)}">${d.status}</span><span class="badge bb">${d.pax} pax</span></div><div class="prog"><div class="prog-b" style="width:${d.fill}%;background:${d.color}"></div></div><div style="font-size:10px;color:var(--t3)">${d.fill}% filled · ${d.note}</div>`;
+  dg.appendChild(dc);
+});
+
+const itin=[
+  {d:1,city:'Paris 🇫🇷',hotel:'The Jangle Hotel CDG',inc:['Arrival & hotel check-in','Welcome dinner'],opt:[]},
+  {d:2,city:'Paris 🇫🇷',hotel:'The Jangle Hotel CDG',inc:['Guided Paris city tour: Champs-Élysées, Arc de Triomphe, Place de la Concorde, Les Invalides','Eiffel Tower — 2nd Level Entry (included)','Seine River Cruise (included)'],opt:['Paris by Night — €40/pp (optional)']},
+  {d:3,city:'Paris 🇫🇷',hotel:'The Jangle Hotel CDG',inc:['Full day Disneyland Paris — Disneyland Park or Walt Disney Studios (included)'],opt:[]},
+  {d:4,city:'Paris → Brussels → Amsterdam 🇧🇪🇳🇱',hotel:'NH Amsterdam Schiphol',inc:['Brussels orientation: Grand Place, Manneken Pis, Atomium photo stop','Keukenhof Gardens (till 12 May) or Zaanse Schans (from 13 May)','Amsterdam glass-roof canal cruise'],opt:[]},
+  {d:5,city:'Amsterdam → Frankfurt 🇩🇪',hotel:'Elaya Hotel Frankfurt Oberursel',inc:['Cologne Cathedral visit','Scenic drive through Black Forest','Live Cuckoo Clock demonstration'],opt:[]},
+  {d:6,city:'Frankfurt → Zurich 🇨🇭',hotel:'Radisson Hotel & Suites Zurich',inc:['Rhine Falls at Schaffhausen (included)'],opt:[]},
+  {d:7,city:'Zurich / Swiss Alps 🇨🇭',hotel:'Radisson Hotel & Suites Zurich',inc:['Mt. Titlis — world\'s first revolving cable car (included)','Orientation Interlaken'],opt:['Jungfrau — Top of Europe — €230/pp (optional, extra cost)']},
+  {d:8,city:'Zurich → Lucerne → Innsbruck 🇦🇹',hotel:'Hotel Alpenkonig Tirol',inc:['Lucerne lakeside town exploration','Innsbruck: Maria Theresien Strasse, Golden Roof'],opt:[]},
+  {d:9,city:'Innsbruck → Vaduz → Padova 🇮🇹',hotel:'Crowne Plaza Padova by IHG',inc:['Vaduz toy train ride','Swarovski Crystal Worlds — Museum & Shopping (included)'],opt:[]},
+  {d:10,city:'Padova → Venice 🇮🇹',hotel:'Crowne Plaza Padova by IHG',inc:['Private boat transfer to St. Mark\'s Square','Venetian gondola ride (included)','Free time on Venice island'],opt:[]},
+  {d:11,city:'Padova → Arezzo (Florence base) 🇮🇹',hotel:'Hotel Park Arezzo',inc:['Leaning Tower of Pisa photo stop','Piazza dei Miracoli visit','Guided Florence city tour'],opt:[]},
+  {d:12,city:'Arezzo → Rome 🇮🇹',hotel:'Hampton by Hilton Rome North Fiano Romano',inc:['Guided Rome city tour: Colosseum, Roman Forum','St. Peter\'s Basilica visit','Trevi Fountain photo stop'],opt:[]},
+  {d:13,city:'Rome — Departure 🇮🇹',hotel:'Airport transfer',inc:['Transfer to Rome FCO airport','Departure'],opt:[]},
+];
+const id=document.getElementById('itinDays');
+itin.forEach(day=>{
+  const dr=document.createElement('div');dr.className='day-row';
+  const hdr=document.createElement('div');hdr.className='day-hdr';
+  hdr.innerHTML=`<span>Day ${day.d} — ${day.city}</span><span class="hotel-pill">${day.hotel}</span>`;
+  hdr.onclick=()=>{const b=dr.querySelector('.day-body');b.classList.toggle('open')};
+  const body=document.createElement('div');body.className='day-body';
+  day.inc.forEach(a=>{const r=document.createElement('div');r.className='act';r.innerHTML=`<div class="act-dot"></div><div style="flex:1">${a}</div><span class="act-inc">Included</span>`;body.appendChild(r);});
+  day.opt.forEach(a=>{const r=document.createElement('div');r.className='act';r.innerHTML=`<div class="act-dot" style="background:var(--am)"></div><div style="flex:1">${a}</div><span class="act-opt">Optional</span>`;body.appendChild(r);});
+  dr.appendChild(hdr);dr.appendChild(body);id.appendChild(dr);
+});
+
+const tms=[
+  {n:'Mahesh Jagannath Nyayanit',s:'Contracted',c25:'',c26:''},
+  {n:'Mohd Nadeem Mansoori',s:'Contracted',c25:'',c26:'EUR 3,600'},
+  {n:'Nikhil Kambli',s:'Contracted',c25:'',c26:''},
+  {n:'Neeraj Kambli',s:'Contracted',c25:'',c26:''},
+  {n:'Masooma Sayed',s:'Contracted',c25:'',c26:''},
+  {n:'Subodh Chandrakant Thakur',s:'Contracted',c25:'',c26:'EUR 1,000'},
+  {n:'Anita Kapadia',s:'Contracted',c25:'EUR 306',c26:'EUR 1,200'},
+  {n:'Rohan Manohar Apke',s:'Contracted',c25:'EUR 5,340',c26:''},
+  {n:'Ashish Vijay Chandoskar',s:'Contracted',c25:'',c26:''},
+  {n:'Anirudh Govindram Saini',s:'Contracted',c25:'',c26:''},
+  {n:'Raaj Dinesh Navgrahe',s:'Contracted',c25:'900 EUR + ₹40,000',c26:''},
+  {n:'Syed Zeeshan Musser',s:'Contracted',c25:'',c26:''},
+  {n:'Jitu Kataria',s:'Contracted',c25:'',c26:''},
+  {n:'Zubin Sarosh Patel',s:'Contracted',c25:'',c26:''},
+  {n:'Karishma Kherani',s:'Contracted',c25:'',c26:''},
+  {n:'Saher Nawab',s:'Contracted',c25:'',c26:''},
+  {n:'Ketan Krishan Sharma',s:'Contracted',c25:'EUR 4,600',c26:''},
+  {n:'Vijay Vithalbhai Panchal',s:'Contracted',c25:'',c26:''},
+  {n:'Mekail Mistry',s:'Contracted',c25:'',c26:''},
+  {n:'Mohammedshahid Sayed',s:'Contracted',c25:'',c26:''},
+  {n:'Shweta Vijay',s:'Contracted',c25:'',c26:''},
+  {n:'William S. Almeida',s:'Contracted',c25:'',c26:'EUR 800'},
+  {n:'Anees Fatima Rizvi',s:'Contracted',c25:'',c26:''},
+  {n:'Assumption Milagres D\'Costa',s:'Contracted',c25:'',c26:''},
+  {n:'Kevin Harding',s:'Contracted',c25:'',c26:''},
+  {n:'Yash Anil Shah',s:'Contracted',c25:'',c26:''},
+  {n:'Avinash Dattaram Ghatge',s:'Contracted',c25:'',c26:''},
+  {n:'Sagar Dusane',s:'Not Contracted',c25:'EUR 1,487',c26:''},
+  {n:'Bhavesh Pokhriyal',s:'Freelancer',c25:'EUR 1,200',c26:''},
+  {n:'Asif Sayed',s:'Not Contracted',c25:'EUR 800',c26:''},
+  {n:'Gaurav Morawar',s:'Freelancer',c25:'',c26:'EUR 2,150'},
+];
+function renderTMs(list){
+  const tb=document.getElementById('tmBody');tb.innerHTML='';
+  list.forEach((t,i)=>{
+    const hasCash=t.c25||t.c26;
+    const sb=t.s==='Contracted'?'bg':t.s==='Freelancer'?'ba':'br';
+    const cashCls=hasCash?'cash-red':'';
+    const row=document.createElement('tr');
+    row.innerHTML=`<td>${i+1}</td><td style="font-weight:500">${t.n}</td><td><span class="badge b${sb}">${t.s}</span></td><td class="${t.c25?'cash-red':''}">${t.c25||'—'}</td><td class="${t.c26?'cash-am':''}">${t.c26||'—'}</td><td>—</td><td><button class="btn" style="padding:3px 8px;font-size:10px">Assign</button></td>`;
+    tb.appendChild(row);
+  });
+  const asel=document.getElementById('tmAssignSel');
+  if(asel){asel.innerHTML='<option value="">Select TM...</option>';list.filter(t=>t.s==='Contracted').forEach(t=>{const o=document.createElement('option');o.value=t.n;o.textContent=t.n;asel.appendChild(o);});}
+}
+renderTMs(tms);
+function filterTM(v){const f=tms.filter(t=>t.n.toLowerCase().includes(v.toLowerCase()));renderTMs(f);}
+function filterTMStatus(v){const f=v?tms.filter(t=>t.s===v):tms;renderTMs(f);}
+
+const preCheckItems=['Cash in hand 2025 settled before assignment','Cash in hand 2026 settled before assignment','Not working for other company during ORN season','Europe route validated and certified','No conflict of interest with agents','Visa (Schengen + UK) valid for full tour period','Forex card loaded and confirmed','Policy document (§01–§23) read and acknowledged'];
+const pc=document.getElementById('preChecks');
+preCheckItems.forEach(item=>{const d=document.createElement('div');d.className='chk-row';d.innerHTML=`<input type="checkbox" style="width:13px;height:13px;margin-top:2px;flex-shrink:0"/><span style="font-size:11px">${item}</span>`;pc.appendChild(d);});
+
+const wf1=[
+  {step:'T-90+',title:'Sales Open & Pricing Set',owner:'Sachin',ownerColor:'ba',desc:'Agent briefing, pricing confirmed, departure listed on TripFactory. Sachin records all leads immediately.',ref:'§06'},
+  {step:'T-60',title:'TM Allocation',owner:'Seema',ownerColor:'bb',desc:'Contracted TMs reviewed first (merit + seniority per §07). Assignment confirmed with Seema. No contracted TM idle while freelancer assigned.',ref:'§07'},
+  {step:'T-30',title:'Pax Manifest Complete',owner:'Sachin',ownerColor:'ba',desc:'Full passenger list with dietary, medical, room. Agent balances chased. Zero unsettled balances by T-7.',ref:'§02'},
+  {step:'T-14',title:'Supplier Confirmations',owner:'Seema',ownerColor:'bb',desc:'Hotels, coach, restaurants, guides all confirmed in writing. Vouchers prepared.',ref:'§13'},
+  {step:'T-7',title:'Vouchers Ready — KEY MILESTONE',owner:'Seema',ownerColor:'bb',desc:'All key vouchers issued. Disneyland, Eiffel, Mt. Titlis tickets verified correct. (Lesson from WOE-01 Disneyland error).',ref:'§13'},
+  {step:'T-3',title:'Final Confirmations',owner:'Seema',ownerColor:'bb',desc:'Restaurants, hotels, guides reconfirmed. TM briefed with daily plan. Forex card loaded. All balances settled.',ref:'§13'},
+  {step:'T-1',title:'TM Ready Check',owner:'Seema',ownerColor:'bb',desc:'TM has forex card, all vouchers, coach-safe GPS confirmed, driver briefed, day 1 plan shared with group.',ref:'§14'},
+  {step:'T-0',title:'Departure — Finance Locked',owner:'Sachin',ownerColor:'ba',desc:'No coach departs without Sachin confirming all agent balances settled. Any issue escalates to Vinay immediately.',ref:'§03'},
+];
+const wf2=[
+  {step:'Morning',title:'Daily Checklist (Window A)',owner:'TM',ownerColor:'bgy',desc:'Vehicle, guide, tickets, permits, restaurant, weather, customer health — all checked before wheels turn.',ref:'§19'},
+  {step:'During Day',title:'Live Tracking (Window B)',owner:'TM + Seema',ownerColor:'bb',desc:'Headcount maintained. Time tracked. Pics sent to ORN. Issues escalated early. No overtime without ops sign-off.',ref:'§19'},
+  {step:'Evening',title:'Daily Report Filed (Window C)',owner:'TM',ownerColor:'bgy',desc:'Report filed in app each night — pax count, delays, expenses, incidents, next-day risks. Seema reviews by 10pm.',ref:'§21'},
+  {step:'Any optional sale',title:'Declare Immediately',owner:'TM → Seema',ownerColor:'bb',desc:'Log in ORN App. Company share transferred same day. No holding cash overnight. TM incentive confirmed.',ref:'§04'},
+  {step:'Any expense',title:'Report → Approve → Spend',owner:'TM → Seema',ownerColor:'bb',desc:'No spending without prior approval. Receipt uploaded same day. Public transport default — taxi needs Seema sign-off.',ref:'§03'},
+  {step:'Any issue',title:'Escalate Immediately',owner:'TM → Seema → Vinay',ownerColor:'bb',desc:'Permit block, customer anger, health, missing vehicle — use escalation format (§20). Facts first, deadline attached.',ref:'§20'},
+];
+const wf3=[
+  {step:'Tour Close',title:'Testimonial Videos',owner:'TM',ownerColor:'bgy',desc:'TM collects short video testimonials from willing passengers before final dispersal at hotel/airport. Shared with ORN immediately.',ref:'§19D'},
+  {step:'+1 day',title:'Full Account Settlement',owner:'TM → Seema',ownerColor:'bb',desc:'All cash (optional sales, petty cash balance) submitted to office. TM incentives calculated. Any outstanding flagged to Vinay.',ref:'§03'},
+  {step:'+3 days',title:'TM Performance Review',owner:'Seema → Vinay',ownerColor:'bb',desc:'Customer ratings reviewed. Expense claims verified. Any violations reported. Merit score updated for future allocation.',ref:'§07+§22'},
+];
+function renderFlow(data,elId){
+  const el=document.getElementById(elId);
+  data.forEach(f=>{
+    const d=document.createElement('div');d.className='flow-step';
+    d.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px"><div class="flow-num">${data.indexOf(f)+1}</div><div class="flow-title">${f.step} — ${f.title}</div></div><div class="flow-sub">${f.desc}</div><div style="margin-top:6px;display:flex;gap:6px;align-items:center"><span class="badge b${f.ownerColor}" style="font-size:10px">${f.owner}</span><span style="font-size:10px;color:var(--t3)">Policy ${f.ref}</span></div>`;
+    el.appendChild(d);
+  });
+}
+renderFlow(wf1,'workflow1');renderFlow(wf2,'workflow2');renderFlow(wf3,'workflow3');
+
+const optMap={'40|15|5':{price:40,tm:15,dr:5},'230|15|5':{price:230,tm:15,dr:5},'80|10|0':{price:80,tm:10,dr:0}};
+function calcOpt(){const v=document.getElementById('optSel').value;const p=parseInt(document.getElementById('optPax').value)||0;if(!v)return;const m=optMap[v];document.getElementById('optTot').value='€'+(m.price*p);document.getElementById('tmShr').value='€'+(m.tm*p);document.getElementById('coShr').value='€'+((m.price-m.tm-m.dr)*p);}
+function logSale(){const v=document.getElementById('optSel').value;if(!v){alert('Select an optional first');return;}const names={'40|15|5':'Paris by Night','230|15|5':'Jungfrau','80|10|0':'Disneyland extra'};const m=optMap[v];const p=parseInt(document.getElementById('optPax').value)||0;const today=new Date();const months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];const row=document.createElement('tr');row.innerHTML=`<td>${today.getDate()} ${months[today.getMonth()]}</td><td>WOE-01</td><td>${names[v]}</td><td>${p}</td><td>€${m.price*p}</td><td>€${m.tm*p}</td><td>€${(m.price-m.tm-m.dr)*p}</td><td><span class="badge ba">Pending</span></td>`;document.getElementById('salesLog').appendChild(row);}
+</script>
+
