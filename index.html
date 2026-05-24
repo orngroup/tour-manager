@@ -129,6 +129,7 @@ tr:hover td{background:#fafbfc}
 .visa-exp{color:var(--red);font-weight:600}
 .chk-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #f1f3f5;font-size:13px;align-items:flex-start}
 .chk-row:last-child{border:none}
+.nav-grp{padding:8px 12px 3px;font-size:9px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;white-space:nowrap;cursor:default;user-select:none}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.dep-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.g2,.g3,.g4,.dep-grid{grid-template-columns:1fr}}
 </style>
@@ -158,19 +159,25 @@ tr:hover td{background:#fafbfc}
   </div>
 </div>
 <div class="nav" id="mainNav">
+  <div class="nav-grp">Overview</div>
   <div class="nav-tab on" onclick="showPage('home')">🏠 Home</div>
-  <div class="nav-tab" onclick="showPage('itin')">📍 Itinerary &amp; Costs</div>
-  <div class="nav-tab" onclick="showPage('pax')">👥 Passengers &amp; Visas</div>
+  <div class="nav-tab" onclick="showPage('calendar')">📅 Calendar</div>
+  <div class="nav-grp">Finance</div>
+  <div class="nav-tab" onclick="showPage('itin')">📍 Costing Sheet</div>
+  <div class="nav-tab" onclick="showPage('expenses')">🧾 Expenses</div>
+  <div class="nav-grp">Operations</div>
+  <div class="nav-tab" onclick="showPage('pax')">👥 Passengers</div>
   <div class="nav-tab" onclick="showPage('tms')">🧭 Tour Managers</div>
   <div class="nav-tab" onclick="showPage('seema')">⚙️ Seema — Ops</div>
+  <div class="nav-tab" onclick="showPage('workflow')">🔄 Workflow</div>
+  <div class="nav-grp">Sales</div>
   <div class="nav-tab" onclick="showPage('sachin')">📈 Sachin — Sales</div>
   <div class="nav-tab" onclick="showPage('sales')">🛒 On-Tour Sales</div>
-  <div class="nav-tab" onclick="showPage('expenses')">🧾 Expenses</div>
-  <div class="nav-tab" onclick="showPage('workflow')">🔄 Workflow</div>
+  <div class="nav-grp">Compliance</div>
   <div class="nav-tab" onclick="showPage('policy')">📋 Policies</div>
-  <div class="nav-tab" onclick="showPage('calendar')">📅 Calendar</div>
   <div class="nav-tab" onclick="showPage('gaps')">⚡ Policy Gaps</div>
-  <div class="nav-tab" onclick="showPage('docs')">📁 Document Hub</div>
+  <div class="nav-grp">Resources</div>
+  <div class="nav-tab" onclick="showPage('docs')">📁 Documents</div>
 </div>
 
 
@@ -224,13 +231,20 @@ tr:hover td{background:#fafbfc}
   <!-- CONTROLS BAR -->
   <div class="card" style="margin-bottom:14px;padding:12px 16px">
     <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Pax</span><input class="inp" id="costPax" style="width:64px;text-align:center;font-weight:700" value="40" oninput="recalcAll()"></div>
-      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">CHF→EUR</span><input class="inp" id="chfEurRate" style="width:64px;text-align:center" value="1.04" oninput="recalcAll()"></div>
-      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">EUR→GBP</span><input class="inp" id="eurGbpRate" style="width:64px;text-align:center" value="0.855" oninput="recalcAll()"></div>
-      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">GBP→INR</span><input class="inp" id="inrRate" style="width:72px;text-align:center" value="107" oninput="recalcAll()"></div>
-      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Margin %</span><input class="inp" id="marginPct" style="width:60px;text-align:center" value="25" oninput="recalcAll()"></div>
-      <div style="margin-left:auto;background:var(--blue);color:#fff;border-radius:8px;padding:8px 18px;text-align:center;min-width:170px">
-        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.7">Required Sell Price / Pax</div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Pax</span><input class="inp" id="costPax" style="width:60px;text-align:center;font-weight:700" value="40" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">CHF→EUR</span><input class="inp" id="chfEurRate" style="width:62px;text-align:center" value="1.04" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">EUR→GBP</span><input class="inp" id="eurGbpRate" style="width:62px;text-align:center" value="0.855" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">GBP→INR</span><input class="inp" id="inrRate" style="width:68px;text-align:center" value="107" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Margin %</span><input class="inp" id="marginPct" style="width:56px;text-align:center" value="25" oninput="recalcAll()"></div>
+      <div style="display:flex;gap:6px;margin-left:4px">
+        <button class="btn btn-p" onclick="saveCosting()" style="font-size:12px;padding:6px 14px">💾 Save</button>
+        <button class="btn" onclick="loadCosting()" style="font-size:12px;padding:6px 12px">📂 Load</button>
+        <button class="btn" onclick="exportCostingCSV()" style="font-size:12px;padding:6px 12px">⬇ CSV</button>
+        <button class="btn" onclick="resetCosting()" style="font-size:12px;padding:6px 12px;color:var(--red);border-color:#fee2e2">↺ Reset</button>
+      </div>
+      <div id="saveStatus" style="font-size:11px;color:var(--green);font-weight:600"></div>
+      <div style="margin-left:auto;background:var(--blue);color:#fff;border-radius:8px;padding:8px 16px;text-align:center;min-width:160px">
+        <div style="font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.7">Required Sell Price / Pax</div>
         <div style="font-size:20px;font-weight:700;line-height:1.2" id="sellPriceDisplay">—</div>
         <div style="font-size:11px;opacity:.8" id="sellPriceGBP">—</div>
         <div style="font-size:11px;opacity:.7" id="sellPriceINR">—</div>
@@ -243,19 +257,21 @@ tr:hover td{background:#fafbfc}
 
   <!-- MAIN DAY-BY-DAY COSTING TABLE -->
   <div class="tbl-wrap" style="margin-bottom:16px">
-    <table id="costingTable" style="font-size:12.5px">
+    <table id="costingTable" style="font-size:12px">
       <thead>
         <tr style="background:#1a3a5c">
-          <th style="color:#fff;width:58px">Day</th>
-          <th style="color:#fff">City &amp; Activity / Cost Item</th>
-          <th style="color:#fff;text-align:center;width:72px">Type</th>
-          <th style="color:#fff;text-align:right;width:90px">Local Rate</th>
-          <th style="color:#fff;text-align:center;width:46px">Curr</th>
-          <th style="color:#fff;text-align:right;width:82px">€ / pax</th>
-          <th style="color:#fff;text-align:right;width:76px">£ / pax</th>
-          <th style="color:#fff;text-align:right;width:90px">₹ / pax</th>
-          <th style="color:#fff;text-align:right;width:88px">Group €</th>
-          <th style="color:#fff">Notes / Risks</th>
+          <th style="color:#fff;width:44px">Day</th>
+          <th style="color:#fff;min-width:220px">City &amp; Activity / Cost Item</th>
+          <th style="color:#fff;text-align:center;width:68px">Type</th>
+          <th style="color:#fff;text-align:center;width:52px" title="Tick = Estimated (unconfirmed cost)">Est.</th>
+          <th style="color:#fff;min-width:130px">Supplier</th>
+          <th style="color:#fff;text-align:right;width:86px">Local Rate</th>
+          <th style="color:#fff;text-align:center;width:44px">Curr</th>
+          <th style="color:#fff;text-align:right;width:76px">€ / pax</th>
+          <th style="color:#fff;text-align:right;width:70px">£ / pax</th>
+          <th style="color:#fff;text-align:right;width:84px">₹ / pax</th>
+          <th style="color:#fff;text-align:right;width:80px">Group €</th>
+          <th style="color:#fff;min-width:180px">Notes / Risks</th>
         </tr>
       </thead>
       <tbody id="costingBody"></tbody>
@@ -267,21 +283,16 @@ tr:hover td{background:#fafbfc}
   <div class="sh">Margin Sensitivity — at <span id="sensiPaxLabel">40</span> pax</div>
   <div class="tbl-wrap" style="margin-bottom:16px">
     <table><thead><tr>
-      <th>Margin %</th>
-      <th style="text-align:right">Nett Cost (€)</th>
-      <th style="text-align:right">Sell (€)</th>
-      <th style="text-align:right">Sell (£)</th>
-      <th style="text-align:right">Sell (₹)</th>
-      <th style="text-align:right">Profit /pp (£)</th>
-      <th style="text-align:right">Total Profit (£)</th>
-      <th>vs Website £2,500</th>
-    </tr></thead>
-    <tbody id="sensiBody"></tbody></table>
+      <th>Margin %</th><th style="text-align:right">Nett (€)</th>
+      <th style="text-align:right">Sell (€)</th><th style="text-align:right">Sell (£)</th>
+      <th style="text-align:right">Sell (₹)</th><th style="text-align:right">Profit /pp (£)</th>
+      <th style="text-align:right">Total Profit (£)</th><th>vs Website £2,500</th>
+    </tr></thead><tbody id="sensiBody"></tbody></table>
   </div>
 
   <!-- APPROVED OPTIONALS -->
   <div class="sh">§04 Approved Optionals — not included in base cost above</div>
-  <div class="alert a-red"><div class="a-icon">⛔</div><div><strong>§05 Black Optional Rule:</strong> Only these three optionals may be sold on tour. No TM, driver or guide may collect money privately. All collections via ORN App. Violation = immediate removal + blacklisting.</div></div>
+  <div class="alert a-red"><div class="a-icon">⛔</div><div><strong>§05 Black Optional Rule:</strong> Only these three optionals may be sold. No TM/driver/guide may collect privately. ORN App only. Violation = removal + blacklisting.</div></div>
   <div class="tbl-wrap">
     <table><thead><tr>
       <th>Optional</th>
@@ -289,8 +300,7 @@ tr:hover td{background:#fafbfc}
       <th style="text-align:right">TM (§04)</th><th style="text-align:right">Driver</th>
       <th style="text-align:right">Co. Net (€)</th><th style="text-align:right">Co. Net (£)</th><th style="text-align:right">Co. Net (₹)</th>
       <th>Collection</th>
-    </tr></thead>
-    <tbody id="optBody"></tbody></table>
+    </tr></thead><tbody id="optBody"></tbody></table>
   </div>
 
 </div>
@@ -1485,129 +1495,142 @@ const HOTEL_SEL = {Paris:0, Amsterdam:0, Frankfurt:0, Zurich:0, Innsbruck:0, Pad
 // ── ITINERARY: day-by-day rows in order ──
 // Format: {type, day?, city?, label, localRate?, curr?, groupTotal?, nights?, hotelCity?, note?, risk?}
 // risk: 'ok' | 'amber' | 'red' | 'missing'
+// ── SUPPLIER CATALOGUE ──
+const SUPPLIERS = {
+  HOTEL_DIRECT:  'Hotel Direct',
+  NEXUS_DMC:     'Nexus DMC',
+  ATTRACTION:    'Attraction Direct',
+  LOCAL_GUIDE:   'Local Guide Agency',
+  COACH_OP:      'Coach Operator',
+  PERMIT_AUTH:   'Local Authority',
+  MEAL_REST:     'Restaurant (TBC)',
+  ORN_OPS:       'ORN Ops',
+};
+
+// Each row now has: est (bool — true = estimated/unconfirmed), supplier (string)
 const ITIN_ROWS = [
-  // ── DAY 1 ──
-  {type:T_HDR,  day:1,  city:'Paris 🇫🇷', label:'Day 1 — Arrival Paris CDG'},
-  {type:T_HOTEL, day:1, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG (twin share ÷ 2)', risk:'ok'},
-  {type:T_BLANK, day:1, label:'Airport → Hotel transfer', note:'Included in coach cost (Day 1 coach day)', risk:'ok'},
-  {type:T_BLANK, day:1, label:'Welcome dinner', note:'Included in 8-meal Paris block (see Day 2)', risk:'ok'},
+  // ─── DAY 1 ───
+  {type:T_HDR,  day:1, city:'Paris 🇫🇷', label:'Day 1 — Arrival Paris CDG'},
+  {type:T_HOTEL, day:1, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG (twin share ÷ 2)', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_BLANK, day:1, label:'Airport → Hotel transfer', est:false, supplier:'Nexus DMC', note:'Coach Day 1 — included in daily coach cost', risk:'ok'},
+  {type:T_BLANK, day:1, label:'Welcome dinner', est:false, supplier:'Restaurant (TBC)', note:'Included in 8-meal Paris+Brussels+Amsterdam block', risk:'ok'},
   {type:T_SUBTOT,day:1},
 
-  // ── DAY 2 ──
-  {type:T_HDR,  day:2,  city:'Paris 🇫🇷', label:'Day 2 — Paris City Tour · Eiffel Tower · Seine Cruise'},
-  {type:T_HOTEL, day:2, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 2', risk:'ok'},
-  {type:T_GROUP, day:2, label:'Guided Paris City Tour (Champs-Élysées, Arc de Triomphe, Invalides)', groupTotal:200, curr:'EUR', note:'Guide in Paris — group cost €200', risk:'ok'},
-  {type:T_ACT,   day:2, label:'Eiffel Tower — 2nd Level Entry', localRate:23, curr:'EUR', risk:'ok', note:'Flat rate contracted (Nishanth confirmed)'},
-  {type:T_ACT,   day:2, label:'Seine River Cruise', localRate:6, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_MEAL,  day:2, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals Paris+Brussels+Amsterdam (€104 total ÷ 8 days = €13/day)', risk:'ok'},
+  // ─── DAY 2 ───
+  {type:T_HDR,  day:2, city:'Paris 🇫🇷', label:'Day 2 — Paris City Tour · Eiffel Tower · Seine Cruise'},
+  {type:T_HOTEL, day:2, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 2', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_GROUP, day:2, label:'Guided Paris City Tour (Champs-Élysées, Arc de Triomphe, Invalides)', groupTotal:200, curr:'EUR', est:false, supplier:'Local Guide Agency', note:'Paris guide — group cost €200', risk:'ok'},
+  {type:T_ACT,   day:2, label:'Eiffel Tower — 2nd Level Entry', localRate:23, curr:'EUR', est:false, supplier:'Attraction Direct', note:'Flat rate contracted (Nishanth confirmed)', risk:'ok'},
+  {type:T_ACT,   day:2, label:'Seine River Cruise', localRate:6, curr:'EUR', est:false, supplier:'Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_MEAL,  day:2, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'8 Meals Paris+Brussels+Amsterdam (€104 ÷ 8 days ≈ €13/day)', risk:'ok'},
   {type:T_SUBTOT,day:2},
 
-  // ── DAY 3 ──
-  {type:T_HDR,  day:3,  city:'Paris / Disneyland 🇫🇷', label:'Day 3 — Disneyland Paris'},
-  {type:T_HOTEL, day:3, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 3', risk:'ok'},
-  {type:T_ACT,   day:3, label:'Disneyland Paris — Park Entry (INCLUDED in tour)', localRate:80, curr:'EUR', risk:'red', note:'⚠️ WOE-01: WRONG TICKET TYPE BOOKED. T-7 check MUST verify correct park/ticket category (§13). Lesson learned — never repeat.'},
-  {type:T_MEAL,  day:3, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  // ─── DAY 3 ───
+  {type:T_HDR,  day:3, city:'Paris / Disneyland 🇫🇷', label:'Day 3 — Disneyland Paris'},
+  {type:T_HOTEL, day:3, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 3', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_ACT,   day:3, label:'Disneyland Paris — Park Entry (INCLUDED in tour)', localRate:80, curr:'EUR', est:false, supplier:'Disneyland Paris Direct', note:'⚠️ WOE-01: WRONG TICKET TYPE BOOKED. Verify correct park/category at T-7 (§13). Never repeat.', risk:'red'},
+  {type:T_MEAL,  day:3, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'8 Meals block', risk:'ok'},
   {type:T_SUBTOT,day:3},
 
-  // ── DAY 4 ──
-  {type:T_HDR,  day:4,  city:'Paris → Brussels 🇧🇪 → Amsterdam 🇳🇱', label:'Day 4 — Brussels Orientation + Amsterdam Check-in'},
-  {type:T_HOTEL, day:4, hotelCity:'Amsterdam', nights:1, label:'Hotel — Amsterdam Schiphol', risk:'ok'},
-  {type:T_BLANK, day:4, label:'Brussels stop: Grand Place, Manneken Pis, Atomium photo', note:'En-route stop — no separate cost', risk:'ok'},
-  {type:T_MEAL,  day:4, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  // ─── DAY 4 ───
+  {type:T_HDR,  day:4, city:'Paris → Brussels 🇧🇪 → Amsterdam 🇳🇱', label:'Day 4 — Brussels Orientation + Amsterdam Check-in'},
+  {type:T_HOTEL, day:4, hotelCity:'Amsterdam', nights:1, label:'Hotel — Amsterdam Schiphol', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_BLANK, day:4, label:'Brussels stop: Grand Place, Manneken Pis, Atomium photo', est:false, supplier:'ORN Ops', note:'En-route stop — no separate cost', risk:'ok'},
+  {type:T_MEAL,  day:4, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'8 Meals block', risk:'ok'},
   {type:T_SUBTOT,day:4},
 
-  // ── DAY 5 ──
-  {type:T_HDR,  day:5,  city:'Amsterdam 🇳🇱', label:'Day 5 — Keukenhof / Zaanse Schans + Canal Cruise'},
-  {type:T_ACT,   day:5, label:'Keukenhof Gardens (until 15 May) / Zaanse Schans (from 16 May)', localRate:18, curr:'EUR', risk:'amber', note:'⚠️ Keukenhof closes ~15 May. WOE-01 only. WOE-02 onwards = Zaanse Schans — verify same €18 rate applies.'},
-  {type:T_ACT,   day:5, label:'Amsterdam Canal Cruise (glass-roof boat)', localRate:8, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_MEAL,  day:5, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  // ─── DAY 5 ───
+  {type:T_HDR,  day:5, city:'Amsterdam 🇳🇱', label:'Day 5 — Keukenhof / Zaanse Schans + Canal Cruise'},
+  {type:T_ACT,   day:5, label:'Keukenhof Gardens (until 15 May) / Zaanse Schans (from 16 May)', localRate:18, curr:'EUR', est:true, supplier:'Attraction Direct', note:'⚠️ Keukenhof closes ~15 May. WOE-02 onwards = Zaanse Schans — confirm rate', risk:'amber'},
+  {type:T_ACT,   day:5, label:'Amsterdam Canal Cruise (glass-roof boat)', localRate:8, curr:'EUR', est:false, supplier:'Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_MEAL,  day:5, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'8 Meals block', risk:'ok'},
   {type:T_SUBTOT,day:5},
 
-  // ── DAY 6 ──
-  {type:T_HDR,  day:6,  city:'Amsterdam → Frankfurt 🇩🇪', label:'Day 6 — Cologne + Black Forest + Frankfurt'},
-  {type:T_HOTEL, day:6, hotelCity:'Frankfurt', nights:1, label:'Hotel — Frankfurt', risk:'ok'},
-  {type:T_BLANK, day:6, label:'Cologne Cathedral exterior visit (en route)', note:'No entry cost — exterior only', risk:'ok'},
-  {type:T_BLANK, day:6, label:'Scenic Black Forest drive', note:'No separate cost — coach route', risk:'ok'},
-  {type:T_BLANK, day:6, label:'Live Cuckoo Clock demonstration', note:'Not separately costed in sheet — confirm if any cost', risk:'amber'},
-  {type:T_MEAL,  day:6, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'2 Meals Germany (€32 ÷ 2 days = €16/day)', risk:'ok'},
+  // ─── DAY 6 ───
+  {type:T_HDR,  day:6, city:'Amsterdam → Frankfurt 🇩🇪', label:'Day 6 — Cologne Cathedral + Black Forest + Frankfurt'},
+  {type:T_HOTEL, day:6, hotelCity:'Frankfurt', nights:1, label:'Hotel — Frankfurt', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Cologne Cathedral — exterior visit (en route)', est:false, supplier:'ORN Ops', note:'No entry cost — exterior only', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Scenic Black Forest drive', est:false, supplier:'Coach Operator', note:'No separate cost — coach route', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Live Cuckoo Clock demonstration', est:true, supplier:'Attraction Direct', note:'Not separately costed in sheet — confirm if any cost', risk:'amber'},
+  {type:T_MEAL,  day:6, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'2 Meals Germany (€32 ÷ 2 days = €16/day)', risk:'ok'},
   {type:T_SUBTOT,day:6},
 
-  // ── DAY 7 ──
-  {type:T_HDR,  day:7,  city:'Frankfurt → Zurich 🇨🇭', label:'Day 7 — Rhine Falls + Arrival Zurich'},
-  {type:T_HOTEL, day:7, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 1 (CHF — see options)', risk:'amber'},
-  {type:T_BLANK, day:7, label:'Rhine Falls at Schaffhausen — viewing', note:'No entry cost — viewing from platform', risk:'ok'},
-  {type:T_MEAL,  day:7, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Switzerland (€85 ÷ 5 days = €17/day)', risk:'amber', note:'Swiss F&B costs are highest in Europe — €17/meal may be tight'},
+  // ─── DAY 7 ───
+  {type:T_HDR,  day:7, city:'Frankfurt → Zurich 🇨🇭', label:'Day 7 — Rhine Falls + Arrival Zurich'},
+  {type:T_HOTEL, day:7, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 1 ⚠️ CHF rate', est:false, supplier:'Hotel Direct', risk:'amber'},
+  {type:T_BLANK, day:7, label:'Rhine Falls at Schaffhausen — viewing platform', est:false, supplier:'ORN Ops', note:'No entry cost', risk:'ok'},
+  {type:T_MEAL,  day:7, label:'Meals — Breakfast + Lunch + Dinner', est:true, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Switzerland (€85 ÷ 5 days = €17/day) — Swiss F&B costs high', risk:'amber'},
   {type:T_SUBTOT,day:7},
 
-  // ── DAY 8 ──
-  {type:T_HDR,  day:8,  city:'Swiss Alps 🇨🇭', label:'Day 8 — Mt. Titlis (Included) + Jungfrau (Optional) + Interlaken'},
-  {type:T_HOTEL, day:8, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 2 (CHF)', risk:'amber'},
-  {type:T_ACT,   day:8, label:'Mt. Titlis — World\'s first revolving cable car (INCLUDED)', localRate:72, curr:'EUR', risk:'ok', note:'Flat rate contracted. No Ice Flyer included.'},
-  {type:T_BLANK, day:8, label:'Interlaken orientation walk', note:'No cost — included stop', risk:'ok'},
-  {type:T_OPT,   day:8, label:'OPTIONAL: Jungfrau — Top of Europe (§04)', localRate:230, curr:'EUR', risk:'red', note:'⚠️ WOE-01: TM collected €6,750 cash — NOT declared. Company share €6,300 outstanding. §03/§04 violation.'},
-  {type:T_MEAL,  day:8, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Switzerland block', risk:'ok'},
+  // ─── DAY 8 ───
+  {type:T_HDR,  day:8, city:'Swiss Alps 🇨🇭', label:'Day 8 — Mt. Titlis (Included) + Jungfrau (Optional) + Interlaken'},
+  {type:T_HOTEL, day:8, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 2 (CHF)', est:false, supplier:'Hotel Direct', risk:'amber'},
+  {type:T_ACT,   day:8, label:"Mt. Titlis — World's first revolving cable car (INCLUDED)", localRate:72, curr:'EUR', est:false, supplier:'Titlis Rotair / Attraction Direct', note:'Flat rate contracted. No Ice Flyer included.', risk:'ok'},
+  {type:T_BLANK, day:8, label:'Interlaken orientation walk', est:false, supplier:'ORN Ops', note:'No cost', risk:'ok'},
+  {type:T_OPT,   day:8, label:'OPTIONAL: Jungfrau — Top of Europe (§04)', localRate:230, curr:'EUR', est:false, supplier:'Jungfrau Railways / Attraction Direct', note:'⚠️ WOE-01: TM collected €6,750 cash — NOT declared. §03/§04 violation. Seema act now.', risk:'red'},
+  {type:T_MEAL,  day:8, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Switzerland block', risk:'ok'},
   {type:T_SUBTOT,day:8},
 
-  // ── DAY 9 ──
-  {type:T_HDR,  day:9,  city:'Zurich → Lucerne → Innsbruck 🇦🇹', label:'Day 9 — Lucerne + Innsbruck Arrival'},
-  {type:T_HOTEL, day:9, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 3 (CHF) — checkout this day', risk:'amber'},
-  {type:T_HOTEL, day:9, hotelCity:'Innsbruck', nights:1, label:'Hotel — Innsbruck Check-in', risk:'ok'},
-  {type:T_BLANK, day:9, label:'Lucerne lakeside walk (Kapellbrücke, Chapel Bridge)', note:'No entry cost', risk:'ok'},
-  {type:T_GROUP, day:9, label:'Lucerne Coach Parking', groupTotal:107, curr:'CHF', note:'Group cost CHF 107 (converted at live rate)', risk:'ok'},
-  {type:T_BLANK, day:9, label:'Innsbruck: Maria Theresien Strasse, Golden Roof orientation', note:'No cost', risk:'ok'},
-  {type:T_MEAL,  day:9, label:'Meals — Breakfast + Lunch (Swiss) + Dinner (Austrian)', localRate:null, mealBlock:'5 Meals Switzerland + 2 Meals Austria/Vaduz', risk:'ok'},
+  // ─── DAY 9 ───
+  {type:T_HDR,  day:9, city:'Zurich → Lucerne → Innsbruck 🇦🇹', label:'Day 9 — Lucerne + Innsbruck Arrival'},
+  {type:T_HOTEL, day:9, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 3 (CHF)', est:false, supplier:'Hotel Direct', risk:'amber'},
+  {type:T_HOTEL, day:9, hotelCity:'Innsbruck', nights:1, label:'Hotel — Innsbruck Check-in', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_BLANK, day:9, label:'Lucerne lakeside walk (Kapellbrücke, Chapel Bridge)', est:false, supplier:'ORN Ops', note:'No entry cost', risk:'ok'},
+  {type:T_GROUP, day:9, label:'Lucerne Coach Parking', groupTotal:107, curr:'CHF', est:false, supplier:'Local Authority', note:'Group cost CHF 107 (converted at live rate)', risk:'ok'},
+  {type:T_BLANK, day:9, label:'Innsbruck: Maria Theresien Strasse, Golden Roof orientation', est:false, supplier:'ORN Ops', note:'No cost', risk:'ok'},
+  {type:T_MEAL,  day:9, label:'Meals — Breakfast + Lunch (Swiss) + Dinner (Austrian)', est:false, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Switzerland + 2 Meals Austria/Vaduz', risk:'ok'},
   {type:T_SUBTOT,day:9},
 
-  // ── DAY 10 ──
+  // ─── DAY 10 ───
   {type:T_HDR,  day:10, city:'Innsbruck → Vaduz 🇱🇮 → Padova 🇮🇹', label:'Day 10 — Vaduz Toy Train + Swarovski Crystal + Padova'},
-  {type:T_HOTEL, day:10, hotelCity:'Padova', nights:1, label:'Hotel — Padova (Venice base)', risk:'ok'},
-  {type:T_ACT,   day:10, label:'Vaduz Toy Train — Liechtenstein', localRate:15, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_ACT,   day:10, label:'Swarovski Crystal Worlds Museum & Shopping (INCLUDED)', localRate:18, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_MEAL,  day:10, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'2 Meals Austria & Vaduz (€32 ÷ 2 days = €16/day)', risk:'ok'},
+  {type:T_HOTEL, day:10, hotelCity:'Padova', nights:1, label:'Hotel — Padova (Venice base)', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_ACT,   day:10, label:'Vaduz Toy Train — Liechtenstein', localRate:15, curr:'EUR', est:false, supplier:'Vaduz Railway / Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_ACT,   day:10, label:'Swarovski Crystal Worlds Museum & Shopping (INCLUDED)', localRate:18, curr:'EUR', est:false, supplier:'Swarovski / Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_MEAL,  day:10, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'2 Meals Austria & Vaduz (€32 ÷ 2 days = €16/day)', risk:'ok'},
   {type:T_SUBTOT,day:10},
 
-  // ── DAY 11 ──
+  // ─── DAY 11 ───
   {type:T_HDR,  day:11, city:'Venice 🇮🇹', label:'Day 11 — Venice: Vaporetto · Gondola · Free Time'},
-  {type:T_GROUP, day:11, label:'Venice Coach Permit (§15 compliance)', groupTotal:300, curr:'EUR', note:'Group cost €300 — mandatory permit', risk:'ok'},
-  {type:T_ACT,   day:11, label:'Vaporetto — water bus transfer to St. Mark\'s Square', localRate:15, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_ACT,   day:11, label:'Venetian Gondola Ride (INCLUDED)', localRate:20, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
-  {type:T_BLANK, day:11, label:'Free time on Venice island', note:'No cost', risk:'ok'},
-  {type:T_MEAL,  day:11, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo (€65 ÷ 5 days = €13/day)', risk:'ok'},
+  {type:T_GROUP, day:11, label:'Venice Coach Permit (§15)', groupTotal:300, curr:'EUR', est:false, supplier:'Local Authority', note:'Mandatory permit — group cost €300', risk:'ok'},
+  {type:T_ACT,   day:11, label:'Vaporetto — water bus transfer to St. Mark\'s Square', localRate:15, curr:'EUR', est:false, supplier:'ACTV / Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_ACT,   day:11, label:'Venetian Gondola Ride (INCLUDED)', localRate:20, curr:'EUR', est:false, supplier:'Gondola Consortium / Attraction Direct', note:'Flat rate contracted', risk:'ok'},
+  {type:T_BLANK, day:11, label:'Free time on Venice island', est:false, supplier:'ORN Ops', note:'No cost', risk:'ok'},
+  {type:T_MEAL,  day:11, label:'Meals — Breakfast + Lunch + Dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Padova+Rome+Arezzo (€65 ÷ 5 days = €13/day)', risk:'ok'},
   {type:T_SUBTOT,day:11},
 
-  // ── DAY 12 ──
+  // ─── DAY 12 ───
   {type:T_HDR,  day:12, city:'Padova → Pisa 🇮🇹 → Arezzo', label:'Day 12 — Pisa Leaning Tower + Florence Guided Tour'},
-  {type:T_HOTEL, day:12, hotelCity:'Arezzo', nights:1, label:'Hotel — Arezzo (Florence base)', risk:'ok'},
-  {type:T_BLANK, day:12, label:'Leaning Tower of Pisa — Square of Miracles photo stop', note:'No entry cost — exterior viewing only', risk:'ok'},
-  {type:T_GROUP, day:12, label:'Pisa Coach Permit', groupTotal:250, curr:'EUR', note:'Group cost €250 (§15)', risk:'ok'},
-  {type:T_GROUP, day:12, label:'Pisa Train (TM transfer)', groupTotal:100, curr:'EUR', note:'Group cost €100', risk:'amber', note2:'Clarify: is this TM rail ticket or group transfer?'},
-  {type:T_GROUP, day:12, label:'Florence Guide — Guided City Tour', groupTotal:180, curr:'EUR', note:'Group cost €180', risk:'ok'},
-  {type:T_GROUP, day:12, label:'Florence Coach Permit (ZTL)', groupTotal:320, curr:'EUR', note:'Group cost €320 (§15)', risk:'ok'},
-  {type:T_ACT,   day:12, label:'Florence Headset (audio guide)', localRate:1.5, curr:'EUR', risk:'ok', note:'Per person — flat rate'},
-  {type:T_MEAL,  day:12, label:'Meal — Pisa lunch', localRate:null, mealBlock:'1 Meal Pisa (€14)', risk:'ok'},
-  {type:T_MEAL,  day:12, label:'Meal — Arezzo dinner', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
+  {type:T_HOTEL, day:12, hotelCity:'Arezzo', nights:1, label:'Hotel — Arezzo (Florence base)', est:false, supplier:'Hotel Direct', risk:'ok'},
+  {type:T_BLANK, day:12, label:'Leaning Tower of Pisa — Square of Miracles photo stop', est:false, supplier:'ORN Ops', note:'No entry cost — exterior viewing only', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Pisa Coach Permit', groupTotal:250, curr:'EUR', est:false, supplier:'Local Authority', note:'Group cost €250 (§15)', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Pisa Train (TM transfer)', groupTotal:100, curr:'EUR', est:true, supplier:'Trenitalia', note:'Group cost €100 — clarify: TM rail ticket or group transfer?', risk:'amber'},
+  {type:T_GROUP, day:12, label:'Florence Guide — Guided City Tour', groupTotal:180, curr:'EUR', est:false, supplier:'Local Guide Agency', note:'Group cost €180', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Florence Coach Permit (ZTL)', groupTotal:320, curr:'EUR', est:false, supplier:'Local Authority', note:'Group cost €320 (§15 — ZTL zone)', risk:'ok'},
+  {type:T_ACT,   day:12, label:'Florence Audio Headset', localRate:1.5, curr:'EUR', est:false, supplier:'Local Guide Agency', note:'Per person', risk:'ok'},
+  {type:T_MEAL,  day:12, label:'Meal — Pisa lunch', est:false, supplier:'Restaurant (TBC)', mealBlock:'1 Meal Pisa (€14)', risk:'ok'},
+  {type:T_MEAL,  day:12, label:'Meal — Arezzo dinner', est:false, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
   {type:T_SUBTOT,day:12},
 
-  // ── DAY 13 ──
+  // ─── DAY 13 ───
   {type:T_HDR,  day:13, city:'Rome 🇮🇹 → FCO Departure', label:'Day 13 — Rome: Colosseum · Vatican · Trevi · Departure FCO'},
-  {type:T_MISS,  day:13, hotelCity:'Rome', label:'⚠️ HOTEL ROME — NOT IN PROVIDED LIST', note:'Please confirm Rome hotel + rate. Old sheet used Hampton by Hilton Rome North €50/room = €25/pp. UPDATE REQUIRED.', risk:'missing'},
-  {type:T_GROUP, day:13, label:'Rome Coach Permit / ZTL Access (§15)', groupTotal:550, curr:'EUR', note:'Highest permit cost in tour. €550 group.', risk:'amber', note2:'Verify ZTL zone applies to all 6 departure routes'},
-  {type:T_GROUP, day:13, label:'Rome Guide — Colosseum + Roman Forum (INCLUDED)', groupTotal:240, curr:'EUR', note:'Group cost €240', risk:'ok'},
-  {type:T_BLANK, day:13, label:'St. Peter\'s Basilica — free entry', note:'No cost', risk:'ok'},
-  {type:T_BLANK, day:13, label:'Trevi Fountain photo stop', note:'No cost', risk:'ok'},
-  {type:T_ACT,   day:13, label:'Gelato / Ice Cream / Waffle (goodwill)', localRate:6, curr:'EUR', risk:'ok', note:'Goodwill gesture — per person'},
-  {type:T_MEAL,  day:13, label:'Meals — Breakfast + Lunch', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
+  {type:T_MISS,  day:13, hotelCity:'Rome', label:'❌ HOTEL ROME — NOT IN PROVIDED LIST', est:true, supplier:'Hotel Direct', note:'Confirm Rome hotel + rate. Old sheet: Hampton by Hilton Rome North €50/room = €25/pp. PLEASE UPDATE.', risk:'missing'},
+  {type:T_GROUP, day:13, label:'Rome Coach Permit / ZTL Access (§15)', groupTotal:550, curr:'EUR', est:false, supplier:'Local Authority', note:'Highest permit cost in tour. Verify ZTL zone for all 6 departure routes.', risk:'amber'},
+  {type:T_GROUP, day:13, label:'Rome Guide — Colosseum + Roman Forum (INCLUDED)', groupTotal:240, curr:'EUR', est:false, supplier:'Local Guide Agency', note:'Group cost €240', risk:'ok'},
+  {type:T_BLANK, day:13, label:"St. Peter's Basilica — free entry", est:false, supplier:'ORN Ops', note:'No cost', risk:'ok'},
+  {type:T_BLANK, day:13, label:'Trevi Fountain photo stop', est:false, supplier:'ORN Ops', note:'No cost', risk:'ok'},
+  {type:T_ACT,   day:13, label:'Gelato / Ice Cream / Waffle (goodwill)', localRate:6, curr:'EUR', est:false, supplier:'ORN Ops', note:'Goodwill gesture', risk:'ok'},
+  {type:T_MEAL,  day:13, label:'Meals — Breakfast + Lunch before airport', est:false, supplier:'Restaurant (TBC)', mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
   {type:T_SUBTOT,day:13},
 
-  // ── SEASON-WIDE / DAILY COSTS ──
-  {type:T_HDR, day:0, city:'Season-wide', label:'Season-wide / Per-Tour Costs (divided by pax)'},
-  {type:T_GROUP, day:0, label:'Coach Transport — 13 days × €750/day', groupTotal:9750, curr:'EUR', note:'€750/day confirmed by Nishanth (WhatsApp). Empty run included. €9,750/tour ÷ pax.', risk:'ok'},
-  {type:T_GROUP, day:0, label:'TM Hotel Stays × 12 nights + Driver Room (FOC)', groupTotal:1242, curr:'EUR', note:'FOC = hotel provides driver room free. Verify FOC applies all 6 departures.', risk:'amber'},
-  {type:T_GROUP, day:0, label:'Lerms + Missed Meal Allowance — TM & Driver', groupTotal:910, curr:'EUR', note:'€910/tour. Should be itemised per §10 (missed meal ≥€15/meal).', risk:'amber'},
-  {type:T_GROUP, day:0, label:'TM Flight', groupTotal:250, curr:'EUR', note:'Sheet: €250. Nishanth chat: €300 budget. Gap of €50. Monitor.', risk:'amber'},
-  {type:T_MISS,  day:0, label:'⚠️ TM SALARY / TOUR FEE — MISSING FROM SHEET', note:'TM agreed fee (typically €1,500–1,800/tour) is NOT in Nishanth\'s costing sheet. At 40 pax this is €37–45/pp UNCOSTED. CRITICAL gap.', risk:'missing'},
-  {type:T_GROUP, day:0, label:'Tips (driver + guide gratuities)', groupTotal:39, curr:'EUR', note:'€39/tour. Applied as per-person in sheet.', risk:'ok'},
-  {type:T_GROUP, day:0, label:'Misc / Contingency', groupTotal:300, curr:'EUR', note:'⚠️ FORMULA WAS BROKEN in Nishanth sheet (Row 70). Corrected here to €300÷pax = €7.50 at 40 pax.', risk:'red'},
+  // ─── SEASON-WIDE ───
+  {type:T_HDR, day:0, city:'Season-wide', label:'Per-Tour Fixed Costs (divided by pax — all departures)'},
+  {type:T_GROUP, day:0, label:'Coach Transport — 13 days × €750/day', groupTotal:9750, curr:'EUR', est:false, supplier:'Coach Operator', note:'€750/day confirmed (Nishanth WhatsApp). Empty run + permits included.', risk:'ok'},
+  {type:T_GROUP, day:0, label:'TM Hotel Stays × 12 nights + Driver Room (FOC)', groupTotal:1242, curr:'EUR', est:true, supplier:'Hotel Direct', note:'FOC = hotel provides driver room free. Verify applies to all 6 departures.', risk:'amber'},
+  {type:T_GROUP, day:0, label:'Lerms + Missed Meal Allowance — TM & Driver', groupTotal:910, curr:'EUR', est:true, supplier:'ORN Ops', note:'€910/tour. Should be itemised per §10 (missed meal ≥€15). Verify breakdown.', risk:'amber'},
+  {type:T_GROUP, day:0, label:'TM Flight', groupTotal:250, curr:'EUR', est:true, supplier:'ORN Ops', note:'Sheet: €250. Chat: €300 budget. Gap of €50 — confirm.', risk:'amber'},
+  {type:T_MISS,  day:0, label:'❌ TM SALARY / TOUR FEE — MISSING FROM COSTING SHEET', est:true, supplier:'ORN Ops', note:'TM agreed fee ~€1,500–1,800/tour NOT in Nishanth sheet. At 40 pax = €37–45/pp UNCOSTED. CRITICAL.', risk:'missing'},
+  {type:T_GROUP, day:0, label:'Tips — Driver + Guide gratuities', groupTotal:39, curr:'EUR', est:true, supplier:'ORN Ops', note:'€39/tour per pax', risk:'ok'},
+  {type:T_GROUP, day:0, label:'Misc / Contingency [CORRECTED — sheet formula was broken]', groupTotal:300, curr:'EUR', est:true, supplier:'ORN Ops', note:'⚠️ Nishanth sheet Row 70 formula was broken (near-zero at 40+ pax). Corrected to €300÷pax.', risk:'red'},
 ];
 
 // FX helpers
@@ -1633,22 +1656,27 @@ function hotelPPForCity(city){
   return roomEUR / 2; // per person (twin)
 }
 
+// COSTING STATE — tracks live edits
+let COSTING_OVERRIDES = {}; // {rowId: {localRate, supplier, est, note}}
+
+function getRowId(row, idx){ return `row_${idx}`; }
+
 function buildCostingTable(){
   const pax = getCostPax();
-  const tb = document.getElementById('costingBody');
-  const ft = document.getElementById('costingFoot');
+  const tb  = document.getElementById('costingBody');
+  const ft  = document.getElementById('costingFoot');
   if(!tb) return;
 
-  const riskBg   = {ok:'',amber:'background:#fffbeb',red:'background:#fef2f2',missing:'background:#fef2f2'};
-  const typeTag  = {
-    hotel:    '<span style="background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Hotel</span>',
-    activity: '<span style="background:#fef3c7;color:#92400e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Activity</span>',
-    meal:     '<span style="background:#dcfce7;color:#166534;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Meal</span>',
-    group:    '<span style="background:#ede9fe;color:#5b21b6;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Group÷pax</span>',
-    transport:'<span style="background:#e0f2fe;color:#0c4a6e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Transport</span>',
-    optional: '<span style="background:#ffedd5;color:#9a3412;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Optional</span>',
-    blank:    '<span style="background:#f3f4f6;color:#6b7280;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Included</span>',
-    missing:  '<span style="background:#fee2e2;color:#991b1b;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">⚠️ Missing</span>',
+  const riskBg = {ok:'',amber:'background:#fffbeb',red:'background:#fef2f2',missing:'background:#fef2f2'};
+  const typeTag = {
+    hotel:    '<span style="background:#dbeafe;color:#1e40af;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🏨 Hotel</span>',
+    activity: '<span style="background:#fef3c7;color:#92400e;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🎡 Activity</span>',
+    meal:     '<span style="background:#dcfce7;color:#166534;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🍽 Meal</span>',
+    group:    '<span style="background:#ede9fe;color:#5b21b6;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">👥 Group÷pax</span>',
+    transport:'<span style="background:#e0f2fe;color:#0c4a6e;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🚌 Transport</span>',
+    optional: '<span style="background:#ffedd5;color:#9a3412;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">✨ Optional</span>',
+    blank:    '<span style="background:#f3f4f6;color:#6b7280;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">✓ Incl.</span>',
+    missing:  '<span style="background:#fee2e2;color:#991b1b;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">❌ Missing</span>',
     subtotal: '',
   };
 
@@ -1656,171 +1684,269 @@ function buildCostingTable(){
   let totalEUR = 0;
   let dayTotals = {};
   let currentDay = null;
-  let dayTotal = 0;
 
   ITIN_ROWS.forEach((row, idx) => {
 
     if(row.type === T_HDR){
-      // Close previous day subtotal visually
-      if(currentDay !== null && currentDay > 0){
-        // subtotal row already appended below
-      }
       currentDay = row.day;
-      dayTotal = 0;
       const dayLabel = row.day > 0 ? `Day ${row.day}` : 'Season';
       rows += `<tr style="background:#1a3a5c">
-        <td style="color:#fff;font-weight:700;font-size:12px;padding:9px 12px">${dayLabel}</td>
-        <td colspan="9" style="color:#fff;font-weight:700;font-size:13px;padding:9px 12px">${row.label}</td>
+        <td style="color:#fff;font-weight:700;font-size:11px;padding:8px 10px">${dayLabel}</td>
+        <td colspan="11" style="color:#fff;font-weight:700;font-size:13px;padding:8px 12px">${row.label}</td>
       </tr>`;
       return;
     }
 
     if(row.type === T_SUBTOT){
-      const dt = dayTotals[currentDay] || 0;
-      rows += `<tr style="background:#f8f9fb;border-top:2px solid #e2e6ea">
+      const dt = dayTotals[currentDay]||0;
+      rows += `<tr style="background:#f0f4f8;border-top:2px solid #cbd5e1">
         <td></td>
-        <td style="font-size:12px;font-weight:700;color:var(--t2);padding:8px 12px">Day ${currentDay} subtotal</td>
-        <td colspan="3"></td>
-        <td style="text-align:right;font-weight:700;color:var(--blue)">${fE(dt,2)}</td>
-        <td style="text-align:right;font-weight:700;color:var(--blue)">${fG(e2g(dt),2)}</td>
-        <td style="text-align:right;font-weight:700;color:var(--blue)">${fR(e2r(dt))}</td>
+        <td style="font-size:11px;font-weight:700;color:var(--t2);padding:7px 10px" colspan="6">Day ${currentDay} subtotal</td>
+        <td style="text-align:right;font-weight:700;color:var(--blue);padding:7px 10px">${fE(dt,2)}</td>
+        <td style="text-align:right;font-weight:700;color:var(--blue);padding:7px 10px">${fG(e2g(dt),2)}</td>
+        <td style="text-align:right;font-weight:700;color:var(--blue);padding:7px 10px">${fR(e2r(dt))}</td>
         <td></td><td></td>
       </tr>`;
       return;
     }
 
-    // Calculate per-person EUR for this row
-    let ppEUR = null;
-    let groupEUR = null;
-    let localDisp = '—';
-    let currDisp = '';
-    let noteText = row.note||'';
+    // Merge with any saved overrides
+    const ov = COSTING_OVERRIDES[getRowId(row, idx)] || {};
+    const estVal    = ov.est      !== undefined ? ov.est      : (row.est||false);
+    const suppVal   = ov.supplier !== undefined ? ov.supplier : (row.supplier||'');
+    const noteVal   = ov.note     !== undefined ? ov.note     : (row.note||'');
+
+    let ppEUR = null, groupEUR = null, localDisp = '', currDisp = '';
 
     if(row.type === T_HOTEL){
       ppEUR = hotelPPForCity(row.hotelCity);
       if(ppEUR != null){
         const opts = HOTEL_OPTIONS[row.hotelCity];
-        const sel = HOTEL_SEL[row.hotelCity]||0;
-        const opt = opts[Math.min(sel,opts.length-1)];
-        const isChf = opt.curr === 'CHF';
-        localDisp = isChf ? `CHF ${opt.room}/room` : `€${opt.room}/room`;
-        currDisp = isChf ? 'CHF→€' : 'EUR';
-        noteText = (noteText?noteText+' · ':'') + opt.n;
-        const hotelEUR = ppEUR * (row.nights||1);
-        if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
-        dayTotals[currentDay] += hotelEUR;
-        totalEUR += hotelEUR;
-      } else {
-        ppEUR = null;
-        noteText = '⚠️ ' + noteText;
+        const sel  = HOTEL_SEL[row.hotelCity]||0;
+        const opt  = opts[Math.min(sel,opts.length-1)];
+        const isChf = opt.curr==='CHF';
+        const ovRate = ov.localRate !== undefined ? ov.localRate : opt.room;
+        const roomEUR = isChf ? ovRate*getChfEur() : ovRate;
+        ppEUR = roomEUR/2;
+        localDisp = isChf ? `CHF ${ovRate}/rm` : `€${ovRate}/rm`;
+        currDisp  = isChf ? 'CHF' : 'EUR';
+        const nights = row.nights||1;
+        if(!dayTotals[currentDay]) dayTotals[currentDay]=0;
+        dayTotals[currentDay] += ppEUR*nights;
+        totalEUR += ppEUR*nights;
       }
     } else if(row.type === T_ACT){
-      const r = row.localRate;
-      if(r != null){
-        const rEUR = row.curr==='CHF' ? r*getChfEur() : r;
-        ppEUR = rEUR;
-        localDisp = `${row.curr==='CHF'?'CHF':'€'}${r}/pp`;
-        currDisp = row.curr;
-        if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
-        dayTotals[currentDay] += rEUR;
-        totalEUR += rEUR;
+      const baseRate = row.localRate;
+      const ovRate   = ov.localRate !== undefined ? parseFloat(ov.localRate) : baseRate;
+      if(ovRate != null){
+        ppEUR = row.curr==='CHF' ? ovRate*getChfEur() : ovRate;
+        localDisp = `${row.curr==='CHF'?'CHF':'€'}${ovRate}/pp`;
+        currDisp  = row.curr||'EUR';
+        if(!dayTotals[currentDay]) dayTotals[currentDay]=0;
+        dayTotals[currentDay] += ppEUR;
+        totalEUR += ppEUR;
       }
     } else if(row.type === T_MEAL){
-      // Meal costs are spread across days — show the block reference only, no double-count
-      ppEUR = null; localDisp='Block'; currDisp='';
-      noteText = row.mealBlock||'';
+      localDisp = 'Block';
     } else if(row.type === T_GROUP){
-      const gt = row.groupTotal||0;
-      const gtEUR = row.curr==='CHF' ? gt*getChfEur() : gt;
-      ppEUR = gtEUR / pax;
-      groupEUR = gtEUR;
-      localDisp = row.curr==='CHF' ? `CHF ${gt} total` : `€${gt} total`;
-      currDisp = row.curr==='CHF'?'CHF→€':row.curr||'EUR';
-      if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
+      const baseG  = row.groupTotal||0;
+      const ovG    = ov.localRate !== undefined ? parseFloat(ov.localRate) : baseG;
+      const gtEUR  = row.curr==='CHF' ? ovG*getChfEur() : ovG;
+      ppEUR     = gtEUR/pax;
+      groupEUR  = gtEUR;
+      localDisp = `${row.curr==='CHF'?'CHF':'€'}${ovG} tot`;
+      currDisp  = row.curr==='CHF'?'CHF':'EUR';
+      if(!dayTotals[currentDay]) dayTotals[currentDay]=0;
       dayTotals[currentDay] += ppEUR;
       totalEUR += ppEUR;
     } else if(row.type === T_OPT){
-      // Optional — shown but NOT counted in total
       ppEUR = null;
       localDisp = `€${row.localRate}/pp`;
       currDisp = 'EUR';
     } else if(row.type === T_MISS){
-      ppEUR = null; localDisp=''; currDisp='';
-    } else if(row.type === T_BLANK || row.type === T_TRANS){
-      ppEUR = null; localDisp='Incl.'; currDisp='';
+      ppEUR = null;
     }
 
-    const bg = riskBg[row.risk]||'';
+    const bg  = riskBg[row.risk]||'';
     const tag = typeTag[row.type]||'';
-    const riskIcon = row.risk==='red'?'🚨 ':row.risk==='amber'?'⚠️ ':row.risk==='missing'?'❌ ':'';
-    const noteCol = noteText ? `<span style="font-size:11px;color:var(--t3);line-height:1.5">${riskIcon}${noteText}</span>` : '';
+    const estStyle = estVal ? 'background:#fef9c3;color:#854d0e;font-size:10px;font-weight:700;border-radius:3px;padding:1px 5px' : 'color:#15803d;font-size:10px;font-weight:700';
+    const estDisp  = estVal ? '⚠️ Est' : '✓ Conf';
+    const ri = getRowId(row, idx);
 
-    rows += `<tr style="${bg}">
-      <td style="font-size:11px;color:var(--t3);padding:7px 12px">${row.day>0?'D'+row.day:''}</td>
-      <td style="padding:7px 12px;font-size:13px;color:${row.type===T_MISS?'#7f1d1d':row.type===T_OPT?'#9a3412':'var(--t)'};font-weight:${row.type===T_MISS||row.type===T_HDR?'700':'400'}">${row.label}</td>
-      <td style="padding:7px 12px;text-align:center">${tag}</td>
-      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${localDisp}</td>
-      <td style="padding:7px 12px;text-align:center;font-size:11px;color:var(--t3)">${currDisp}</td>
-      <td style="padding:7px 12px;text-align:right;font-weight:${ppEUR!=null?'600':'400'};color:${ppEUR!=null?'var(--t)':'var(--t3)'}">${ppEUR!=null?fE(ppEUR,2):'—'}</td>
-      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${ppEUR!=null?fG(e2g(ppEUR),2):'—'}</td>
-      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${ppEUR!=null?fR(e2r(ppEUR)):'—'}</td>
-      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t3)">${groupEUR!=null?fE(groupEUR,0):'—'}</td>
-      <td style="padding:7px 12px">${noteCol}</td>
+    rows += `<tr style="${bg}" data-row-id="${ri}">
+      <td style="font-size:10px;color:var(--t3);padding:6px 8px">${row.day>0?'D'+row.day:''}</td>
+      <td style="padding:6px 10px;font-size:12px;color:${row.type===T_MISS?'#7f1d1d':'var(--t)'};font-weight:${row.type===T_MISS?'700':'400'}">
+        ${row.label}
+      </td>
+      <td style="padding:6px 8px;text-align:center">${tag}</td>
+      <td style="padding:6px 8px;text-align:center">
+        <label style="cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px">
+          <input type="checkbox" ${estVal?'checked':''} onchange="setOverride('${ri}','est',this.checked)" style="cursor:pointer">
+          <span style="${estStyle}">${estDisp}</span>
+        </label>
+      </td>
+      <td style="padding:4px 6px">
+        <input class="inp" value="${suppVal}" style="font-size:11px;padding:3px 6px;min-width:110px"
+          onchange="setOverride('${ri}','supplier',this.value)" placeholder="Supplier">
+      </td>
+      <td style="padding:4px 6px;text-align:right">
+        ${(row.type===T_ACT||row.type===T_GROUP||row.type===T_HOTEL)
+          ? `<input class="inp" value="${row.type===T_GROUP?(ov.localRate!==undefined?ov.localRate:row.groupTotal||0):(row.type===T_HOTEL?((HOTEL_OPTIONS[row.hotelCity]&&HOTEL_OPTIONS[row.hotelCity][HOTEL_SEL[row.hotelCity]||0])?HOTEL_OPTIONS[row.hotelCity][HOTEL_SEL[row.hotelCity]||0].room:''):((ov.localRate!==undefined?ov.localRate:row.localRate)||0))}" style="font-size:11px;padding:3px 6px;text-align:right;width:72px" oninput="setOverride('${ri}','localRate',this.value);recalcAll()">`
+          : `<span style="font-size:11px;color:var(--t3)">${localDisp}</span>`}
+      </td>
+      <td style="padding:6px 8px;text-align:center;font-size:10px;color:var(--t3)">${currDisp}</td>
+      <td style="padding:6px 10px;text-align:right;font-weight:${ppEUR!=null?'600':'400'};color:${ppEUR!=null?'var(--t)':'var(--t3)'}">${ppEUR!=null?fE(ppEUR,2):'—'}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:11px;color:var(--t2)">${ppEUR!=null?fG(e2g(ppEUR),2):'—'}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:11px;color:var(--t2)">${ppEUR!=null?fR(e2r(ppEUR)):'—'}</td>
+      <td style="padding:6px 8px;text-align:right;font-size:11px;color:var(--t3)">${groupEUR!=null?fE(groupEUR,0):'—'}</td>
+      <td style="padding:4px 6px">
+        <input class="inp" value="${noteVal.replace(/'/g,"&#39;")}" style="font-size:10px;padding:3px 6px;width:100%;color:${row.risk==='red'?'#7f1d1d':row.risk==='amber'?'#78350f':row.risk==='missing'?'#7f1d1d':'var(--t3)'}"
+          onchange="setOverride('${ri}','note',this.value)" placeholder="Notes">
+      </td>
     </tr>`;
   });
 
-  // Also add the meal blocks total as a real cost line
-  const MEAL_TOTAL = 332; // €104+32+85+32+65+14
+  // Add meal total to grand total (not double-counted)
+  const MEAL_TOTAL = 332;
   totalEUR += MEAL_TOTAL;
 
   tb.innerHTML = rows;
 
-  // FOOTER — totals
-  const handling = totalEUR * 1.15;
-  const margin = getMarginPct()/100;
-  const sellEUR = totalEUR / (1-margin);
+  // Footer totals
+  const handling  = totalEUR * 1.15;
+  const margin    = getMarginPct()/100;
+  const sellEUR   = totalEUR / (1-margin);
   const profitEUR = sellEUR - totalEUR;
+  const webGap    = 2500 - sellEUR*getEurGbp();
+  const webColor  = webGap >= 0 ? 'var(--green)' : 'var(--red)';
 
   ft.innerHTML = `
-    <tr style="background:#f8f9fb;border-top:3px solid #1a3a5c">
-      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:14px;color:var(--t)">NETT COST per person (${pax} pax)<br><span style="font-size:11px;font-weight:400;color:var(--t3)">Hotels + Activities + Meals + Group costs ÷ pax + Coach ÷ pax + TM costs ÷ pax</span></td>
-      <td colspan="3"></td>
-      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--red)">${fE(totalEUR,0)}</td>
-      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--red)">${fG(e2g(totalEUR),0)}</td>
+    <tr style="background:#f1f5f9;border-top:3px solid #1a3a5c">
+      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:13px">NETT COST per person (${pax} pax)<br><span style="font-size:10px;font-weight:400;color:var(--t3)">Hotels + Activities + Meals + Group costs ÷ pax + Coach ÷ pax + TM costs ÷ pax</span></td>
+      <td colspan="5"></td>
+      <td style="text-align:right;font-weight:700;font-size:14px;color:var(--red)">${fE(totalEUR,0)}</td>
+      <td style="text-align:right;font-weight:700;font-size:14px;color:var(--red)">${fG(e2g(totalEUR),0)}</td>
       <td style="text-align:right;font-weight:700;color:var(--red)">${fR(e2r(totalEUR))}</td>
       <td></td><td></td>
     </tr>
     <tr style="background:#fef3c7">
-      <td colspan="2" style="padding:8px 12px;font-weight:600;color:var(--amber)">+ 15% Handling Fee (Nishanth sheet)</td>
-      <td colspan="3"></td>
+      <td colspan="2" style="padding:8px 12px;font-weight:600;color:var(--amber)">+15% Handling Fee (Nishanth sheet)</td>
+      <td colspan="5"></td>
       <td style="text-align:right;font-weight:600;color:var(--amber)">${fE(handling,0)}</td>
       <td style="text-align:right;font-weight:600;color:var(--amber)">${fG(e2g(handling),0)}</td>
       <td style="text-align:right;font-weight:600;color:var(--amber)">${fR(e2r(handling))}</td>
       <td></td><td></td>
     </tr>
     <tr style="background:#fff7ed">
-      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:14px;color:var(--orange)">SELLING PRICE at ${getMarginPct()}% margin</td>
-      <td colspan="3"></td>
-      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--orange)">${fE(sellEUR,0)}</td>
-      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--orange)">${fG(e2g(sellEUR),0)}</td>
+      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:13px;color:var(--orange)">SELLING PRICE at ${getMarginPct()}% margin</td>
+      <td colspan="5"></td>
+      <td style="text-align:right;font-weight:700;font-size:14px;color:var(--orange)">${fE(sellEUR,0)}</td>
+      <td style="text-align:right;font-weight:700;font-size:14px;color:var(--orange)">${fG(e2g(sellEUR),0)}</td>
       <td style="text-align:right;font-weight:700;color:var(--orange)">${fR(e2r(sellEUR))}</td>
       <td></td>
-      <td style="padding:8px 12px;font-size:12px;color:${2500-e2g(sellEUR)>=0?'var(--green)':'var(--red)'};font-weight:700">
-        Website £2,500 → ${2500-e2g(sellEUR)>=0?'+':''}${fG(Math.abs(2500-e2g(sellEUR)),0)} ${2500-e2g(sellEUR)>=0?'✓ cushion':'⚠️ under-priced'}
-      </td>
+      <td style="padding:8px 12px;font-size:11px;font-weight:700;color:${webColor}">Website £2,500 → ${webGap>=0?'+':''}${fG(Math.abs(webGap),0)} ${webGap>=0?'✓ cushion':'⚠️ under-priced'}</td>
     </tr>
     <tr style="background:#f0fdf4">
-      <td colspan="2" style="padding:8px 12px;font-weight:700;color:var(--green)">GROSS PROFIT per person / total (${pax} pax)</td>
-      <td colspan="3"></td>
+      <td colspan="2" style="padding:8px 12px;font-weight:700;color:var(--green)">GROSS PROFIT /pax · total (${pax} pax)</td>
+      <td colspan="5"></td>
       <td style="text-align:right;font-weight:700;color:var(--green)">${fE(profitEUR,0)}</td>
-      <td style="text-align:right;font-weight:700;color:var(--green)">${fG(e2g(profitEUR),0)} / ${fG(e2g(profitEUR)*pax,0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--green)">${fG(e2g(profitEUR),0)} · ${fG(e2g(profitEUR)*pax,0)}</td>
       <td style="text-align:right;font-weight:700;color:var(--green)">${fR(e2r(profitEUR))}</td>
       <td></td><td></td>
     </tr>`;
 
-  // Summary strip
   buildSummaryStrip(totalEUR, pax);
   buildSensitivity(totalEUR, pax);
+}
+
+function setOverride(rowId, field, value){
+  if(!COSTING_OVERRIDES[rowId]) COSTING_OVERRIDES[rowId]={};
+  COSTING_OVERRIDES[rowId][field] = value;
+  const statusEl = document.getElementById('saveStatus');
+  if(statusEl){ statusEl.textContent='● Unsaved changes'; statusEl.style.color='var(--amber)'; }
+}
+
+function saveCosting(){
+  try {
+    localStorage.setItem('woe_costing_overrides', JSON.stringify(COSTING_OVERRIDES));
+    localStorage.setItem('woe_costing_rates', JSON.stringify({
+      pax: document.getElementById('costPax')?.value,
+      chf: document.getElementById('chfEurRate')?.value,
+      eur: document.getElementById('eurGbpRate')?.value,
+      inr: document.getElementById('inrRate')?.value,
+      margin: document.getElementById('marginPct')?.value,
+    }));
+    const statusEl = document.getElementById('saveStatus');
+    if(statusEl){ statusEl.textContent='✓ Saved — '+new Date().toLocaleTimeString(); statusEl.style.color='var(--green)'; }
+    showToast('✓ Costing sheet saved', 'green');
+  } catch(e){ showToast('Save failed — check browser storage settings', 'orange'); }
+}
+
+function loadCosting(){
+  try {
+    const ov = localStorage.getItem('woe_costing_overrides');
+    const rates = localStorage.getItem('woe_costing_rates');
+    if(ov) COSTING_OVERRIDES = JSON.parse(ov);
+    if(rates){
+      const r = JSON.parse(rates);
+      const setV = (id, v) => { const el=document.getElementById(id); if(el&&v) el.value=v; };
+      setV('costPax',r.pax); setV('chfEurRate',r.chf); setV('eurGbpRate',r.eur);
+      setV('inrRate',r.inr); setV('marginPct',r.margin);
+    }
+    recalcAll();
+    showToast('✓ Costing sheet loaded', 'blue');
+    const statusEl = document.getElementById('saveStatus');
+    if(statusEl){ statusEl.textContent='✓ Loaded from saved'; statusEl.style.color='var(--green)'; }
+  } catch(e){ showToast('Nothing saved yet — make changes and Save first', 'orange'); }
+}
+
+function resetCosting(){
+  if(!confirm('Reset all edits to default values?')) return;
+  COSTING_OVERRIDES = {};
+  try { localStorage.removeItem('woe_costing_overrides'); localStorage.removeItem('woe_costing_rates'); } catch(e){}
+  recalcAll();
+  showToast('↺ Costing sheet reset to defaults', 'blue');
+  const statusEl = document.getElementById('saveStatus');
+  if(statusEl){ statusEl.textContent=''; }
+}
+
+function exportCostingCSV(){
+  const rows = document.querySelectorAll('#costingBody tr, #costingFoot tr');
+  let csv = 'Day,Item,Type,Est,Supplier,Local Rate,Currency,EUR/pax,GBP/pax,INR/pax,Group EUR,Notes\n';
+  rows.forEach(tr => {
+    const cells = tr.querySelectorAll('td');
+    if(cells.length < 3) return;
+    const rowData = [];
+    cells.forEach((td, i) => {
+      const inp = td.querySelector('input[type="text"],input.inp');
+      const chk = td.querySelector('input[type="checkbox"]');
+      let val = chk ? (chk.checked?'Est':'Confirmed') : (inp ? inp.value : td.textContent.trim().replace(/\n/g,' ').replace(/\s+/g,' '));
+      rowData.push('"'+val.replace(/"/g,'""')+'"');
+    });
+    csv += rowData.join(',') + '\n';
+  });
+  const blob = new Blob([csv], {type:'text/csv'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'WOE_2026_Costing_Sheet.csv'; a.click();
+  URL.revokeObjectURL(url);
+  showToast('⬇ CSV exported', 'green');
+}
+
+// Auto-load on init
+function initCosting(){
+  try {
+    const ov = localStorage.getItem('woe_costing_overrides');
+    const rates = localStorage.getItem('woe_costing_rates');
+    if(ov){ COSTING_OVERRIDES = JSON.parse(ov); }
+    if(rates){
+      const r = JSON.parse(rates);
+      const setV = (id, v) => { const el=document.getElementById(id); if(el&&v) el.value=v; };
+      setV('costPax',r.pax); setV('chfEurRate',r.chf); setV('eurGbpRate',r.eur);
+      setV('inrRate',r.inr); setV('marginPct',r.margin);
+    }
+  } catch(e){}
+  recalcAll();
 }
 
 function buildSummaryStrip(totalEUR, pax){
@@ -2291,7 +2417,7 @@ function buildGaps(){
 
 
 // Init new sections
-recalcAll();
+initCosting();
 buildCalendar();
 buildGaps();
 buildLondonHotels();
