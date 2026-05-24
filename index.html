@@ -220,103 +220,79 @@ tr:hover td{background:#fafbfc}
 
 
 <div class="page" id="pg-itin">
-  <div class="alert a-blue"><div class="a-icon">📊</div><div><strong>Source: Nishanth TF Costing Sheet (WOE - 2026) + tripfactory.com/package/wonders-of-europe-2026-6691753 + WhatsApp confirmation 24 May 2026.</strong> All costs are exact figures from the costing sheet. Risks and discrepancies flagged. Hotel PPPN = per person per night (twin-share rate already halved). All costs in EUR unless stated.</div></div>
 
-  <!-- CRITICAL RISKS BANNER -->
-  <div id="costRiskBanner"></div>
-
-  <!-- CONTROLS -->
-  <div class="card" style="margin-bottom:14px;padding:14px 18px">
-    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
-      <div class="fl"><span style="font-size:12px;font-weight:700;color:var(--t2)">Pax Count</span><input class="inp" id="costPax" style="width:70px;text-align:right" value="40" oninput="recalcAll()"></div>
-      <div class="fl"><span style="font-size:12px;font-weight:700;color:var(--t2)">EUR → GBP Rate (1€ =)</span><input class="inp" id="eurGbpRate" style="width:80px;text-align:right" value="0.855" oninput="recalcAll()"><span style="font-size:12px;color:var(--t3)">£</span></div>
-      <div class="fl"><span style="font-size:12px;font-weight:700;color:var(--t2)">GBP → INR Rate (£1 =)</span><input class="inp" id="inrRate" style="width:80px;text-align:right" value="107" oninput="recalcAll()"><span style="font-size:12px;color:var(--t3)">₹</span></div>
-      <div class="fl"><span style="font-size:12px;font-weight:700;color:var(--t2)">Target Margin %</span><input class="inp" id="marginPct" style="width:70px;text-align:right" value="25" oninput="recalcAll()"><span style="font-size:12px;color:var(--t3)">%</span></div>
-      <div style="margin-left:auto;background:var(--bg2);border:1px solid var(--bd);border-radius:8px;padding:10px 18px;text-align:center">
-        <div style="font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">Required Sell Price / Pax</div>
-        <div style="font-size:24px;font-weight:700;color:var(--orange)" id="sellPriceDisplay">—</div>
-        <div style="font-size:11px;color:var(--t3)" id="sellPriceGBP">—</div>
-        <div style="font-size:11px;color:var(--t3)" id="sellPriceINR">—</div>
+  <!-- CONTROLS BAR -->
+  <div class="card" style="margin-bottom:14px;padding:12px 16px">
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Pax</span><input class="inp" id="costPax" style="width:64px;text-align:center;font-weight:700" value="40" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">CHF→EUR</span><input class="inp" id="chfEurRate" style="width:64px;text-align:center" value="1.04" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">EUR→GBP</span><input class="inp" id="eurGbpRate" style="width:64px;text-align:center" value="0.855" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">GBP→INR</span><input class="inp" id="inrRate" style="width:72px;text-align:center" value="107" oninput="recalcAll()"></div>
+      <div class="fl" style="gap:6px"><span style="font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.4px">Margin %</span><input class="inp" id="marginPct" style="width:60px;text-align:center" value="25" oninput="recalcAll()"></div>
+      <div style="margin-left:auto;background:var(--blue);color:#fff;border-radius:8px;padding:8px 18px;text-align:center;min-width:170px">
+        <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;opacity:.7">Required Sell Price / Pax</div>
+        <div style="font-size:20px;font-weight:700;line-height:1.2" id="sellPriceDisplay">—</div>
+        <div style="font-size:11px;opacity:.8" id="sellPriceGBP">—</div>
+        <div style="font-size:11px;opacity:.7" id="sellPriceINR">—</div>
       </div>
     </div>
   </div>
 
-  <!-- WEBSITE vs SHEET COMPARISON -->
-  <div class="sh">Advertised Price vs True Cost — Website vs Costing Sheet</div>
-  <div id="priceCompGrid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px"></div>
+  <!-- SUMMARY KPI STRIP -->
+  <div id="summaryStrip" style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px;margin-bottom:14px"></div>
 
-  <!-- PAX SENSITIVITY TABLE -->
-  <div class="sh">Cost at Different Pax Levels (exact from sheet)</div>
-  <div class="tbl-wrap" style="margin-bottom:16px"><table>
-    <thead><tr><th>Pax</th><th style="text-align:right">Hotels /pp</th><th style="text-align:right">Sightseeing + Meals /pp</th><th style="text-align:right">Coach /pp</th><th style="text-align:right">Guides + Permits /pp</th><th style="text-align:right">TM + Driver /pp</th><th style="text-align:right">Misc /pp</th><th style="text-align:right">NETT (€)</th><th style="text-align:right">+15% Handling (€)</th><th style="text-align:right">Sell Price @ 25% margin (€)</th><th style="text-align:right">Sell Price (£)</th><th>vs Website £2,500</th></tr></thead>
-    <tbody id="paxSensiBody"></tbody>
-  </table></div>
-
-  <!-- COST BREAKDOWN TABLE -->
-  <div class="sh">Full Per-Person Cost Breakdown — Exact from Nishanth TF Costing Sheet</div>
-  <div class="tbl-wrap" style="margin-bottom:16px"><table id="costTable">
-    <thead><tr><th>Cost Item</th><th>Category</th><th style="text-align:right">EUR per person (40 pax)</th><th style="text-align:right">£ GBP equiv.</th><th style="text-align:right">₹ INR equiv.</th><th>Source</th><th>Risk Flag</th></tr></thead>
-    <tbody id="costBody"></tbody>
-    <tfoot>
-      <tr style="background:#f8f9fb;font-weight:700;font-size:14px">
-        <td colspan="2">NETT COST per person (40 pax)</td>
-        <td class="td-num" id="nettEUR">—</td><td class="td-num" id="nettGBP">—</td><td class="td-num" id="nettINR">—</td><td colspan="2"></td>
-      </tr>
-      <tr style="background:#fef3c7;font-weight:700">
-        <td colspan="2">+15% Handling Fee (as per sheet)</td>
-        <td class="td-num" id="handlingEUR">—</td><td class="td-num" id="handlingGBP">—</td><td class="td-num" id="handlingINR">—</td><td colspan="2"></td>
-      </tr>
-      <tr style="background:#fff7ed;font-weight:700;font-size:14px">
-        <td colspan="2">SELLING PRICE (at <span id="marginLabel">25</span>% margin)</td>
-        <td class="td-num" id="sellEUR" style="color:var(--orange)">—</td><td class="td-num" id="sellGBP" style="color:var(--orange)">—</td><td class="td-num" id="sellINR" style="color:var(--orange)">—</td><td colspan="2"></td>
-      </tr>
-      <tr style="background:#f0fdf4;font-weight:700">
-        <td colspan="2">GROSS PROFIT per person</td>
-        <td class="td-num" id="profitEUR" style="color:var(--green)">—</td><td class="td-num" id="profitGBP" style="color:var(--green)">—</td><td class="td-num" id="profitINR" style="color:var(--green)">—</td><td colspan="2"></td>
-      </tr>
-    </tfoot>
-  </table></div>
-
-  <!-- HOTEL DETAIL -->
-  <div class="sh">Hotels — Full Option List with Currency Conversion (select preferred hotel per city)</div>
-  <div class="alert a-amber"><div class="a-icon">💱</div><div><strong>Currency note:</strong> Zurich hotels are CHF-denominated (Swiss Franc). All other cities are EUR. Rates provided are <strong>per room (twin share)</strong> — divides by 2 to get per-person cost. <strong>Rome was not included</strong> in the provided list — fallback retained. London hotels are <strong>GBP-denominated and NOT on WOE itinerary</strong> — shown separately below.</div></div>
-  <div class="card" style="margin-bottom:10px;padding:10px 16px;display:flex;gap:16px;align-items:center;flex-wrap:wrap">
-    <div class="fl"><span style="font-size:12px;font-weight:700;color:var(--t2)">CHF → EUR rate (1 CHF =)</span><input class="inp" id="chfEurRate" style="width:80px;text-align:right" value="1.04" oninput="recalcAll()"><span style="font-size:12px;color:var(--t3)">€</span></div>
-    <div style="font-size:12px;color:var(--t3)">Select preferred hotel per city using dropdowns. All cost tables update live.</div>
+  <!-- MAIN DAY-BY-DAY COSTING TABLE -->
+  <div class="tbl-wrap" style="margin-bottom:16px">
+    <table id="costingTable" style="font-size:12.5px">
+      <thead>
+        <tr style="background:#1a3a5c">
+          <th style="color:#fff;width:58px">Day</th>
+          <th style="color:#fff">City &amp; Activity / Cost Item</th>
+          <th style="color:#fff;text-align:center;width:72px">Type</th>
+          <th style="color:#fff;text-align:right;width:90px">Local Rate</th>
+          <th style="color:#fff;text-align:center;width:46px">Curr</th>
+          <th style="color:#fff;text-align:right;width:82px">€ / pax</th>
+          <th style="color:#fff;text-align:right;width:76px">£ / pax</th>
+          <th style="color:#fff;text-align:right;width:90px">₹ / pax</th>
+          <th style="color:#fff;text-align:right;width:88px">Group €</th>
+          <th style="color:#fff">Notes / Risks</th>
+        </tr>
+      </thead>
+      <tbody id="costingBody"></tbody>
+      <tfoot id="costingFoot"></tfoot>
+    </table>
   </div>
-  <div class="tbl-wrap" style="margin-bottom:14px"><table>
-    <thead><tr><th>City</th><th>Nights</th><th>Hotel (select option)</th><th>Local Curr.</th><th style="text-align:right">Per Person/Night (€)</th><th style="text-align:right">Total /pp (€)</th><th style="text-align:right">Total /pp (£)</th><th style="text-align:right">Total /pp (₹)</th><th>Range</th><th>Status</th></tr></thead>
-    <tbody id="hotelBody"></tbody>
-    <tfoot><tr style="background:var(--bg2);font-weight:700">
-      <td colspan="5">Hotel total per person (selected options)</td>
-      <td class="td-num" id="hotelTotEUR">—</td>
-      <td class="td-num" id="hotelTotGBP">—</td>
-      <td class="td-num" id="hotelTotINR">—</td>
-      <td colspan="2"></td>
-    </tr></tfoot>
-  </table></div>
-
-  <div class="sh">London Hotels — NOT on WOE Itinerary (GBP — reference only)</div>
-  <div class="alert a-blue"><div class="a-icon">🇬🇧</div><div><strong>These hotels are NOT part of WOE 2026 (Paris → Rome route).</strong> GBP-denominated. Likely a UK tour / Heathrow stopover product. <strong>Excluded from WOE costing.</strong></div></div>
-  <div class="tbl-wrap" style="margin-bottom:16px"><table>
-    <thead><tr><th>Hotel</th><th>Rate (£/room)</th><th style="text-align:right">Per Person/Night (£)</th><th style="text-align:right">EUR equiv. /pp/night</th><th style="text-align:right">₹ equiv. /pp/night</th><th>Product</th></tr></thead>
-    <tbody id="londonHotelBody"></tbody>
-  </table></div>
-
-  <!-- APPROVED OPTIONALS -->
-  <div class="sh">Approved Optionals — Policy §04</div>
-  <div class="alert a-red"><div class="a-icon">⛔</div><div><strong>Black Optional Rule (§05):</strong> Only these optionals may be sold. All money via ORN App. No TM/driver/guide collecting privately. Violation = removal + blacklisting.</div></div>
-  <div class="tbl-wrap" style="margin-bottom:16px"><table>
-    <thead><tr><th>Optional</th><th>Sell Price (€)</th><th>Sell Price (£)</th><th>Sell Price (₹)</th><th>TM Incentive §04</th><th>Company Net (€)</th><th>Company Net (₹)</th><th>Status</th></tr></thead>
-    <tbody id="optBody"></tbody>
-  </table></div>
 
   <!-- MARGIN SENSITIVITY -->
-  <div class="sh">Margin Sensitivity Table</div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Margin %</th><th style="text-align:right">Sell Price (€)</th><th style="text-align:right">Sell Price (£)</th><th style="text-align:right">Sell Price (₹)</th><th style="text-align:right">Gross Profit /pp (£)</th><th style="text-align:right">Total Profit 40 pax (£)</th><th>Verdict vs Website £2,500</th></tr></thead>
-    <tbody id="sensiBody"></tbody>
-  </table></div>
+  <div class="sh">Margin Sensitivity — at <span id="sensiPaxLabel">40</span> pax</div>
+  <div class="tbl-wrap" style="margin-bottom:16px">
+    <table><thead><tr>
+      <th>Margin %</th>
+      <th style="text-align:right">Nett Cost (€)</th>
+      <th style="text-align:right">Sell (€)</th>
+      <th style="text-align:right">Sell (£)</th>
+      <th style="text-align:right">Sell (₹)</th>
+      <th style="text-align:right">Profit /pp (£)</th>
+      <th style="text-align:right">Total Profit (£)</th>
+      <th>vs Website £2,500</th>
+    </tr></thead>
+    <tbody id="sensiBody"></tbody></table>
+  </div>
+
+  <!-- APPROVED OPTIONALS -->
+  <div class="sh">§04 Approved Optionals — not included in base cost above</div>
+  <div class="alert a-red"><div class="a-icon">⛔</div><div><strong>§05 Black Optional Rule:</strong> Only these three optionals may be sold on tour. No TM, driver or guide may collect money privately. All collections via ORN App. Violation = immediate removal + blacklisting.</div></div>
+  <div class="tbl-wrap">
+    <table><thead><tr>
+      <th>Optional</th>
+      <th style="text-align:right">Sell (€)</th><th style="text-align:right">Sell (£)</th><th style="text-align:right">Sell (₹)</th>
+      <th style="text-align:right">TM (§04)</th><th style="text-align:right">Driver</th>
+      <th style="text-align:right">Co. Net (€)</th><th style="text-align:right">Co. Net (£)</th><th style="text-align:right">Co. Net (₹)</th>
+      <th>Collection</th>
+    </tr></thead>
+    <tbody id="optBody"></tbody></table>
+  </div>
+
 </div>
 
 <div class="page" id="pg-pax">
@@ -1474,407 +1450,419 @@ function fmtINR(gbp){ return '₹' + Math.round(gbp * getINRRate()).toLocaleStri
 // Verified against WhatsApp chat 24 May 2026
 // All EUR per person at 40 pax unless marked as group cost
 
-const SHEET_HOTELS = [
-  // ─── RATES ARE PER ROOM (twin share) ÷ 2 = per person per night ───
-  // All EUR unless noted. Zurich = CHF (live CHF/EUR rate applied in calcNett).
-  // Rome: NOT in provided list — fallback €50/room = €25/pp retained.
-  // London: NOT on WOE itinerary — listed separately for reference (different product).
-  {city:'🇫🇷 Paris', nights:3, curr:'EUR',
-   options:[
-     {name:'Mercure Paris Roissy',        roomRate:90,  curr:'EUR'},
-     {name:'Moxy Paris Clamart',           roomRate:85,  curr:'EUR'},
-     {name:"B&B HOME Paris Nord 18ème",    roomRate:90,  curr:'EUR'},
-     {name:'Hyatt Place CDG',              roomRate:110, curr:'EUR'},
-     {name:'DoubleTree Paris Bougival',    roomRate:110, curr:'EUR'},
-   ],
-   selected:0,
-   risk:'green', riskNote:'EUR. Range €85–€110/room (€42.5–€55/pp). All below or matching old sheet €55/pppn. Good.'},
-  {city:'🇳🇱 Amsterdam', nights:1, curr:'EUR',
-   options:[
-     {name:'Moxy Schiphol',               roomRate:120, curr:'EUR'},
-     {name:'Hampton by Hilton Schiphol',  roomRate:120, curr:'EUR'},
-   ],
-   selected:0,
-   risk:'amber', riskNote:'EUR. Both €120/room = €60/pp. Below old sheet €70/pppn. Good. Note: only 2 options — limited flexibility.'},
-  {city:'🇩🇪 Frankfurt', nights:1, curr:'EUR',
-   options:[
-     {name:'Crowne Plaza Frankfurt',      roomRate:70,  curr:'EUR'},
-     {name:'elaya Hotel Frankfurt',       roomRate:85,  curr:'EUR'},
-   ],
-   selected:0,
-   risk:'green', riskNote:'EUR. €70–€85/room = €35–€42.5/pp. Below old sheet €45/pppn. Good.'},
-  {city:'🇨🇭 Zurich', nights:3, curr:'CHF',
-   options:[
-     {name:"Harry's Home Limmattal",      roomRate:130, curr:'CHF'},
-     {name:'Novotel Zurich Airport',      roomRate:140, curr:'CHF'},
-     {name:'Mövenpick Regensdorf',        roomRate:150, curr:'CHF'},
-     {name:'Mövenpick Zurich Airport',    roomRate:150, curr:'CHF'},
-   ],
-   selected:0,
-   risk:'red', riskNote:'⚠️ CHF-denominated (Swiss Franc). 3 nights = significant currency exposure. At CHF/EUR 1.04: €67.6–€78/pppn. A 10% CHF strengthening adds €20/pp across 3 nights. Must hedge or contract in EUR.'},
-  {city:'🇦🇹 Innsbruck', nights:1, curr:'EUR',
-   options:[
-     {name:'Alpenkönig',                  roomRate:60,  curr:'EUR'},
-     {name:'Olympia',                     roomRate:60,  curr:'EUR'},
-     {name:'Alpenhof',                    roomRate:70,  curr:'EUR'},
-   ],
-   selected:0,
-   risk:'green', riskNote:'EUR. €60–€70/room = €30–€35/pp. Well below old sheet €50/pppn.'},
-  {city:'🇮🇹 Padova', nights:1, curr:'EUR',
-   options:[
-     {name:'Radisson Ferrara',            roomRate:80,  curr:'EUR'},
-     {name:'Four Points by Sheraton',     roomRate:95,  curr:'EUR'},
-     {name:'Crowne Plaza Padova',         roomRate:100, curr:'EUR'},
-   ],
-   selected:2,
-   risk:'green', riskNote:'EUR. €80–€100/room = €40–€50/pp. Broadly in line with old sheet €45/pppn.'},
-  {city:'🇮🇹 Arezzo', nights:1, curr:'EUR',
-   options:[
-     {name:'Hotel Forum Arezzo',          roomRate:65,  curr:'EUR'},
-     {name:'Park Hotel Arezzo',           roomRate:70,  curr:'EUR'},
-     {name:'A Point Arezzo',              roomRate:70,  curr:'EUR'},
-   ],
-   selected:0,
-   risk:'green', riskNote:'EUR. €65–€70/room = €32.5–€35/pp. Below old sheet €40/pppn.'},
-  {city:'🇮🇹 Rome', nights:1, curr:'EUR',
-   options:[
-     {name:'Hampton by Hilton Rome North (fallback — not in provided list)',
-      roomRate:50, curr:'EUR'},
-   ],
-   selected:0,
-   risk:'red', riskNote:'⚠️ Rome NOT included in hotel list provided. Using old sheet fallback €50/room = €25/pp. UPDATE REQUIRED — provide Rome hotel options.'},
-]
+// ════════════════════════════════════════════════════════════
+// WOE 2026 — DAY-BY-DAY COSTING ENGINE
+// Source: Nishanth TF Costing Sheet + WhatsApp 24 May 2026
+// Rates are per person unless marked GROUP (÷ pax)
+// Hotel rates = per room (twin share) ÷ 2 = per person
+// ════════════════════════════════════════════════════════════
 
-const SHEET_SIGHTSEEING = [
-  {item:'Eiffel Tower — 2nd Level', eur:23, risk:'green', note:'Flat rate contracted (Nishanth confirmed)'},
-  {item:'Seine Cruise', eur:6, risk:'green', note:'Flat rate contracted'},
-  {item:'Disneyland Paris', eur:80, risk:'red', note:'⚠️ WOE-01 wrong ticket type booked — cost confirmed but ops error on ticket category (§13)'},
-  {item:'Canal Cruise Amsterdam', eur:8, risk:'green', note:'Flat rate contracted'},
-  {item:'Keukenhof Gardens', eur:18, risk:'amber', note:'Seasonal — closed after 12 May. After 13 May: Zaanse Schans (different cost). Check per departure.'},
-  {item:'Mt Titlis (no Ice Flyer)', eur:72, risk:'green', note:'Flat rate contracted. Ice Flyer add-on not included.'},
-  {item:'Vaduz Toy Train', eur:15, risk:'green', note:'Flat rate'},
-  {item:'Swarovski Crystal Worlds', eur:18, risk:'green', note:'Flat rate contracted'},
-  {item:'Vaporetto Venice', eur:15, risk:'green', note:'Flat rate. Permit €300 separate group cost.'},
-  {item:'Gondola Venice', eur:20, risk:'green', note:'Flat rate contracted'},
-  {item:'Florence Headset', eur:1.5, risk:'green', note:'Flat rate'},
-  {item:'Gelato / Ice Cream / Waffle', eur:6, risk:'green', note:'Goodwill cost. Nice touch.'},
-  {item:'Tips', eur:39, risk:'amber', note:'Fixed tip amount. Actual tips vary. TM discretion risk per §05.'},
+// Row type constants
+const T_HDR    = 'header';   // day header row
+const T_HOTEL  = 'hotel';    // accommodation
+const T_ACT    = 'activity'; // per-person sightseeing/entry
+const T_MEAL   = 'meal';     // per-person meals
+const T_GROUP  = 'group';    // group cost ÷ pax
+const T_TRANS  = 'transport';// coach/train
+const T_OPT    = 'optional'; // §04 optional (not in base)
+const T_BLANK  = 'blank';    // missing / to confirm
+const T_SUBTOT = 'subtotal'; // day subtotal
+const T_MISS   = 'missing';  // highlighted gap
+
+// ── HOTEL OPTIONS per city (room rate ÷ 2 = per person) ──
+const HOTEL_OPTIONS = {
+  Paris:      [{n:'Mercure Paris Roissy',          room:90, curr:'EUR'}, {n:'Moxy Paris Clamart',          room:85,  curr:'EUR'}, {n:'B&B HOME Paris Nord 18ème',   room:90,  curr:'EUR'}, {n:'Hyatt Place CDG',             room:110, curr:'EUR'}, {n:'DoubleTree Paris Bougival',   room:110, curr:'EUR'}],
+  Amsterdam:  [{n:'Moxy Schiphol',                  room:120,curr:'EUR'}, {n:'Hampton by Hilton Schiphol', room:120, curr:'EUR'}],
+  Frankfurt:  [{n:'Crowne Plaza Frankfurt',          room:70, curr:'EUR'}, {n:'elaya Hotel Frankfurt',      room:85,  curr:'EUR'}],
+  Zurich:     [{n:"Harry's Home Limmattal",          room:130,curr:'CHF'}, {n:'Novotel Zurich Airport',     room:140, curr:'CHF'}, {n:'Mövenpick Regensdorf',       room:150, curr:'CHF'}, {n:'Mövenpick Zurich Airport',   room:150, curr:'CHF'}],
+  Innsbruck:  [{n:'Alpenkönig',                      room:60, curr:'EUR'}, {n:'Olympia',                    room:60,  curr:'EUR'}, {n:'Alpenhof',                   room:70,  curr:'EUR'}],
+  Padova:     [{n:'Radisson Ferrara',                room:80, curr:'EUR'}, {n:'Four Points Sheraton Padova',room:95,  curr:'EUR'}, {n:'Crowne Plaza Padova',        room:100, curr:'EUR'}],
+  Arezzo:     [{n:'Hotel Forum Arezzo',              room:65, curr:'EUR'}, {n:'Park Hotel Arezzo',          room:70,  curr:'EUR'}, {n:'A Point Arezzo',             room:70,  curr:'EUR'}],
+  Rome:       [{n:'⚠️ NOT PROVIDED — confirm hotel', room:null,curr:'EUR'}],
+};
+const HOTEL_SEL = {Paris:0, Amsterdam:0, Frankfurt:0, Zurich:0, Innsbruck:0, Padova:0, Arezzo:0, Rome:0};
+
+// ── ITINERARY: day-by-day rows in order ──
+// Format: {type, day?, city?, label, localRate?, curr?, groupTotal?, nights?, hotelCity?, note?, risk?}
+// risk: 'ok' | 'amber' | 'red' | 'missing'
+const ITIN_ROWS = [
+  // ── DAY 1 ──
+  {type:T_HDR,  day:1,  city:'Paris 🇫🇷', label:'Day 1 — Arrival Paris CDG'},
+  {type:T_HOTEL, day:1, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG (twin share ÷ 2)', risk:'ok'},
+  {type:T_BLANK, day:1, label:'Airport → Hotel transfer', note:'Included in coach cost (Day 1 coach day)', risk:'ok'},
+  {type:T_BLANK, day:1, label:'Welcome dinner', note:'Included in 8-meal Paris block (see Day 2)', risk:'ok'},
+  {type:T_SUBTOT,day:1},
+
+  // ── DAY 2 ──
+  {type:T_HDR,  day:2,  city:'Paris 🇫🇷', label:'Day 2 — Paris City Tour · Eiffel Tower · Seine Cruise'},
+  {type:T_HOTEL, day:2, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 2', risk:'ok'},
+  {type:T_GROUP, day:2, label:'Guided Paris City Tour (Champs-Élysées, Arc de Triomphe, Invalides)', groupTotal:200, curr:'EUR', note:'Guide in Paris — group cost €200', risk:'ok'},
+  {type:T_ACT,   day:2, label:'Eiffel Tower — 2nd Level Entry', localRate:23, curr:'EUR', risk:'ok', note:'Flat rate contracted (Nishanth confirmed)'},
+  {type:T_ACT,   day:2, label:'Seine River Cruise', localRate:6, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_MEAL,  day:2, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals Paris+Brussels+Amsterdam (€104 total ÷ 8 days = €13/day)', risk:'ok'},
+  {type:T_SUBTOT,day:2},
+
+  // ── DAY 3 ──
+  {type:T_HDR,  day:3,  city:'Paris / Disneyland 🇫🇷', label:'Day 3 — Disneyland Paris'},
+  {type:T_HOTEL, day:3, hotelCity:'Paris', nights:1, label:'Hotel — Paris CDG Night 3', risk:'ok'},
+  {type:T_ACT,   day:3, label:'Disneyland Paris — Park Entry (INCLUDED in tour)', localRate:80, curr:'EUR', risk:'red', note:'⚠️ WOE-01: WRONG TICKET TYPE BOOKED. T-7 check MUST verify correct park/ticket category (§13). Lesson learned — never repeat.'},
+  {type:T_MEAL,  day:3, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  {type:T_SUBTOT,day:3},
+
+  // ── DAY 4 ──
+  {type:T_HDR,  day:4,  city:'Paris → Brussels 🇧🇪 → Amsterdam 🇳🇱', label:'Day 4 — Brussels Orientation + Amsterdam Check-in'},
+  {type:T_HOTEL, day:4, hotelCity:'Amsterdam', nights:1, label:'Hotel — Amsterdam Schiphol', risk:'ok'},
+  {type:T_BLANK, day:4, label:'Brussels stop: Grand Place, Manneken Pis, Atomium photo', note:'En-route stop — no separate cost', risk:'ok'},
+  {type:T_MEAL,  day:4, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  {type:T_SUBTOT,day:4},
+
+  // ── DAY 5 ──
+  {type:T_HDR,  day:5,  city:'Amsterdam 🇳🇱', label:'Day 5 — Keukenhof / Zaanse Schans + Canal Cruise'},
+  {type:T_ACT,   day:5, label:'Keukenhof Gardens (until 15 May) / Zaanse Schans (from 16 May)', localRate:18, curr:'EUR', risk:'amber', note:'⚠️ Keukenhof closes ~15 May. WOE-01 only. WOE-02 onwards = Zaanse Schans — verify same €18 rate applies.'},
+  {type:T_ACT,   day:5, label:'Amsterdam Canal Cruise (glass-roof boat)', localRate:8, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_MEAL,  day:5, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'8 Meals block', risk:'ok'},
+  {type:T_SUBTOT,day:5},
+
+  // ── DAY 6 ──
+  {type:T_HDR,  day:6,  city:'Amsterdam → Frankfurt 🇩🇪', label:'Day 6 — Cologne + Black Forest + Frankfurt'},
+  {type:T_HOTEL, day:6, hotelCity:'Frankfurt', nights:1, label:'Hotel — Frankfurt', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Cologne Cathedral exterior visit (en route)', note:'No entry cost — exterior only', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Scenic Black Forest drive', note:'No separate cost — coach route', risk:'ok'},
+  {type:T_BLANK, day:6, label:'Live Cuckoo Clock demonstration', note:'Not separately costed in sheet — confirm if any cost', risk:'amber'},
+  {type:T_MEAL,  day:6, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'2 Meals Germany (€32 ÷ 2 days = €16/day)', risk:'ok'},
+  {type:T_SUBTOT,day:6},
+
+  // ── DAY 7 ──
+  {type:T_HDR,  day:7,  city:'Frankfurt → Zurich 🇨🇭', label:'Day 7 — Rhine Falls + Arrival Zurich'},
+  {type:T_HOTEL, day:7, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 1 (CHF — see options)', risk:'amber'},
+  {type:T_BLANK, day:7, label:'Rhine Falls at Schaffhausen — viewing', note:'No entry cost — viewing from platform', risk:'ok'},
+  {type:T_MEAL,  day:7, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Switzerland (€85 ÷ 5 days = €17/day)', risk:'amber', note:'Swiss F&B costs are highest in Europe — €17/meal may be tight'},
+  {type:T_SUBTOT,day:7},
+
+  // ── DAY 8 ──
+  {type:T_HDR,  day:8,  city:'Swiss Alps 🇨🇭', label:'Day 8 — Mt. Titlis (Included) + Jungfrau (Optional) + Interlaken'},
+  {type:T_HOTEL, day:8, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 2 (CHF)', risk:'amber'},
+  {type:T_ACT,   day:8, label:'Mt. Titlis — World\'s first revolving cable car (INCLUDED)', localRate:72, curr:'EUR', risk:'ok', note:'Flat rate contracted. No Ice Flyer included.'},
+  {type:T_BLANK, day:8, label:'Interlaken orientation walk', note:'No cost — included stop', risk:'ok'},
+  {type:T_OPT,   day:8, label:'OPTIONAL: Jungfrau — Top of Europe (§04)', localRate:230, curr:'EUR', risk:'red', note:'⚠️ WOE-01: TM collected €6,750 cash — NOT declared. Company share €6,300 outstanding. §03/§04 violation.'},
+  {type:T_MEAL,  day:8, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Switzerland block', risk:'ok'},
+  {type:T_SUBTOT,day:8},
+
+  // ── DAY 9 ──
+  {type:T_HDR,  day:9,  city:'Zurich → Lucerne → Innsbruck 🇦🇹', label:'Day 9 — Lucerne + Innsbruck Arrival'},
+  {type:T_HOTEL, day:9, hotelCity:'Zurich', nights:1, label:'Hotel — Zurich Night 3 (CHF) — checkout this day', risk:'amber'},
+  {type:T_HOTEL, day:9, hotelCity:'Innsbruck', nights:1, label:'Hotel — Innsbruck Check-in', risk:'ok'},
+  {type:T_BLANK, day:9, label:'Lucerne lakeside walk (Kapellbrücke, Chapel Bridge)', note:'No entry cost', risk:'ok'},
+  {type:T_GROUP, day:9, label:'Lucerne Coach Parking', groupTotal:107, curr:'CHF', note:'Group cost CHF 107 (converted at live rate)', risk:'ok'},
+  {type:T_BLANK, day:9, label:'Innsbruck: Maria Theresien Strasse, Golden Roof orientation', note:'No cost', risk:'ok'},
+  {type:T_MEAL,  day:9, label:'Meals — Breakfast + Lunch (Swiss) + Dinner (Austrian)', localRate:null, mealBlock:'5 Meals Switzerland + 2 Meals Austria/Vaduz', risk:'ok'},
+  {type:T_SUBTOT,day:9},
+
+  // ── DAY 10 ──
+  {type:T_HDR,  day:10, city:'Innsbruck → Vaduz 🇱🇮 → Padova 🇮🇹', label:'Day 10 — Vaduz Toy Train + Swarovski Crystal + Padova'},
+  {type:T_HOTEL, day:10, hotelCity:'Padova', nights:1, label:'Hotel — Padova (Venice base)', risk:'ok'},
+  {type:T_ACT,   day:10, label:'Vaduz Toy Train — Liechtenstein', localRate:15, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_ACT,   day:10, label:'Swarovski Crystal Worlds Museum & Shopping (INCLUDED)', localRate:18, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_MEAL,  day:10, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'2 Meals Austria & Vaduz (€32 ÷ 2 days = €16/day)', risk:'ok'},
+  {type:T_SUBTOT,day:10},
+
+  // ── DAY 11 ──
+  {type:T_HDR,  day:11, city:'Venice 🇮🇹', label:'Day 11 — Venice: Vaporetto · Gondola · Free Time'},
+  {type:T_GROUP, day:11, label:'Venice Coach Permit (§15 compliance)', groupTotal:300, curr:'EUR', note:'Group cost €300 — mandatory permit', risk:'ok'},
+  {type:T_ACT,   day:11, label:'Vaporetto — water bus transfer to St. Mark\'s Square', localRate:15, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_ACT,   day:11, label:'Venetian Gondola Ride (INCLUDED)', localRate:20, curr:'EUR', risk:'ok', note:'Flat rate contracted'},
+  {type:T_BLANK, day:11, label:'Free time on Venice island', note:'No cost', risk:'ok'},
+  {type:T_MEAL,  day:11, label:'Meals — Breakfast + Lunch + Dinner', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo (€65 ÷ 5 days = €13/day)', risk:'ok'},
+  {type:T_SUBTOT,day:11},
+
+  // ── DAY 12 ──
+  {type:T_HDR,  day:12, city:'Padova → Pisa 🇮🇹 → Arezzo', label:'Day 12 — Pisa Leaning Tower + Florence Guided Tour'},
+  {type:T_HOTEL, day:12, hotelCity:'Arezzo', nights:1, label:'Hotel — Arezzo (Florence base)', risk:'ok'},
+  {type:T_BLANK, day:12, label:'Leaning Tower of Pisa — Square of Miracles photo stop', note:'No entry cost — exterior viewing only', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Pisa Coach Permit', groupTotal:250, curr:'EUR', note:'Group cost €250 (§15)', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Pisa Train (TM transfer)', groupTotal:100, curr:'EUR', note:'Group cost €100', risk:'amber', note2:'Clarify: is this TM rail ticket or group transfer?'},
+  {type:T_GROUP, day:12, label:'Florence Guide — Guided City Tour', groupTotal:180, curr:'EUR', note:'Group cost €180', risk:'ok'},
+  {type:T_GROUP, day:12, label:'Florence Coach Permit (ZTL)', groupTotal:320, curr:'EUR', note:'Group cost €320 (§15)', risk:'ok'},
+  {type:T_ACT,   day:12, label:'Florence Headset (audio guide)', localRate:1.5, curr:'EUR', risk:'ok', note:'Per person — flat rate'},
+  {type:T_MEAL,  day:12, label:'Meal — Pisa lunch', localRate:null, mealBlock:'1 Meal Pisa (€14)', risk:'ok'},
+  {type:T_MEAL,  day:12, label:'Meal — Arezzo dinner', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
+  {type:T_SUBTOT,day:12},
+
+  // ── DAY 13 ──
+  {type:T_HDR,  day:13, city:'Rome 🇮🇹 → FCO Departure', label:'Day 13 — Rome: Colosseum · Vatican · Trevi · Departure FCO'},
+  {type:T_MISS,  day:13, hotelCity:'Rome', label:'⚠️ HOTEL ROME — NOT IN PROVIDED LIST', note:'Please confirm Rome hotel + rate. Old sheet used Hampton by Hilton Rome North €50/room = €25/pp. UPDATE REQUIRED.', risk:'missing'},
+  {type:T_GROUP, day:13, label:'Rome Coach Permit / ZTL Access (§15)', groupTotal:550, curr:'EUR', note:'Highest permit cost in tour. €550 group.', risk:'amber', note2:'Verify ZTL zone applies to all 6 departure routes'},
+  {type:T_GROUP, day:13, label:'Rome Guide — Colosseum + Roman Forum (INCLUDED)', groupTotal:240, curr:'EUR', note:'Group cost €240', risk:'ok'},
+  {type:T_BLANK, day:13, label:'St. Peter\'s Basilica — free entry', note:'No cost', risk:'ok'},
+  {type:T_BLANK, day:13, label:'Trevi Fountain photo stop', note:'No cost', risk:'ok'},
+  {type:T_ACT,   day:13, label:'Gelato / Ice Cream / Waffle (goodwill)', localRate:6, curr:'EUR', risk:'ok', note:'Goodwill gesture — per person'},
+  {type:T_MEAL,  day:13, label:'Meals — Breakfast + Lunch', localRate:null, mealBlock:'5 Meals Padova+Rome+Arezzo block', risk:'ok'},
+  {type:T_SUBTOT,day:13},
+
+  // ── SEASON-WIDE / DAILY COSTS ──
+  {type:T_HDR, day:0, city:'Season-wide', label:'Season-wide / Per-Tour Costs (divided by pax)'},
+  {type:T_GROUP, day:0, label:'Coach Transport — 13 days × €750/day', groupTotal:9750, curr:'EUR', note:'€750/day confirmed by Nishanth (WhatsApp). Empty run included. €9,750/tour ÷ pax.', risk:'ok'},
+  {type:T_GROUP, day:0, label:'TM Hotel Stays × 12 nights + Driver Room (FOC)', groupTotal:1242, curr:'EUR', note:'FOC = hotel provides driver room free. Verify FOC applies all 6 departures.', risk:'amber'},
+  {type:T_GROUP, day:0, label:'Lerms + Missed Meal Allowance — TM & Driver', groupTotal:910, curr:'EUR', note:'€910/tour. Should be itemised per §10 (missed meal ≥€15/meal).', risk:'amber'},
+  {type:T_GROUP, day:0, label:'TM Flight', groupTotal:250, curr:'EUR', note:'Sheet: €250. Nishanth chat: €300 budget. Gap of €50. Monitor.', risk:'amber'},
+  {type:T_MISS,  day:0, label:'⚠️ TM SALARY / TOUR FEE — MISSING FROM SHEET', note:'TM agreed fee (typically €1,500–1,800/tour) is NOT in Nishanth\'s costing sheet. At 40 pax this is €37–45/pp UNCOSTED. CRITICAL gap.', risk:'missing'},
+  {type:T_GROUP, day:0, label:'Tips (driver + guide gratuities)', groupTotal:39, curr:'EUR', note:'€39/tour. Applied as per-person in sheet.', risk:'ok'},
+  {type:T_GROUP, day:0, label:'Misc / Contingency', groupTotal:300, curr:'EUR', note:'⚠️ FORMULA WAS BROKEN in Nishanth sheet (Row 70). Corrected here to €300÷pax = €7.50 at 40 pax.', risk:'red'},
 ];
 
-const SHEET_MEALS = [
-  {item:'8 Meals — Paris + Brussels + Amsterdam', eur:104, risk:'amber', note:'€13/meal avg. Brussels stop meal included. Quality control per §12.'},
-  {item:'2 Meals — Germany', eur:32, risk:'green', note:'€16/meal. Reasonable.'},
-  {item:'5 Meals — Switzerland', eur:85, risk:'red', note:'€17/meal avg. Swiss F&B costs among highest in Europe. Buffer may be tight.'},
-  {item:'2 Meals — Austria & Vaduz', eur:32, risk:'green', note:'€16/meal. Reasonable.'},
-  {item:'5 Meals — Padova + Rome + Arezzo', eur:65, risk:'green', note:'€13/meal. Good.'},
-  {item:'1 Meal — Pisa', eur:14, risk:'green', note:'Single meal. Reasonable.'},
-];
+// FX helpers
+function getChfEur(){ return parseFloat(document.getElementById('chfEurRate')?.value)||1.04; }
+function getEurGbp(){ return parseFloat(document.getElementById('eurGbpRate')?.value)||0.855; }
+function getInrRate(){ return parseFloat(document.getElementById('inrRate')?.value)||107; }
+function getCostPax(){ return parseInt(document.getElementById('costPax')?.value)||40; }
+function getMarginPct(){ return parseFloat(document.getElementById('marginPct')?.value)||25; }
+function e2g(eur){ return eur * getEurGbp(); }
+function g2r(gbp){ return gbp * getInrRate(); }
+function e2r(eur){ return g2r(e2g(eur)); }
+function fE(n,dp=0){ return n==null?'—':'€'+n.toLocaleString('en-GB',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+function fG(n,dp=0){ return n==null?'—':'£'+n.toLocaleString('en-GB',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
+function fR(n){ return n==null?'—':'₹'+Math.round(n).toLocaleString('en-IN'); }
 
-const SHEET_GUIDES_PERMITS = [
-  {item:'Guide — Paris (group cost)', group:200, risk:'green', note:'Full day guide. Reasonable rate.'},
-  {item:'Guide — Rome (group cost)', group:240, risk:'green', note:'Full day guide.'},
-  {item:'TM Flight (group cost)', group:250, risk:'amber', note:'⚠️ Chat says €300 budget. Sheet shows €250. Gap of €50. TM salary not separately costed in sheet.'},
-  {item:'Pisa Train (group cost)', group:100, risk:'amber', note:'Train for TM/group transfer. Verify route.'},
-  {item:'Florence Guide (group cost)', group:180, risk:'green', note:'Half-day guide.'},
-  {item:'Venice Permit (group coach)', group:300, risk:'green', note:'Coach permit (§15 compliant).'},
-  {item:'Florence Permit (group coach)', group:320, risk:'green', note:'Coach ZTL permit (§15).'},
-  {item:'Rome Permit (group coach)', group:550, risk:'amber', note:'Highest permit cost. Verify ZTL applicability for each departure route.'},
-  {item:'Pisa Permit (group coach)', group:250, risk:'green', note:'Standard.'},
-  {item:'Lucerne Parking (group)', group:107, risk:'green', note:'Coach parking.'},
-];
-
-const SHEET_TM_COSTS = [
-  {item:'TM Stay + Driver Room (FOC) — 12 nights', group:1242, risk:'amber', note:'1242÷12nights = €103.5/night for 2 rooms. Driver FOC means hotel provides driver room free. Verify this FOC applies all 6 departures.'},
-  {item:'Lerms + Missed Meal — TM & Driver', group:910, risk:'amber', note:'€910 per tour. Breakdown not detailed. Per §10 missed meal ≥€15/meal. Should be itemised.'},
-  {item:'Misc Cost', group:300, risk:'red', note:'⚠️ BROKEN FORMULA in sheet (Row 70). At 40 pax shows near-zero instead of €300÷40=€7.50. MUST FIX in costing model.'},
-];
-
-const WEBSITE_PRICE_GBP = 2500;
-const WEBSITE_PRICE_EUR_APPROX = 2925; // at 0.855 GBP/EUR
-
-function getEurGbp(){ return parseFloat(document.getElementById('eurGbpRate').value)||0.855; }
-function getInrRate(){ return parseFloat(document.getElementById('inrRate').value)||107; }
-function getCostPax(){ return parseInt(document.getElementById('costPax').value)||40; }
-function getMarginPct(){ return parseFloat(document.getElementById('marginPct').value)||25; }
-function fmtE(n,dp=0){ return '€'+n.toLocaleString('en-GB',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
-function fmtG(n,dp=0){ return '£'+n.toLocaleString('en-GB',{minimumFractionDigits:dp,maximumFractionDigits:dp}); }
-function fmtR(n){ return '₹'+(n).toLocaleString('en-IN',{maximumFractionDigits:0}); }
-
-function getChfEur(){
-  const el = document.getElementById('chfEurRate');
-  return el ? parseFloat(el.value)||1.04 : 1.04;
+function hotelPPForCity(city){
+  const opts = HOTEL_OPTIONS[city];
+  if(!opts||!opts[0]) return null;
+  const sel = HOTEL_SEL[city]||0;
+  const opt = opts[Math.min(sel, opts.length-1)];
+  if(!opt.room) return null;
+  const roomEUR = opt.curr==='CHF' ? opt.room * getChfEur() : opt.room;
+  return roomEUR / 2; // per person (twin)
 }
 
-function calcHotelPP(){
-  const chf_eur = getChfEur();
-  return SHEET_HOTELS.reduce((sum, h) => {
-    const o = h.options[h.selected];
-    const rateEUR = o.curr === 'CHF' ? o.roomRate * chf_eur : o.roomRate;
-    return sum + (rateEUR / 2) * h.nights;
-  }, 0);
-}
+function buildCostingTable(){
+  const pax = getCostPax();
+  const tb = document.getElementById('costingBody');
+  const ft = document.getElementById('costingFoot');
+  if(!tb) return;
 
-function calcNett(pax){
-  const hotelPP    = calcHotelPP();
-  const ssPP       = SHEET_SIGHTSEEING.reduce((s,i)=>s+i.eur, 0);
-  const mealsPP    = SHEET_MEALS.reduce((s,i)=>s+i.eur, 0);
-  const guidesTotal= SHEET_GUIDES_PERMITS.reduce((s,i)=>s+i.group, 0);
-  const coachGroup = 9750;
-  const tmGroup    = SHEET_TM_COSTS.reduce((s,i)=>s+i.group, 0);
-  const miscPP     = 300/pax;
-  return {
-    hotels:  hotelPP,
-    ss:      ssPP,
-    meals:   mealsPP,
-    guides:  guidesTotal/pax,
-    coach:   coachGroup/pax,
-    tm:      tmGroup/pax,
-    misc:    miscPP,
-    total:   hotelPP + ssPP + mealsPP + guidesTotal/pax + coachGroup/pax + tmGroup/pax + miscPP
+  const riskBg   = {ok:'',amber:'background:#fffbeb',red:'background:#fef2f2',missing:'background:#fef2f2'};
+  const typeTag  = {
+    hotel:    '<span style="background:#dbeafe;color:#1e40af;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Hotel</span>',
+    activity: '<span style="background:#fef3c7;color:#92400e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Activity</span>',
+    meal:     '<span style="background:#dcfce7;color:#166534;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Meal</span>',
+    group:    '<span style="background:#ede9fe;color:#5b21b6;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Group÷pax</span>',
+    transport:'<span style="background:#e0f2fe;color:#0c4a6e;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Transport</span>',
+    optional: '<span style="background:#ffedd5;color:#9a3412;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Optional</span>',
+    blank:    '<span style="background:#f3f4f6;color:#6b7280;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">Included</span>',
+    missing:  '<span style="background:#fee2e2;color:#991b1b;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700">⚠️ Missing</span>',
+    subtotal: '',
   };
-}
 
+  let rows = '';
+  let totalEUR = 0;
+  let dayTotals = {};
+  let currentDay = null;
+  let dayTotal = 0;
 
-function buildCostRiskBanner(){
-  const el = document.getElementById('costRiskBanner');
-  if(!el) return;
-  const chf = getChfEur();
-  const zurichMin = (130 * chf / 2 * 3).toFixed(0);
-  el.innerHTML = `
-  <div class="alert a-red"><div class="a-icon">🚨</div><div><strong>FORMULA ERROR in costing sheet (Row 70 — Misc Cost):</strong> €300 fixed cost divided incorrectly — near-zero at 40+ pax. Corrected in dashboard to €300÷pax = €${(300/getCostPax()).toFixed(2)}/pp.</div></div>
-  <div class="alert a-red"><div class="a-icon">🚨</div><div><strong>TM salary/fee ABSENT from costing sheet:</strong> TM Flight (€250) and stay are costed but the agreed tour fee (~€1,650/tour) is completely missing. At 40 pax this is €41.25/pp uncosted.</div></div>
-  <div class="alert a-red"><div class="a-icon">🚨</div><div><strong>Rome hotel NOT provided in new hotel list.</strong> Using old sheet fallback €50/room = €25/pp. Please confirm Rome hotel options.</div></div>
-  <div class="alert a-amber"><div class="a-icon">💱</div><div><strong>Zurich: CHF exposure on 3 nights.</strong> At current CHF/EUR ${chf}: min option (Harry's Home CHF 130/room) = €${zurichMin}/pp for 3N. If CHF strengthens 10% → +€${Math.round(130*chf*0.1/2*3)}/pp. Monitor rate.</div></div>
-  <div class="alert a-amber"><div class="a-icon">🇬🇧</div><div><strong>London hotels in the list are NOT on WOE itinerary.</strong> GBP-denominated. Likely a separate UK tour product (Heathrow/Slough). Excluded from WOE costing — shown separately below hotel table.</div></div>
-  <div class="alert a-amber"><div class="a-icon">⚠️</div><div><strong>Flat rate across all 6 departures:</strong> One rate used May–Sep regardless of season. Summer rates (WOE-05 Aug, WOE-06 Sep) may differ from contracted rate. Monitor and update if hotels flag seasonal surcharges.</div></div>`;
-}
+  ITIN_ROWS.forEach((row, idx) => {
 
-function buildPriceCompGrid(){
-  const pax = getCostPax();
-  const c = calcNett(pax);
-  const eur_gbp = getEurGbp();
-  const inr = getInrRate();
-  const nettGBP = c.total * eur_gbp;
-  const withHandling = c.total * 1.15;
-  const sellAtMargin = c.total / (1 - getMarginPct()/100);
-  const sellGBP = sellAtMargin * eur_gbp;
-  const sellINR = sellGBP * inr;
-  const gap = WEBSITE_PRICE_GBP - sellGBP;
-  const gapClass = gap >= 0 ? 'profit-pos' : 'profit-neg';
+    if(row.type === T_HDR){
+      // Close previous day subtotal visually
+      if(currentDay !== null && currentDay > 0){
+        // subtotal row already appended below
+      }
+      currentDay = row.day;
+      dayTotal = 0;
+      const dayLabel = row.day > 0 ? `Day ${row.day}` : 'Season';
+      rows += `<tr style="background:#1a3a5c">
+        <td style="color:#fff;font-weight:700;font-size:12px;padding:9px 12px">${dayLabel}</td>
+        <td colspan="9" style="color:#fff;font-weight:700;font-size:13px;padding:9px 12px">${row.label}</td>
+      </tr>`;
+      return;
+    }
 
-  const g = document.getElementById('priceCompGrid');
-  if(!g) return;
-  g.innerHTML = `
-  <div class="kpi"><div class="kpi-lbl">Nett Cost / pax (sheet)</div><div class="kpi-val">${fmtE(c.total)}</div><div class="kpi-sub">${fmtG(nettGBP,0)} at ${pax} pax</div></div>
-  <div class="kpi"><div class="kpi-lbl">+15% Handling → Product Cost</div><div class="kpi-val">${fmtE(withHandling)}</div><div class="kpi-sub">${fmtG(withHandling*eur_gbp,0)}</div></div>
-  <div class="kpi"><div class="kpi-lbl">Sell Price at ${getMarginPct()}% margin</div><div class="kpi-val" style="color:var(--orange)">${fmtG(sellGBP,0)}</div><div class="kpi-sub">${fmtR(sellGBP*inr)} · ${fmtE(sellAtMargin)}</div></div>
-  <div class="kpi"><div class="kpi-lbl">Website Price (tripfactory.com)</div><div class="kpi-val" style="color:var(--blue)">${fmtG(WEBSITE_PRICE_GBP)}</div><div class="kpi-sub ${gapClass}">Gap vs required: ${gap>=0?'+':''}${fmtG(Math.abs(gap),0)} ${gap>=0?'✓ margin cushion':'⚠️ under-priced'}</div></div>`;
-}
+    if(row.type === T_SUBTOT){
+      const dt = dayTotals[currentDay] || 0;
+      rows += `<tr style="background:#f8f9fb;border-top:2px solid #e2e6ea">
+        <td></td>
+        <td style="font-size:12px;font-weight:700;color:var(--t2);padding:8px 12px">Day ${currentDay} subtotal</td>
+        <td colspan="3"></td>
+        <td style="text-align:right;font-weight:700;color:var(--blue)">${fE(dt,2)}</td>
+        <td style="text-align:right;font-weight:700;color:var(--blue)">${fG(e2g(dt),2)}</td>
+        <td style="text-align:right;font-weight:700;color:var(--blue)">${fR(e2r(dt))}</td>
+        <td></td><td></td>
+      </tr>`;
+      return;
+    }
 
-function buildPaxSensitivity(){
-  const tb = document.getElementById('paxSensiBody');
-  if(!tb) return;
-  tb.innerHTML = '';
-  const eur_gbp = getEurGbp();
-  [15,20,25,30,35,40,45].forEach(pax => {
-    const c = calcNett(pax);
-    const withH = c.total * 1.15;
-    const sell25 = c.total / 0.75;
-    const sellGBP = sell25 * eur_gbp;
-    const sheetNett = {15:2303.97,20:2063.35,25:1919.38,30:1823.73,35:1754.84,40:1703.93,45:1663.0};
-    const vsSheet = c.total - (sheetNett[pax]||c.total);
-    const vsWeb = WEBSITE_PRICE_GBP - sellGBP;
-    const vsWebClass = vsWeb >= 0 ? 'profit-pos' : 'profit-neg';
-    const highlight = pax === 40 ? 'background:#fff7ed;font-weight:600' : '';
-    tb.innerHTML += `<tr style="${highlight}">
-      <td>${pax}${pax===40?' ← WOE max':''}</td>
-      <td class="td-num">${fmtE(c.hotels,0)}</td>
-      <td class="td-num">${fmtE(c.ss+c.meals,0)}</td>
-      <td class="td-num">${fmtE(c.coach,0)}</td>
-      <td class="td-num">${fmtE(c.guides,0)}</td>
-      <td class="td-num">${fmtE(c.tm,0)}</td>
-      <td class="td-num">${fmtE(c.misc,1)}</td>
-      <td class="td-num" style="font-weight:600">${fmtE(c.total,0)}</td>
-      <td class="td-num">${fmtE(c.total*1.15,0)}</td>
-      <td class="td-num" style="color:var(--orange)">${fmtE(sell25,0)}</td>
-      <td class="td-num" style="color:var(--orange)">${fmtG(sellGBP,0)}</td>
-      <td><span class="${vsWebClass}" style="font-weight:700">${vsWeb>=0?'+':''}${fmtG(Math.abs(vsWeb),0)} ${vsWeb>=0?'✓':'⚠️'}</span></td>
+    // Calculate per-person EUR for this row
+    let ppEUR = null;
+    let groupEUR = null;
+    let localDisp = '—';
+    let currDisp = '';
+    let noteText = row.note||'';
+
+    if(row.type === T_HOTEL){
+      ppEUR = hotelPPForCity(row.hotelCity);
+      if(ppEUR != null){
+        const opts = HOTEL_OPTIONS[row.hotelCity];
+        const sel = HOTEL_SEL[row.hotelCity]||0;
+        const opt = opts[Math.min(sel,opts.length-1)];
+        const isChf = opt.curr === 'CHF';
+        localDisp = isChf ? `CHF ${opt.room}/room` : `€${opt.room}/room`;
+        currDisp = isChf ? 'CHF→€' : 'EUR';
+        noteText = (noteText?noteText+' · ':'') + opt.n;
+        const hotelEUR = ppEUR * (row.nights||1);
+        if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
+        dayTotals[currentDay] += hotelEUR;
+        totalEUR += hotelEUR;
+      } else {
+        ppEUR = null;
+        noteText = '⚠️ ' + noteText;
+      }
+    } else if(row.type === T_ACT){
+      const r = row.localRate;
+      if(r != null){
+        const rEUR = row.curr==='CHF' ? r*getChfEur() : r;
+        ppEUR = rEUR;
+        localDisp = `${row.curr==='CHF'?'CHF':'€'}${r}/pp`;
+        currDisp = row.curr;
+        if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
+        dayTotals[currentDay] += rEUR;
+        totalEUR += rEUR;
+      }
+    } else if(row.type === T_MEAL){
+      // Meal costs are spread across days — show the block reference only, no double-count
+      ppEUR = null; localDisp='Block'; currDisp='';
+      noteText = row.mealBlock||'';
+    } else if(row.type === T_GROUP){
+      const gt = row.groupTotal||0;
+      const gtEUR = row.curr==='CHF' ? gt*getChfEur() : gt;
+      ppEUR = gtEUR / pax;
+      groupEUR = gtEUR;
+      localDisp = row.curr==='CHF' ? `CHF ${gt} total` : `€${gt} total`;
+      currDisp = row.curr==='CHF'?'CHF→€':row.curr||'EUR';
+      if(dayTotals[currentDay] == null) dayTotals[currentDay]=0;
+      dayTotals[currentDay] += ppEUR;
+      totalEUR += ppEUR;
+    } else if(row.type === T_OPT){
+      // Optional — shown but NOT counted in total
+      ppEUR = null;
+      localDisp = `€${row.localRate}/pp`;
+      currDisp = 'EUR';
+    } else if(row.type === T_MISS){
+      ppEUR = null; localDisp=''; currDisp='';
+    } else if(row.type === T_BLANK || row.type === T_TRANS){
+      ppEUR = null; localDisp='Incl.'; currDisp='';
+    }
+
+    const bg = riskBg[row.risk]||'';
+    const tag = typeTag[row.type]||'';
+    const riskIcon = row.risk==='red'?'🚨 ':row.risk==='amber'?'⚠️ ':row.risk==='missing'?'❌ ':'';
+    const noteCol = noteText ? `<span style="font-size:11px;color:var(--t3);line-height:1.5">${riskIcon}${noteText}</span>` : '';
+
+    rows += `<tr style="${bg}">
+      <td style="font-size:11px;color:var(--t3);padding:7px 12px">${row.day>0?'D'+row.day:''}</td>
+      <td style="padding:7px 12px;font-size:13px;color:${row.type===T_MISS?'#7f1d1d':row.type===T_OPT?'#9a3412':'var(--t)'};font-weight:${row.type===T_MISS||row.type===T_HDR?'700':'400'}">${row.label}</td>
+      <td style="padding:7px 12px;text-align:center">${tag}</td>
+      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${localDisp}</td>
+      <td style="padding:7px 12px;text-align:center;font-size:11px;color:var(--t3)">${currDisp}</td>
+      <td style="padding:7px 12px;text-align:right;font-weight:${ppEUR!=null?'600':'400'};color:${ppEUR!=null?'var(--t)':'var(--t3)'}">${ppEUR!=null?fE(ppEUR,2):'—'}</td>
+      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${ppEUR!=null?fG(e2g(ppEUR),2):'—'}</td>
+      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t2)">${ppEUR!=null?fR(e2r(ppEUR)):'—'}</td>
+      <td style="padding:7px 12px;text-align:right;font-size:12px;color:var(--t3)">${groupEUR!=null?fE(groupEUR,0):'—'}</td>
+      <td style="padding:7px 12px">${noteCol}</td>
     </tr>`;
   });
-}
 
-function buildCostTable(){
-  const pax = getCostPax();
-  const eur_gbp = getEurGbp();
-  const inr = getInrRate();
-  function toG(e){ return e * eur_gbp; }
-  function toR(e){ return e * eur_gbp * inr; }
+  // Also add the meal blocks total as a real cost line
+  const MEAL_TOTAL = 332; // €104+32+85+32+65+14
+  totalEUR += MEAL_TOTAL;
 
-  const tb = document.getElementById('costBody');
-  if(!tb) return;
-  tb.innerHTML = '';
+  tb.innerHTML = rows;
 
-  const riskColors = {green:'#f0fdf4',amber:'#fffbeb',red:'#fef2f2'};
-  const riskBadge = {green:'<span class="badge b-green">Low Risk</span>',amber:'<span class="badge b-amber">⚠️ Monitor</span>',red:'<span class="badge b-red">🚨 High Risk</span>'};
-
-  // HOTELS
-  let hotelTotal = 0;
-  tb.innerHTML += `<tr><td colspan="7" style="background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:6px 12px">ACCOMMODATION (exact PPPN from costing sheet, twin-share rate)</td></tr>`;
-  SHEET_HOTELS.forEach(h => {
-    const pp = h.pppn * h.nights;
-    hotelTotal += pp;
-    tb.innerHTML += `<tr style="background:${riskColors[h.risk]}"><td>${h.city} (${h.nights}N × €${h.pppn}/pp)</td><td><span class="badge b-blue">Hotel</span></td><td class="td-num">${fmtE(pp,0)}</td><td class="td-num">${fmtG(toG(pp),0)}</td><td class="td-num">${fmtR(toR(pp))}</td><td style="font-size:11px;color:var(--t3)">Sheet</td><td>${riskBadge[h.risk]}</td></tr>`;
-  });
-  tb.innerHTML += `<tr style="background:#f8f9fb;font-weight:600"><td colspan="2">Hotel subtotal</td><td class="td-num">${fmtE(hotelTotal)}</td><td class="td-num">${fmtG(toG(hotelTotal))}</td><td class="td-num">${fmtR(toR(hotelTotal))}</td><td colspan="2"></td></tr>`;
-
-  // SIGHTSEEING
-  tb.innerHTML += `<tr><td colspan="7" style="background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:6px 12px">SIGHTSEEING (flat rates contracted — Nishanth confirmed)</td></tr>`;
-  let ssTotal = 0;
-  SHEET_SIGHTSEEING.forEach(i => {
-    ssTotal += i.eur;
-    tb.innerHTML += `<tr style="background:${riskColors[i.risk]}"><td>${i.item}</td><td><span class="badge b-amber">Sightseeing</span></td><td class="td-num">${fmtE(i.eur,1)}</td><td class="td-num">${fmtG(toG(i.eur),1)}</td><td class="td-num">${fmtR(toR(i.eur))}</td><td style="font-size:11px;color:var(--t3)">Sheet</td><td title="${i.note}">${riskBadge[i.risk]}</td></tr>`;
-  });
-  tb.innerHTML += `<tr style="background:#f8f9fb;font-weight:600"><td colspan="2">Sightseeing subtotal</td><td class="td-num">${fmtE(ssTotal,1)}</td><td class="td-num">${fmtG(toG(ssTotal),1)}</td><td class="td-num">${fmtR(toR(ssTotal))}</td><td colspan="2"></td></tr>`;
-
-  // MEALS
-  tb.innerHTML += `<tr><td colspan="7" style="background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:6px 12px">MEALS (per person per departure)</td></tr>`;
-  let mealTotal = 0;
-  SHEET_MEALS.forEach(i => {
-    mealTotal += i.eur;
-    tb.innerHTML += `<tr style="background:${riskColors[i.risk]}"><td>${i.item}</td><td><span class="badge b-purple">Meals</span></td><td class="td-num">${fmtE(i.eur,0)}</td><td class="td-num">${fmtG(toG(i.eur),0)}</td><td class="td-num">${fmtR(toR(i.eur))}</td><td style="font-size:11px;color:var(--t3)">Sheet</td><td>${riskBadge[i.risk]}</td></tr>`;
-  });
-  tb.innerHTML += `<tr style="background:#f8f9fb;font-weight:600"><td colspan="2">Meals subtotal</td><td class="td-num">${fmtE(mealTotal)}</td><td class="td-num">${fmtG(toG(mealTotal))}</td><td class="td-num">${fmtR(toR(mealTotal))}</td><td colspan="2"></td></tr>`;
-
-  // GUIDES + PERMITS (group costs ÷ pax)
-  tb.innerHTML += `<tr><td colspan="7" style="background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:6px 12px">GUIDES & PERMITS (group costs ÷ ${pax} pax)</td></tr>`;
-  let guidesTotal = 0;
-  SHEET_GUIDES_PERMITS.forEach(i => {
-    const pp = i.group/pax;
-    guidesTotal += pp;
-    tb.innerHTML += `<tr style="background:${riskColors[i.risk]}"><td>${i.item} (€${i.group} total ÷ ${pax})</td><td><span class="badge b-orange">Guides/Permits</span></td><td class="td-num">${fmtE(pp,2)}</td><td class="td-num">${fmtG(toG(pp),2)}</td><td class="td-num">${fmtR(toR(pp))}</td><td style="font-size:11px;color:var(--t3)">Sheet</td><td>${riskBadge[i.risk]}</td></tr>`;
-  });
-
-  // COACH
-  const coachPP = 9750/pax;
-  tb.innerHTML += `<tr><td>Coach transport — 13 days × €750/day (€9,750 total ÷ ${pax})</td><td><span class="badge b-blue">Transport</span></td><td class="td-num">${fmtE(coachPP,2)}</td><td class="td-num">${fmtG(toG(coachPP),2)}</td><td class="td-num">${fmtR(toR(coachPP))}</td><td style="font-size:11px;color:var(--t3)">Sheet + Chat</td><td><span class="badge b-green">Low Risk</span></td></tr>`;
-  tb.innerHTML += `<tr style="background:#f8f9fb;font-weight:600"><td colspan="2">Guides+Permits+Coach subtotal</td><td class="td-num">${fmtE(guidesTotal+coachPP,2)}</td><td class="td-num">${fmtG(toG(guidesTotal+coachPP),2)}</td><td class="td-num">${fmtR(toR(guidesTotal+coachPP))}</td><td colspan="2"></td></tr>`;
-
-  // TM COSTS
-  tb.innerHTML += `<tr><td colspan="7" style="background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:6px 12px">TOUR MANAGER & DRIVER COSTS (group costs ÷ ${pax} pax)</td></tr>`;
-  let tmTotal = 0;
-  SHEET_TM_COSTS.forEach(i => {
-    const pp = i.item.includes('Misc') ? 300/pax : i.group/pax;
-    tmTotal += pp;
-    const risk = i.risk;
-    tb.innerHTML += `<tr style="background:${riskColors[risk]}"><td>${i.item}${i.item.includes('Misc')?` [CORRECTED: €300÷${pax}=€${(300/pax).toFixed(2)} — sheet formula was broken]`:''}</td><td><span class="badge b-gray">TM/Driver</span></td><td class="td-num">${fmtE(pp,2)}</td><td class="td-num">${fmtG(toG(pp),2)}</td><td class="td-num">${fmtR(toR(pp))}</td><td style="font-size:11px;color:var(--t3)">Sheet</td><td>${riskBadge[risk]}</td></tr>`;
-  });
-  tb.innerHTML += `<tr style="background:#fef2f2;font-weight:600"><td colspan="2">⚠️ TM Salary/Fee (MISSING from sheet — estimated €1,650÷${pax})</td><td class="td-num" style="color:var(--red)">${fmtE(1650/pax,2)}</td><td class="td-num" style="color:var(--red)">${fmtG(toG(1650/pax),2)}</td><td class="td-num" style="color:var(--red)">${fmtR(toR(1650/pax))}</td><td style="font-size:11px;color:var(--t3)">Missing</td><td><span class="badge b-red">🚨 Not costed</span></td></tr>`;
-  tb.innerHTML += `<tr style="background:#f8f9fb;font-weight:600"><td colspan="2">TM+Driver subtotal (excl. missing TM fee)</td><td class="td-num">${fmtE(tmTotal,2)}</td><td class="td-num">${fmtG(toG(tmTotal),2)}</td><td class="td-num">${fmtR(toR(tmTotal))}</td><td colspan="2"></td></tr>`;
-
-  const nett = calcNett(pax);
-  const handling = nett.total * 1.15;
+  // FOOTER — totals
+  const handling = totalEUR * 1.15;
   const margin = getMarginPct()/100;
-  const sell = nett.total / (1-margin);
-  const profit = sell - nett.total;
+  const sellEUR = totalEUR / (1-margin);
+  const profitEUR = sellEUR - totalEUR;
 
-  // Totals
-  document.getElementById('nettEUR').textContent = fmtE(nett.total,0);
-  document.getElementById('nettGBP').textContent = fmtG(toG(nett.total),0);
-  document.getElementById('nettINR').textContent = fmtR(toR(nett.total));
-  document.getElementById('handlingEUR').textContent = fmtE(handling,0);
-  document.getElementById('handlingGBP').textContent = fmtG(toG(handling),0);
-  document.getElementById('handlingINR').textContent = fmtR(toR(handling));
-  document.getElementById('sellEUR').textContent = fmtE(sell,0);
-  document.getElementById('sellGBP').textContent = fmtG(toG(sell),0);
-  document.getElementById('sellINR').textContent = fmtR(toR(sell));
-  document.getElementById('profitEUR').textContent = fmtE(profit,0)+' /pp · '+fmtE(profit*pax,0)+' total';
-  document.getElementById('profitGBP').textContent = fmtG(toG(profit),0)+' /pp · '+fmtG(toG(profit)*pax,0)+' total';
-  document.getElementById('profitINR').textContent = fmtR(toR(profit))+' /pp';
-  document.getElementById('marginLabel').textContent = getMarginPct();
-  document.getElementById('sellPriceDisplay').textContent = fmtE(sell,0);
-  document.getElementById('sellPriceGBP').textContent = fmtG(toG(sell),0)+' per person';
-  document.getElementById('sellPriceINR').textContent = fmtR(toR(sell))+' per person';
+  ft.innerHTML = `
+    <tr style="background:#f8f9fb;border-top:3px solid #1a3a5c">
+      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:14px;color:var(--t)">NETT COST per person (${pax} pax)<br><span style="font-size:11px;font-weight:400;color:var(--t3)">Hotels + Activities + Meals + Group costs ÷ pax + Coach ÷ pax + TM costs ÷ pax</span></td>
+      <td colspan="3"></td>
+      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--red)">${fE(totalEUR,0)}</td>
+      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--red)">${fG(e2g(totalEUR),0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--red)">${fR(e2r(totalEUR))}</td>
+      <td></td><td></td>
+    </tr>
+    <tr style="background:#fef3c7">
+      <td colspan="2" style="padding:8px 12px;font-weight:600;color:var(--amber)">+ 15% Handling Fee (Nishanth sheet)</td>
+      <td colspan="3"></td>
+      <td style="text-align:right;font-weight:600;color:var(--amber)">${fE(handling,0)}</td>
+      <td style="text-align:right;font-weight:600;color:var(--amber)">${fG(e2g(handling),0)}</td>
+      <td style="text-align:right;font-weight:600;color:var(--amber)">${fR(e2r(handling))}</td>
+      <td></td><td></td>
+    </tr>
+    <tr style="background:#fff7ed">
+      <td colspan="2" style="padding:10px 12px;font-weight:700;font-size:14px;color:var(--orange)">SELLING PRICE at ${getMarginPct()}% margin</td>
+      <td colspan="3"></td>
+      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--orange)">${fE(sellEUR,0)}</td>
+      <td style="text-align:right;font-weight:700;font-size:15px;color:var(--orange)">${fG(e2g(sellEUR),0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--orange)">${fR(e2r(sellEUR))}</td>
+      <td></td>
+      <td style="padding:8px 12px;font-size:12px;color:${2500-e2g(sellEUR)>=0?'var(--green)':'var(--red)'};font-weight:700">
+        Website £2,500 → ${2500-e2g(sellEUR)>=0?'+':''}${fG(Math.abs(2500-e2g(sellEUR)),0)} ${2500-e2g(sellEUR)>=0?'✓ cushion':'⚠️ under-priced'}
+      </td>
+    </tr>
+    <tr style="background:#f0fdf4">
+      <td colspan="2" style="padding:8px 12px;font-weight:700;color:var(--green)">GROSS PROFIT per person / total (${pax} pax)</td>
+      <td colspan="3"></td>
+      <td style="text-align:right;font-weight:700;color:var(--green)">${fE(profitEUR,0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--green)">${fG(e2g(profitEUR),0)} / ${fG(e2g(profitEUR)*pax,0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--green)">${fR(e2r(profitEUR))}</td>
+      <td></td><td></td>
+    </tr>`;
+
+  // Summary strip
+  buildSummaryStrip(totalEUR, pax);
+  buildSensitivity(totalEUR, pax);
 }
 
-function buildHotels(){
-  const tb = document.getElementById('hotelBody');
+function buildSummaryStrip(totalEUR, pax){
+  const el = document.getElementById('summaryStrip');
+  if(!el) return;
+  const eur_gbp = getEurGbp();
+  const sellEUR = totalEUR / (1 - getMarginPct()/100);
+  const webGap = 2500 - sellEUR * eur_gbp;
+  el.innerHTML = `
+    <div class="kpi"><div class="kpi-lbl">Nett Cost /pax</div><div class="kpi-val">${fE(totalEUR,0)}</div><div class="kpi-sub">${fG(totalEUR*eur_gbp,0)} at ${pax} pax</div></div>
+    <div class="kpi"><div class="kpi-lbl">+15% Handling</div><div class="kpi-val">${fE(totalEUR*1.15,0)}</div><div class="kpi-sub">${fG(totalEUR*1.15*eur_gbp,0)}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Sell @ ${getMarginPct()}% margin</div><div class="kpi-val" style="color:var(--orange)">${fG(sellEUR*eur_gbp,0)}</div><div class="kpi-sub">${fE(sellEUR,0)} · ${fR(sellEUR*eur_gbp*getInrRate())}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Website Price</div><div class="kpi-val" style="color:var(--blue)">£2,500</div><div class="kpi-sub ${webGap>=0?'':'profit-neg'}">Gap: ${webGap>=0?'+':''}${fG(Math.abs(webGap),0)} ${webGap>=0?'✓':'⚠️'}</div></div>
+    <div class="kpi"><div class="kpi-lbl">Missing: TM Fee</div><div class="kpi-val profit-neg">~£${Math.round(1650/pax*eur_gbp*10)/10}</div><div class="kpi-sub">/pp — not in sheet</div></div>
+    <div class="kpi"><div class="kpi-lbl">⚠️ Rome Hotel</div><div class="kpi-val profit-neg">TBC</div><div class="kpi-sub">Not provided — needs rate</div></div>`;
+}
+
+function buildSensitivity(totalEUR, pax){
+  const tb = document.getElementById('sensiBody');
+  const lbl = document.getElementById('sensiPaxLabel');
   if(!tb) return;
-  tb.innerHTML = '';
-  const chf_eur = parseFloat(document.getElementById('chfEurRate')?document.getElementById('chfEurRate').value:1.04) || 1.04;
+  if(lbl) lbl.textContent = pax;
   const eur_gbp = getEurGbp();
   const inr = getInrRate();
-  let totalPP_eur = 0;
-
-  const riskBg  = {green:'',amber:'background:#fffbeb',red:'background:#fef2f2'};
-  const riskTag = {green:'<span class="badge b-green">✓ OK</span>',
-                   amber:'<span class="badge b-amber">⚠️ Monitor</span>',
-                   red:  '<span class="badge b-red">🚨 Action</span>'};
-
-  SHEET_HOTELS.forEach((h, hi) => {
-    // Build option dropdown
-    const sel = h.options.map((o, oi) => {
-      const rateEUR = o.curr === 'CHF' ? o.roomRate * chf_eur : o.roomRate;
-      const pp = rateEUR / 2;
-      return `<option value="${oi}" ${oi===h.selected?'selected':''}>${o.name} — ${o.curr} ${o.roomRate}/room = €${pp.toFixed(1)}/pp/night</option>`;
-    }).join('');
-
-    const chosen = h.options[h.selected];
-    const chosenEUR = chosen.curr === 'CHF' ? chosen.roomRate * chf_eur : chosen.roomRate;
-    const chosenPP  = chosenEUR / 2;
-    const totalNights = chosenPP * h.nights;
-    totalPP_eur += totalNights;
-
-    const allMin = Math.min(...h.options.map(o => (o.curr==='CHF'?o.roomRate*chf_eur:o.roomRate)/2));
-    const allMax = Math.max(...h.options.map(o => (o.curr==='CHF'?o.roomRate*chf_eur:o.roomRate)/2));
-
-    tb.innerHTML += `<tr style="${riskBg[h.risk]}">
-      <td>${h.city}</td>
-      <td>${h.nights}</td>
-      <td style="min-width:280px">
-        <select class="sel" style="font-size:12px;padding:4px 7px;width:100%"
-          onchange="SHEET_HOTELS[${hi}].selected=parseInt(this.value);buildHotels();buildCostTable();">
-          ${sel}
-        </select>
-      </td>
-      <td style="font-size:11px;color:var(--t3)">${h.curr==='CHF'?'CHF':'EUR'}</td>
-      <td class="td-num" style="font-weight:700">€${chosenPP.toFixed(1)}</td>
-      <td class="td-num">€${totalNights.toFixed(0)}</td>
-      <td class="td-num">£${(totalNights*eur_gbp).toFixed(0)}</td>
-      <td class="td-num">₹${Math.round(totalNights*eur_gbp*inr).toLocaleString('en-IN')}</td>
-      <td style="font-size:11px;color:var(--t3)">€${allMin.toFixed(0)}–€${allMax.toFixed(0)}/pp/night</td>
-      <td title="${h.riskNote}">${riskTag[h.risk]}</td>
-    </tr>`;
-  });
-
-  const totalGBP = totalPP_eur * eur_gbp;
-  if(document.getElementById('hotelTotEUR')) document.getElementById('hotelTotEUR').textContent = '€'+totalPP_eur.toFixed(0);
-  if(document.getElementById('hotelTotGBP')) document.getElementById('hotelTotGBP').textContent = '£'+totalGBP.toFixed(0);
-  if(document.getElementById('hotelTotINR')) document.getElementById('hotelTotINR').textContent = '₹'+Math.round(totalGBP*inr).toLocaleString('en-IN');
-}
-
-function buildLondonHotels(){
-  const tb = document.getElementById('londonHotelBody');
-  if(!tb) return;
-  const GBP_EUR = 1.17;
-  const GBP_INR = getInrRate() / getEurGbp() * getEurGbp(); // simplify: GBP_INR = inrRate
-  const inr = getInrRate();
-  const london = [
-    {name:'Copthorne Slough Windsor',   gbp:100},
-    {name:'Renaissance Heathrow',       gbp:100},
-    {name:'Moxy Slough Windsor',        gbp:90},
-  ];
+  const cur = getMarginPct();
   tb.innerHTML = '';
-  london.forEach(l => {
-    const ppGBP = l.gbp / 2;
-    const ppEUR = ppGBP * GBP_EUR;
-    const ppINR = ppGBP * inr;
-    tb.innerHTML += `<tr>
-      <td>${l.name}</td>
-      <td class="td-num">£${l.gbp}/room</td>
-      <td class="td-num" style="font-weight:600">£${ppGBP.toFixed(1)}/pp/night</td>
-      <td class="td-num">€${ppEUR.toFixed(0)}/pp/night</td>
-      <td class="td-num">₹${Math.round(ppINR).toLocaleString('en-IN')}/pp/night</td>
-      <td><span class="badge b-gray">UK Tour / Stopover</span></td>
+  [10,15,20,25,30,35,40].forEach(m => {
+    const sell = totalEUR/(1-m/100);
+    const sellG = sell*eur_gbp;
+    const prof = sell - totalEUR;
+    const gap = 2500 - sellG;
+    const verdict = gap >= 200 ? '<span class="badge b-green">✓ Profitable at £2,500</span>' : gap >= 0 ? '<span class="badge b-amber">⚠️ Tight margin</span>' : `<span class="badge b-red">❌ Under-priced by ${fG(Math.abs(gap),0)}</span>`;
+    const hl = Math.abs(m-cur)<0.1 ? 'background:#fff7ed;font-weight:700' : '';
+    tb.innerHTML += `<tr style="${hl}">
+      <td>${m}%${Math.abs(m-cur)<0.1?' ← current':''}</td>
+      <td style="text-align:right">${fE(totalEUR,0)}</td>
+      <td style="text-align:right;font-weight:600">${fE(sell,0)}</td>
+      <td style="text-align:right;font-weight:700;color:var(--orange)">£${sellG.toFixed(0)}</td>
+      <td style="text-align:right">₹${Math.round(sellG*inr).toLocaleString('en-IN')}</td>
+      <td style="text-align:right;color:var(--green)">£${(prof*eur_gbp).toFixed(0)}</td>
+      <td style="text-align:right;color:var(--green)">£${(prof*eur_gbp*pax).toFixed(0)}</td>
+      <td>${verdict}</td>
     </tr>`;
   });
 }
@@ -1885,47 +1873,40 @@ function buildOptionals(){
   const eur_gbp = getEurGbp();
   const inr = getInrRate();
   const opts = [
-    {name:'Paris by Night — Seine cruise', sell:40, tm:15, dr:5, co:20},
+    {name:'Paris by Night — Seine evening cruise', sell:40, tm:15, dr:5, co:20},
     {name:'Jungfrau — Top of Europe', sell:230, tm:15, dr:5, co:210},
     {name:'Disneyland Paris extra day', sell:80, tm:10, dr:0, co:70},
   ];
-  tb.innerHTML = '';
-  opts.forEach(o => {
-    tb.innerHTML += `<tr><td>${o.name}</td><td class="td-num">€${o.sell}</td><td class="td-num">£${(o.sell*eur_gbp).toFixed(0)}</td><td class="td-num">₹${Math.round(o.sell*eur_gbp*inr).toLocaleString('en-IN')}</td><td class="td-num profit-pos">€${o.tm}/pp</td><td class="td-num profit-pos">€${o.co}/pp</td><td class="td-num">₹${Math.round(o.co*eur_gbp*inr).toLocaleString('en-IN')}</td><td><span class="badge b-green">✓ §04 Approved</span></td></tr>`;
-  });
+  tb.innerHTML = opts.map(o => `<tr>
+    <td>${o.name}</td>
+    <td style="text-align:right;font-weight:600">€${o.sell}</td>
+    <td style="text-align:right">£${(o.sell*eur_gbp).toFixed(0)}</td>
+    <td style="text-align:right">₹${Math.round(o.sell*eur_gbp*inr).toLocaleString('en-IN')}</td>
+    <td style="text-align:right;color:var(--green)">€${o.tm}/pp</td>
+    <td style="text-align:right;color:var(--t3)">${o.dr?'€'+o.dr+'/pp':'—'}</td>
+    <td style="text-align:right;font-weight:600;color:var(--green)">€${o.co}/pp</td>
+    <td style="text-align:right;color:var(--green)">£${(o.co*eur_gbp).toFixed(0)}/pp</td>
+    <td style="text-align:right">₹${Math.round(o.co*eur_gbp*inr).toLocaleString('en-IN')}/pp</td>
+    <td><span class="badge b-green">ORN App (§04)</span></td>
+  </tr>`).join('');
 }
 
-function buildSensitivity(){
-  const tb = document.getElementById('sensiBody');
+function buildLondonHotels(){
+  const tb = document.getElementById('londonHotelBody');
   if(!tb) return;
-  const pax = getCostPax();
-  const eur_gbp = getEurGbp();
+  const GBP_EUR = 1.17;
   const inr = getInrRate();
-  const c = calcNett(pax);
-  const current = getMarginPct();
-  tb.innerHTML = '';
-  [10,15,20,25,30,35,40].forEach(m => {
-    const sell = c.total/(1-m/100);
-    const sellG = sell*eur_gbp;
-    const sellR = sellG*inr;
-    const profit = sell-c.total;
-    const vsWeb = WEBSITE_PRICE_GBP - sellG;
-    const verdict = vsWeb >= 200 ? '<span class="badge b-green">✓ Website price is profitable</span>' : vsWeb >= 0 ? '<span class="badge b-amber">⚠️ Margin tight</span>' : '<span class="badge b-red">❌ Under-priced at £2,500</span>';
-    const hl = Math.abs(m-current)<0.1 ? 'background:#fff7ed;font-weight:700' : '';
-    tb.innerHTML += `<tr style="${hl}"><td>${m}%${Math.abs(m-current)<0.1?' ← current':''}</td><td class="td-num">${fmtE(sell,0)}</td><td class="td-num" style="font-weight:600">£${sellG.toFixed(0)}</td><td class="td-num">₹${Math.round(sellR).toLocaleString('en-IN')}</td><td class="td-num profit-pos">£${(profit*eur_gbp).toFixed(0)}</td><td class="td-num profit-pos">£${(profit*eur_gbp*pax).toFixed(0)}</td><td>${verdict}</td></tr>`;
+  [{name:'Copthorne Slough Windsor',gbp:100},{name:'Renaissance Heathrow',gbp:100},{name:'Moxy Slough Windsor',gbp:90}].forEach(l=>{
+    const ppGBP = l.gbp/2;
+    tb.innerHTML += `<tr><td>${l.name}</td><td class="td-num">£${l.gbp}/room</td><td class="td-num" style="font-weight:600">£${ppGBP.toFixed(1)}/pp/night</td><td class="td-num">€${(ppGBP*GBP_EUR).toFixed(0)}/pp/night</td><td class="td-num">₹${Math.round(ppGBP*inr).toLocaleString('en-IN')}/pp/night</td><td><span class="badge b-gray">UK Tour / Stopover</span></td></tr>`;
   });
 }
 
 function recalcAll(){
-  buildCostRiskBanner();
-  buildPriceCompGrid();
-  buildPaxSensitivity();
-  buildCostTable();
-  buildHotels();
-  buildLondonHotels();
+  buildCostingTable();
   buildOptionals();
-  buildSensitivity();
 }
+
 
 
 // ═══ CALENDAR ═══
@@ -2313,6 +2294,7 @@ function buildGaps(){
 recalcAll();
 buildCalendar();
 buildGaps();
+buildLondonHotels();
 
 // ═══ ALL TRIPFACTORY EUROPEAN TOURS (from tripfactory.com/trip/search?destIds=9900) ═══
 const TF_EURO_TOURS = [
