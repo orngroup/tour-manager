@@ -9,7 +9,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 :root{--blue:#1a3a5c;--orange:#E8541E;--green:#15803d;--red:#b91c1c;--amber:#d97706;--bg:#fff;--bg2:#f8f9fb;--bg3:#eef0f4;--bd:#e2e6ea;--t:#1a2332;--t2:#4a5568;--t3:#8c98a6;--r:8px}
 body{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);background:var(--bg3);min-height:100vh}
-.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.08)}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.08);gap:0}
 .topbar-left{display:flex;align-items:center;gap:14px}
 .topbar img{height:40px;object-fit:contain}
 .topbar-divider{width:1px;height:32px;background:var(--bd)}
@@ -139,9 +139,16 @@ tr:hover td{background:#fafbfc}
     <img src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAClAZADASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBQYBBAkDAv/EAE4QAAEDAwIDBAQICQkGBwAAAAEAAgMEBREGBxIhMQgTQVEUFXGRImGBk6GxwdEWGCMyUlRWlNIzQlNVcoKVouEXNGKSssIkNTY3Q4Oz/8QAGgEBAAMBAQEAAAAAAAAAAAAAAAIDBAEFBv/EAC8RAAICAQMDAgUDBAMAAAAAAAABAgMRBBIhEzFBFFEFI1OhohVUcSIyYZFSgeH/2gAMAwEAAhEDEQA/ALloiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIi+TJY3SOjbI0yMxxNDgSM9M+WUB+yQBldK3XW13J88dBcKSrfTvDJ2wTNeYnEZ4XYJwceBUe9ovRd51foeT1Dca6Gvo+KUUcM7mR1rcfCjc0EAuwMtJ8eXQ8qZ6W1Be9KXhl0sNfPbqyI4Jj5BwB5te08nNyOYIPvWqjTdaLafPsUWXbHhrg9HVwoP2f7QNl1L3Np1UIbNdzhrJi7FNUnwwT+Y4/ouOPInopwHMcjlUTrlW8SRZGSkspnKIigTCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIuHOABJIACAJyWJr9S6dtwd6ffrXScPXv6uNmPeVrVx3g2yoXFs+tLS4jqIZTL/wBAK6oSfZMi5xXk3tFEdw7RO2NKSIrlX1uP6Chk+twAWvXDtR6Qj4hQ6fvlSR0LxFGD/nJHuVq09j7JkXbBeSfeS5VY7h2qpCCKDRQHk6e4/Y1n2rAVvah1pKCKSxWGmz0LhLIR/mAU1orX4IvUQ9y3eUVW9tu0leqnVFNQaword6uqpGxGopI3MfA5xADiC4gtyefQgcxnGDaQdFVbVKp4kThYprKOEWi1e6OmaXc+Lb2U1YusrW4kEOYQ9zONrC7OcloznGOYGcr4673W09o/Wln0rc4K6SqufAWywxgxxB7yxpdkgnLgeQBIHNR6cvY7uRIC5Kj3eHdK07axWt9yt9ZWm4Sva0QFo4GsxxOJcRk/CGGjmefTC3ynmbNAyZmeF7Q4ZGDgjIyuOLSTx3Opp5PqueSqzuZ2idWWrWF3slittqgpqCrkpWy1Eb5ZHlhLXOOHAAEgkDHTHNaFX7+bp1YIGoYqZp8Kehib9LgT9K0w0VkkmUS1EE8F4gfjTI815+125+4lbxCo1rfCHdRHVGMe5mFga29XuuJNbebnVE9TNVyP+slXL4fLy0ReqXhHohXXyz0AzW3Whph5zVDGfWQsXHr3REtcyhj1dYn1L3BrI218ZLiegGHcz8S88ixrjlzA4+ZGSnCMYLRjyxyU18OXmRD1T9j0xRRf2X7pd7vs9bKi8SSzPjklhglkJLpIWPIYST1wARnxAC/W80O68t3sB28mp2UYmPp4cYxzy3Bfx8zHjiyG88/IvPcMTcc9jVu/pyScijvfO3biXHTdJDt1XtpK1tUDU4lbG98eDjDnAgAOwSOpHn0PY3DtWu7ltc222C8Q0upu6g7+pjeYmyObjvQxwBLMnODj4uWeXFFPHPc7ufPBt95omXO01dvfLNCyphfE6SF5Y9gcCMtI5gjOQR4hUi0rqTUmz261YyrM1S6nqDTXOF7yfS4gchwJ/nYIe1x88dCVcnbqiv8AbtFWqi1TXtr7zFAG1VQ05D3ZOOeBkgYBOOZBPion7TW0dy1hU02pdLU8U11iZ3FVTmRsZnjGS1wJwC5uSMEjII8hnRppxjJwl2ZTbFtKUe6M7cO0RtjS07ZIrnW1r3NDu6p6GTiGfAlwABHjzVWd3b/pvU+taq+6atdXbYKv8pURVBZ8KbJy9oaSADyJGT8LJ8V+a/bTcKic5tTou+jh6llI6QfIWZBXR/AnWecfgjqD/DZv4V6FNNNT3Rf3Mtlk5rDRgfAgjIPUHxUo7Z75aw0VQm2u7u9W9rMQQ1kjgYD4cLxk8P8AwnI8uFatT7c6/qADDorUDgehNBIB7yAs1btk90a4gR6SqYR51E8UQHvdn6FZZKmaxNojFWReUmbPW9pfcOaUugprFTM8GCke/wCkyLN6V7UN9gqGM1Lp6irKfOHSULjDIB5hriQfZke1Yiy9mbXtWQbhXWa2t5ZBmdM/3NaB/mUi6V7MGmaJ7ZdRXuvuzhgmGECniJ8jglxHyhZJvSpYx/ovirm85Jh0Rqmzay0/BfbFUmeklJb8Jpa+N4OHMc09HA9R7CMggrPYWL07Y7Tp60w2qyW+CgoYc93DC3hAycknxJJ5knJPispleY8Z47GxZxyEREOhERAEREAREQBERAEREAREQBERAcBVg7V+l9wLzrOlqbPb7xc7KKJrY46IOeyKQOdx8TGnqfgnJHMYGeStAhVlVrqluSITgpLDPPJu3eunu+Doi/k+fqyTPvwuzDtjuLIDwaIv4/tUhb9eF6B/ImPiWv8AUJeyKPSr3POfU2ltR6ZfAzUFmrLY6pDjCKhgBeGkBxAyemR713tB6C1Vrh1W3TNtbWmj4DPmojj4OLPD+cRnPCenkpb7bk4dq/T1MDzZb5ZCP7UgH/aux2HpeG/anhz+dS07sex8g+1a3fLodTyUKpdTZ4NLh7PW6TwOKz0MRPg+4x5Huyu1H2cdzHDnT2dntr/uaVdFFh9db/g0emgVO0j2ZtUi90c+oLraoKGKZskzKZ75JXhpB4RloAzjGSeWc4KtiPJcqIN+9449u5qa0263x3C71MXfcMzy2KGPiIBdjm4kg4AxyBJPTNUpWaiSXdk1GNSySPJpuwSakj1JJZ6J14jj7plaYR3wbgjAd16Ej2EjovtXWSz19fSXCttdHVVlGSaaeWBrpISfFjiMt+RQ3sjv0daaiZpvUFsp7fX1AcaSame4xSloJLCHc2nAJByQcEcjjM7clXOE63iXclGUZLKOncbbbri2JtfQU1WIniSMTwtk4Hjo4cQOCPMc13ERQLCN9TbK7dahu1Td7hY3CtqpDLNJDVSx8bz1JAdjJ8cDmqdbpWu3WTcW+2a0xGOhoqx0MLHPLyAAAQSeZ556r0M8F567rzNqd0NUztIc113qcEHqBIR9i9HQSk5NN8JGPUxSSaRZLarZPbq8be2C8XOyS1NZWUEU87zWzNDnOaCTgOAA+ILcIti9qo8EaRp3Efp1Ezvrestsj/7Q6Ux/VUH/AEBbksk7Z7nyzRGuOFwaDBs3thEAG6LtJx+lGXfWSu5BtbtzAQY9E2HIORmiYfrBW5/Iig7JvyyW2PsfClp4KSmjpqWGOCGNoayONga1gHQADkAPIL7oigSCIupda6nttsqrhVP4YKWF80rgMkNaCScewFAdtcFQBoHtH0upNcUlhqtNy0NJcJxBSVDajvHtc44b3jeEAAnAOCcZ8RzU/jp1U51yreJIjGal2OcBcYXKKBIIAB0REAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREBT/ALaU4k3Pt8IPOK0R5HlmWQ/Yu72I5Ma11BH+lbY3e6XH2rAdr2bvN5J2Zz3Vupm+zPGftWb7Euf9oF7Hh6qH/wCzV6zWNIYIv55bZBhafvLerrp7bC/3iysLq+mpS6E8PFwEkAyY8eEEu/u81UzY/cCew7mwXvU+prm23Pjm9NMkss/fOLSGgtGcniIdnHLHgsFWnlZFyXg1TtUJJPyXjVf+09tHfdXXOl1PpmNlXWRU/o1TRl4Y57WuLmvYXEAkcRBaSM8iPEKR9AbqaM1zcJrdYLlJJWRRmV0E1O+JxYCAXN4hggEjODkZUNdqLc/V9i1xFpvT12ktdNT0kU8r4Gt7yWR5ceZIJAAA5Drk5zyUtPGyNuI8P/JG1wcMvlHT7Pey2raDXFHqfU9CbVS21xlihfI10s0uCG8mk4aMkkk5OAAOpXS7Tm5+qRryu0paLrU2y228RseKV5jkne5gc4uePhYHEAGggcsnOeUvdmTXF91xoirnv4bLVUNWaYVTWBnft4GuBIHLiHFgkAA8jjOVV7fqV028mqnuJJFeWDPk1rQPqWqrNl76iWUUzxCpbfJZnss3S4zbRsuOoLvPU95XTiGWtnyWxtIaGhzjkjLXEZPiVL0UjJIw+N7XtIyHNOQfYVRvbfbHWu5GnZZ6OtbFabYHx0jKuRxjfISXOjjaMhpyclxGMkDnzw2E3Dumh9Z0dJPVTepKucU9bSSPJZHxEN7wA8muacE46gOB8MV2aVScnF5a8EoXNJJrj3LtXe62yz0vpN0uNJQwA47ypmbG33uIC879V1EdXqq71cUjZI57hUSseDkOa6RxBB8iCCrk7y7OUW5N2o7nVX+uoH0tOYGRMibJHzcXFwDujjkAkHmAPJUlqQIZZmtdxCNzgCRjIaSM/QrNBGPLzyR1LeUscFiNG9o216Z0XZbDHpevrZbfRRU8kjqlkbXOa0AkcicZHjhSXsxvVR7jX+qsosFTbKmGmNQ1xnbMxzQ5rTkgAg5cMcsHn5KP7H2YqC42Shr5dW10MtTTxzPYKSMhhc0OLQc8wCcZXO6Vjs2yG181r03UVEt81HJ6LNcJsCXuWtLpOHhADRg8IA8X5JJAxXONM3th3ZKLsisy7I3PXHaJ0Zp27S2uhp62+TQvLJpKQsbC1wOCA9x+EQeuAR8a2nbHdTS2vLbU1NvqH0M9Jg1NLWFrHxtJwHZyQWk8sg9eRwVVbs+bbM3D1VNDXvmis9ujbJVuiPC55cSGRg45ZwST4AHHMgrpb9aOodD7i1djtfe+r3wRVFO2V5eQ1wILST1Ac04zzxjyypPTVN9NPn3OK6aW9rgvix7HxtcwhzSMgg5BB8VgtdavsWirDJeb/V9xTtIaxrW8Ukrz0YxvUk4PsAJJAGVEvYtkusugLoaupkloI7h3dFG8k93hjTIBnoCSOQ5A581C3aT1w/V+4tXFBOX2q0udS0jQctcQcSyDzJcCAfJoVFem3WuDfC7stldiCl5ZP2ie0PozUeoIbNNS3C0yVMgjp5qtrDG9xOA0lrjwknAGeWTjK0TtB0O8tuqdQ3l1+c7SLmuaI6eoZG1kEhDBG6MgOLueCRnOScjoIp3Y0tT6OtelLeIwy7VFpNfcJATxd5K8ljfi4AMDHjk+KnbtG6gmf2dLGamQ+lXoUXeA9SRGJXn3tHvV6rjCcXBZT45Kt7lFqXdFcNuKTVNRq2ll0ZRyVN4o81MAYxjizh5F2H8jjiHXzCuhsnV7iVmmZn7jUMNLXCf/AMMWhrZHx4HN7WEtBByBjGR1A8YM7E9EHav1BdXtAbS29kXEegMknEefhyjWF3V3G1JujryLS2mKuantEtWKWigikMYqXE472Qt5lp5uAPIAZwTlSvi7rHBJcd2cqahFPLy/BczkvnPLHDEZJZGxsaMlziAB7SeSpJdJ9ebG7gMoIb0+pDY46gR94801ZE4kEFjjy5hzcjmCMgrYe1VrSq1GNLNoqgssdda23FlOJObpHuIPGB14QMDPLPEQs60j3JJ5T8lvqEk8rlFvGlrmhzSCDzByo53n3ZtW2sVFFUUE9yr60OdFTxSCMBjSAXOcc4GSAAASefkox2J3utlHRaV2+dYrnLIe6ovSzMxw43E4PD14QT55AHTktW7aFWJ9zrdSA8qa1Mzz8XySH6gEq03ztkxK5bN0Sx202uqTcHSA1DS0FRQNE76eSGZwdwubgkhw5EYI54Hj5La6aogqWGSCaOVmccTHAjPiMhVTvVQ7TnY9stLFM+CpvtbxEMeQXsdI+RwOPAtY0EfGsr2HaSfvNUVwle2nAp4REHHgLzxuJx0yBgZ64K5PTpRlNPhPB2NzbUWuWWeREWUvCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAo/2q3l++F6H6ENM0fMtP2rbexFETrbUE/g22xt/5pc/YtY7WVFPS703GeZhbHV01PNCSPzmiPgOPYWELfOw9SES6ruOCQ1tNCAPE/lHED6PevWm16X/AEYIL53/AGS92gr/AA6f2jv9RJI1stVTOoqdpPN8koLAB7AS72NKqVqGy2W1bK6YuXoDPXd5rqmT0ovdxNpoiWBoGcYJLeeM8jzWV1/f9ebv7gssTbZUQyU87oqa2NYQKTnh0kpP84Dq44AHJvx5PtTWZmmrhpDTVMS6kt1ibFG7GA53eEPd7SQCfaoaePTahnl8krXuy8cI2jsRWYSXXUWoHj+QhiooiR4uJe7HyNZ71GfaIv1NqLd+91lG4Pp4Xso2OByHd0OFxHxF3FhbbtXuHb9DbC39tFVxDUldcnxUsId+UYHRMAmLeoa0BxB6EgBQvPT1EAhknilY2eMSxukaR3jCSOIE9QSCM+YKvqg3dKcv4RVKSUFFFxOzY6j0v2e477WvEVOTVXCdxP8ANa5w+pgA+RVDv1znvN7r7zV/y9bUyVMg8i9xcR8mcfIpQ1HuRSydn/Te31mle+ukBZc2tYRwNbKS2McuZeS08s8hjqVEkrHxSvjla5r2OLXtIwQ4Egg/GCMJpqmpSk+7f2O2STSS8IvnsXbqax7OachbwsabeyqldjGXSDvHE/K4+5UVrZDW3molpx/vFW90YA/SkJbgfKFOFNvrS02wzNKQw1LdRMo/VrX8H5IRcJb3wdnrwcsdeLn05rUuzXoefV24tHUSQONqtEjKqrkLfglzTmKPPiSQDjyBPkqqYupTnMnY1PbGJdh7nU1rc+V3E6KElxHUkDn9RXmzIe9D3DJ48n4+efvXo/qRxZp64uAJIpJSMdc8B6Lzns0DqqvoaZoLnTTRRgeZc4DH0qGgeFJktT3SPR2yxmG0UkR5FlPG3GOmGgKrPbaqpHa1sVFxHu4ra+UDw4nykE+5gVsWgBuAMDwVYO27ZZvTtP6iawuhMclFI4dGuB7xgPtBf7ln0jXWWS29fLNx7GdrjpNrqm5cAEtwuMri7zbGBG0fIWu96hXtYXGOv3mr4o3NIoqWCmJH6QaXkfJ3mFJ/Z23F0zprY6qfdrlTwz2monLqUyATTcbuNgY08yXF2BjkCDnGCq96hpdR3umrtwK6gmNFXXKRs1U0ZjbM74RaT4NAIaCeWRjqMLVRF9eUpfwUWSXTSRYDR+oWbf8AZIgu0LxHcLj37aTB5meWR7Wkf2Wgu/uqvGgLay865sNplJdHV3Gnhkzzy10g4s+0Z962/QFs1TuvUac0XHxMsViaWyzxtPBBG55c97icgyEHhaPi6Y4isPqmzXjazc9rHwkS2yubVUEkoPBUxtfxRuB8QQAHY6HiHJXVpRco5/qef/CEm3h44XBP+6myV915u2+91d0oqXTzoYI/gFxqAxgIdG1vDgEknBzgB2cEjCiLtJ61pdS6thstmc31HYIzSUvA7LHyDAe8eYGA0HxDSfFbNrPfnVevaGPSuj9PT2+qrR3cxp5jPUSA8i1mAOAHxceYHi3mV0txNmKnRmytNeJ421F7ZXMmubouYpoHMLRGCORa1xaS7xJz0AVNKcJR6r57JFk8NPZ28s++xVWbJsRuZe43mOV0baeN3QhxiIb8uZVqvZgZTne7T7ZyA1vfmPPi4QPx9q1/Sdx1LddPT7c6fo/TBdq+OqdHECZHlgwATnhEeQHFx6cI54W5XLZfdTRd9pLnZKE3GWmcyeCrtz2uLJAASCxxDuRyOhBHtIVslGO9NpN9iEW3hpZSM121Z4n7iWiCNwMkVqBkx1GZXloP/KfetX2hs9wqae57gXNskts0jbZDRmVvE19Q1ju5jAPUMc7jPkS3PVbTa9ndzNxdXuvuvSbVFMW+kTymPvnMaAAyOJpIby5AnAGScE8jNe6Wk6O19n+/aa03RCCnprc4xRM5lwYQ9xJ6lxAJJPMklUO6MIRqi8vyyarcm5tYK79k2zC57uQVs+HMtVHLWPc/pxkCMEn2vJ+RaxvjqqPV+5N5vdKQaQOEFK4fzoogWh3ykF3sIXQ0TqW82SC8WywwOkqtQUrbe18YLpQ1z8kRgdS4HHxA5HNdzc3bjUGgZKBl5gJhrKVkgmjaTGyUg8cJcOWWnA+MHI5LUkla3J91hFWW4YS/k23tG3RkFNo/RNO4d3YrLAZ2gYxNJG3kfjDWg/31MPYuoWwbY11cRh1XdJOfm1jGNH0gqrmsafUBuEF21IJRW3iEVoMow90RJY1xbywCGch5AHoQrk9l+jFHsjYOWHTtlqD/AH5XkfRhZtSlChRT8ltL3WNsk1EReYbQiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgI03z2rotyLTA5lS2hvFFxei1JZlrg7rG8DmWkgEEcweYzkg/vYDb2p270bNbbjPT1Fxqqp1RUPpySwcg1rQSATgNBzgcyVJAQqfVns2Z4IbI7t2OT5MhibK6VsbRI4AOcBzIHTJ8VFfaK2uqdxLNRT2maCG8W5zu574kMmjdjijLgCQcgEHBGQQeuRLPgi5CbhJSXdHZRUlhlStv+zXqOqvEcusp6WhtkbgZIaafvJpx+iCBhgPick8+QzzE07o7OaZ1xaKGlAdaKq3QiCjqKWNpEcQ6Rlh5OYOoGQQeh5nMl/GislqbJSUm+UQVMEsYIP2z2AsWi7oNQ3i5vvlZR5lpWmARQwuaMh5bklzh1BJwDzxnBFSYHGtvMbn/AAjUVYJ8c8UgJ+tehevaoUWh77Wl3D3FuqJM+XDG4/YvPjSzC6/2mPxNZTj5e8aFu0c5TUpSfJmvio4SRcu9dn/bS6XF1d6qqKNz3cT4qOpdFET44aOTfYMLf9K6csulrRHaLBboaGjjJIjjHUnq4nq5x8SSSsuFyvNlZKSw3k2RglykfiRjZIyx7Q5pGCDzyFV2zbAagtO9FDVRQwTaWpq8VrKgzDibG08bYizrxZAbkAggZyOitMilXbKvOPJyValjPgDosHrXTFo1fp2qsN7pzNR1AH5pw9jhza9rv5rgeYPvyCQs4irTaeUSaTWGVso+yvQtuwkqtXVMtvDs93HRtZM4Z6cZJAPxhvyBT5ZNP2iy6fgsFvoIYrbBF3TKfh4m8PjkHOSSSSTkkkkrL+K48VZO6dn9zIxrjHsjq223UFtp/RrdRU1HDkkRwRNjbk9TgADK+N7stnvdMKe82uiuMIORHVQNlAPmA4HB9iyKKvLzklhdjE2HTlhsTXNstlt9tDh8L0WmZHxePMtAJ+VZGaGOeF8M0bZI3gtexwBa4EYIIPIgjwX1RMt8sYRibLp2wWN0jrNZbdbnS/yhpaZkRf48+EDKy2AiJlvuEkuwX5c0OaWuAII5g+K/SIdNXsW32irHdpLtaNMWuirpM5migAc3PXh/Rz8WFsc0UUzOCWNj29cOaCPcV9flQ9F1yb7s4kkUd7U9yFdvReAHZZRRQUw/uxhzvpeVbjaOh9XbYaZosAGO10/EB5mME/SVWG8bT631xvPffS7PV223VFzmkmrqhmIxBxkAxn/5CWAYAz154AKuBQ00VFRw0kDeGKCNsbB5NaAAPcAtepnFwjFPsjPRF7pNo7CIixmkIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIAiIgCIiAIiIDRd/ao0ezeqph1NukiHtfhn/cqSbfUslbr3T9JHG6R0t0pgGtGSR3rSfcAT7AvQHUtltuorJVWW704qaGrjMc0RJHE3OeoIIIIBBHMEBatoTaXQ+i7j6yslqIrsFraioldNIxp6hpccNyORIGSOWVro1Cqg1jlme2pzkn4N8b0X5kdwRudjOAThftFkL/AAVsd2matrnAaTpeRI/8xPn/AGF+fxm6z9k6X/ET/ArEeqrb/V9J8y37k9VW3+r6T5lv3L2FrdB9D8meO9Frvr/ZFd/xm6z9k6X/ABE/wJ+M3WfsnS/4if4FYj1Vbf6vpPmW/cnqq2/1fSfMt+5d9boPofkx6LXfX+yIKo+0NVVFM2Y6Ypm8Q6enk45kfoL6/wC3+p/Zum/fj/Cpw9WW7GPQaUf/AEt+5BbKD9Spvmm/cvnLq7Z2SlCWE3wsdkfZabW6CumELaN0kuXuay/cg/8AGAqv2bpv34/wp+MBVfs3Tfvx/hU4+q7f+pU3zTfuT1Xb/wBSpvmm/cq+hqPqfY0fqPwv9r+TI62/3Rm1S2tc+0Q0voxYBw1BfxcQP/CMdFtX4Sv/AFZnzn+iz0NHSwgiKmhjz14WAZ9wX07mL+jZ7l4Wr+FfGLLXKrWbYvstqZ512o005twqwvbJr34TSfqzPnP9E/CaT9WZ85/oth7iL+jb7gncRf0bfcs/6J8d/ffiirr0/wDD7miaz1/Lp/TtRdm26OcxOYAwzcIPE4N64OOqj78YWqz/AOmab9+P8CnmSmp5GFj4I3tPUFgIK+fq23/qNN8037l7vwzSazT1bdTd1JZ74weNr6NRfZu09mxY7YyQV+MNV/szTfvx/gT8YWq/Zmm/fj/Ap19WW79Rpvmm/cnqy3fqVN8037l6O2fuYPQfEP3H4og2n7QNVLPHF+DdMON4bkVx5ZIGfzPjU+NOQDjquoLbb8/7jTcun5Jv3LuKcU13eTfoqNRUn1rN2e3GDlERSNwREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREAREQBERAEREB//Z" alt="TripFactory">
     <div class="topbar-divider"></div>
     <div>
-      <div class="topbar-title">Wonders of Europe 2026 — Operations & Sales Dashboard</div>
-      <div class="topbar-sub">Operated by Nexus DMC &nbsp;·&nbsp; Paris CDG → Rome FCO &nbsp;·&nbsp; 13 Days / 12 Nights &nbsp;·&nbsp; Max 40 Pax per Departure</div>
+      <div class="topbar-title">ORN Tour Management Platform</div>
+      <div class="topbar-sub"><span id="topbarSub">Wonders of Europe 2026 · Paris CDG → Rome FCO · 13 Days / 12 Nights · Max 40 Pax</span></div>
     </div>
+  </div>
+  <div style="display:flex;align-items:center;gap:8px;padding:0 16px;border-left:1px solid var(--bd);border-right:1px solid var(--bd);flex-shrink:0">
+    <span style="font-size:11px;font-weight:700;color:var(--t3);white-space:nowrap;text-transform:uppercase;letter-spacing:.4px">Tour</span>
+    <select id="tourSelector" style="border:1.5px solid var(--orange);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--blue);background:#fff;cursor:pointer;max-width:260px" onchange="switchTour(this.value)">
+      <option value="WOE2026">★ Wonders of Europe 2026</option>
+    </select>
+    <span id="tourSelectorBadge" style="background:#dcfce7;color:#166534;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;white-space:nowrap">Active</span>
   </div>
   <div class="topbar-right">
     <div class="owner-tag"><span>Ops:</span>Seema Tabbasum</div>
@@ -346,58 +353,69 @@ tr:hover td{background:#fafbfc}
 
 
 <div class="page" id="pg-tms">
-
-  <!-- TOUR SELECTOR -->
-  <div style="background:#fff;border:1.5px solid var(--orange);border-radius:10px;padding:14px 18px;margin-bottom:16px;display:flex;align-items:center;gap:14px;flex-wrap:wrap">
-    <div style="font-size:13px;font-weight:700;color:var(--orange);white-space:nowrap">🌍 Tour Selector</div>
-    <div style="font-size:12px;color:var(--t2)">This platform manages all ORN European tours. Select any tour to switch context:</div>
-    <select class="sel" style="flex:1;min-width:260px;max-width:420px;font-weight:600;border-color:var(--orange)" id="tourSelector" onchange="switchTour(this.value)">
-      <option value="WOE2026" selected>★ Wonders of Europe 2026 — 13 Days (Active)</option>
-    </select>
-    <span id="tourSelectorBadge" class="badge b-orange">WOE 2026 Active</span>
-    <div style="font-size:11px;color:var(--t3);margin-left:auto">Demo: full tour management available for all products</div>
-  </div>
-
-  <div style="background:linear-gradient(135deg,#1a3a5c,#1e4a72);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between">
-    <div class="fl" style="gap:14px">
+  <div style="background:linear-gradient(135deg,#1a3a5c,#1e4a72);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px">
+    <div style="display:flex;align-items:center;gap:14px">
       <div style="width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🧭</div>
-      <div><div style="font-size:16px;font-weight:700">Tour Manager Roster — WOE 2026</div><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">31 TMs on record · Click any row to open full profile · Allocation per §07 merit matrix</div></div>
+      <div>
+        <div style="font-size:16px;font-weight:700">Tour Manager Roster</div>
+        <div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">31 TMs on record · Click any row or <em>View Profile</em> to open full profile, KPIs, ratings &amp; schedule · Allocation per §07 merit matrix</div>
+      </div>
     </div>
     <div style="display:flex;gap:8px">
       <div style="background:rgba(255,255,255,.12);border-radius:7px;padding:8px 14px;text-align:center"><div style="font-size:20px;font-weight:700">27</div><div style="font-size:11px;color:rgba(255,255,255,.6)">Contracted</div></div>
       <div style="background:rgba(255,255,255,.12);border-radius:7px;padding:8px 14px;text-align:center"><div style="font-size:20px;font-weight:700;color:#fbbf24">4</div><div style="font-size:11px;color:rgba(255,255,255,.6)">Other</div></div>
-      <div style="background:rgba(239,68,68,.25);border-radius:7px;padding:8px 14px;text-align:center"><div style="font-size:20px;font-weight:700;color:#fca5a5">6</div><div style="font-size:11px;color:rgba(255,255,255,.6)">Cash Outstanding</div></div>
+      <div style="background:rgba(239,68,68,.25);border-radius:7px;padding:8px 14px;text-align:center"><div style="font-size:20px;font-weight:700;color:#fca5a5">6</div><div style="font-size:11px;color:rgba(255,255,255,.6)">On Hold</div></div>
     </div>
   </div>
 
-  <div class="alert a-amber"><div class="a-icon">⚠️</div><div><strong>Policy §07 — Allocation Rule (verbatim):</strong> "Tour allocation must be fair, transparent, and merit-driven. Six factors, weighed together — not one above the rest." Contracted TMs not ignored without reason. No personal favouritism. No allocation by lobbying.</div></div>
-  <div class="alert a-red"><div class="a-icon">🚨</div><div><strong>Policy §03 — Cash in Hand:</strong> All outstanding cash must be fully settled BEFORE next assignment. No exceptions. TMs on HOLD status cannot be assigned until cleared.</div></div>
+  <div class="alert a-red"><div class="a-icon">🚨</div><div><strong>Policy §03 — Cash outstanding:</strong> Rohan Apke €5,340 · Ketan Sharma €4,600 · Nadeem Mansoori €3,600 · Raaj Navgrahe €900+₹40K · Anita Kapadia €1,506 · William Almeida €800. All on HOLD until settled. No assignment permitted.</div></div>
+  <div class="alert a-amber"><div class="a-icon">⚠️</div><div><strong>Policy §07 — Allocation:</strong> "Tour allocation must be fair, transparent, and merit-driven. Six factors, weighed together — not one above the rest." Contracted TMs have priority. No lobbying. No personal favouritism.</div></div>
 
-  <!-- DEPARTURE ASSIGNMENTS -->
-  <div class="sh">WOE 2026 — Departure Assignments</div>
-  <div id="depAssignGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:16px"></div>
+  <!-- DEPARTURES PANEL -->
+  <div class="sh">WOE 2026 — Departure Assignments (click to view TM profile)</div>
+  <div id="depAssignGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px"></div>
 
   <!-- FILTERS -->
   <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
-    <input class="inp" style="max-width:220px" placeholder="🔍 Search TM name..." oninput="filterTMs(this.value)" id="tmSearch">
-    <select class="sel" style="width:160px" onchange="filterTMStatus(this.value)" id="tmStatusFilter">
-      <option value="">All statuses</option><option value="Contracted">Contracted</option>
-      <option value="Not Contracted">Not Contracted</option><option value="Freelancer">Freelancer</option>
+    <input class="inp" style="max-width:220px" placeholder="🔍 Search name..." oninput="filterTMs(this.value)" id="tmSearch">
+    <select class="sel" style="width:150px" onchange="filterTMStatus(this.value)" id="tmStatusFilter">
+      <option value="">All statuses</option>
+      <option value="Contracted">Contracted</option>
+      <option value="Not Contracted">Not Contracted</option>
+      <option value="Freelancer">Freelancer</option>
     </select>
-    <select class="sel" style="width:160px" onchange="filterTMCash(this.value)" id="tmCashFilter">
-      <option value="">All cash status</option><option value="cash">Outstanding cash</option>
+    <select class="sel" style="width:150px" onchange="filterTMCash(this.value)">
+      <option value="">All cash</option>
+      <option value="cash">Outstanding only</option>
       <option value="clear">Clear only</option>
     </select>
-    <select class="sel" style="width:160px" onchange="filterTMHold(this.value)" id="tmHoldFilter">
-      <option value="">All TMs</option><option value="hold">On Hold only</option>
-      <option value="available">Available only</option>
+    <select class="sel" style="width:150px" onchange="filterTMHold(this.value)">
+      <option value="">All TMs</option>
+      <option value="hold">On Hold</option>
+      <option value="available">Available</option>
     </select>
     <span id="tmCount" style="font-size:12px;color:var(--t3);margin-left:auto"></span>
   </div>
 
+  <!-- COMPACT LIST TABLE -->
   <div class="tbl-wrap">
     <table>
-      <thead><tr><th>#</th><th>Name</th><th>Status</th><th>Nationality</th><th>Languages</th><th>Internal Rating</th><th>Cash 2025</th><th>Cash 2026</th><th>WOE Assigned</th><th>Availability</th><th>Action</th></tr></thead>
+      <thead>
+        <tr>
+          <th style="width:28px">#</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Nat.</th>
+          <th>Languages</th>
+          <th>Rating</th>
+          <th>Tours Done</th>
+          <th>Cash 2025</th>
+          <th>Cash 2026</th>
+          <th>WOE 26</th>
+          <th>Availability</th>
+          <th style="width:90px">Profile</th>
+        </tr>
+      </thead>
       <tbody id="tmBody"></tbody>
     </table>
   </div>
@@ -1185,61 +1203,80 @@ function buildDepAssignGrid(){
     const tm = TM_PROFILES.find(p => p.n === a.tm);
     const rating = tm ? tm.rating : '—';
     const rColor = rating >= 4.5 ? 'var(--green)' : rating >= 4.0 ? 'var(--amber)' : 'var(--red)';
-    g.innerHTML += `<div class="card" style="border-left:3px solid var(--blue);cursor:pointer" onclick="openTMProfile('${a.tm}')">
-      <div style="display:flex;justify-content:space-between;margin-bottom:6px">
-        <span style="font-size:13px;font-weight:700;color:var(--blue)">${a.id}</span>
-        <span class="badge ${sc}">${a.status}</span>
+    g.innerHTML += `<div style="background:#fff;border:1px solid var(--bd);border-left:3px solid var(--blue);border-radius:8px;padding:10px 12px;cursor:pointer" onclick="openTMProfile('${a.tm.replace(/'/g,"\\'")}')" title="Click to view ${a.tm}'s profile">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+        <span style="font-size:12px;font-weight:700;color:var(--blue)">${a.id}</span>
+        <span class="badge ${sc}" style="font-size:10px">${a.status}</span>
       </div>
-      <div style="font-size:12px;color:var(--t2);margin-bottom:6px">${a.date}</div>
-      <div style="font-size:13px;font-weight:600;color:var(--t)">${a.tm}</div>
-      <div style="display:flex;justify-content:space-between;margin-top:6px;font-size:12px">
-        <span style="color:var(--t3)">Rating:</span>
-        <span style="font-weight:700;color:${rColor}">${rating} ⭐</span>
+      <div style="font-size:11px;color:var(--t3);margin-bottom:5px">${a.date}</div>
+      <div style="font-size:12px;font-weight:600;color:var(--t);margin-bottom:4px;line-height:1.3">${a.tm.split(' ').slice(0,2).join(' ')}</div>
+      <div style="display:flex;justify-content:space-between;font-size:11px">
+        <span style="color:var(--t3)">Rating</span>
+        <span style="font-weight:700;color:${rColor}">${rating}⭐</span>
       </div>
-      <div style="font-size:11px;color:var(--orange);margin-top:4px">Click to view profile →</div>
     </div>`;
   });
 }
+
 
 function buildTMTable(list){
   const tb = document.getElementById('tmBody');
   if(!tb) return;
   tb.innerHTML = '';
   const asel = document.getElementById('tmAssignSel');
-  if(asel) asel.innerHTML = '<option value="">Select TM (contracted priority §07)...</option>';
+  if(asel) asel.innerHTML = '<option value="">Select TM (contracted priority — §07)...</option>';
+
   list.forEach((t, i) => {
     const profile = TM_PROFILES.find(p => p.n === t.n) || {};
-    const sc = t.s==='Contracted'?'b-green':t.s==='Freelancer'?'b-amber':'b-red';
-    const hasCash = t.c25||t.c26;
+    const sc = t.s==='Contracted' ? 'b-green' : t.s==='Freelancer' ? 'b-amber' : 'b-red';
     const isHold = profile.hold;
-    const rating = profile.rating||'—';
+    const rating = profile.rating || '—';
     const rColor = rating >= 4.5 ? '#15803d' : rating >= 4.0 ? '#d97706' : '#b91c1c';
-    const holdbadge = isHold ? '<span class="badge b-red">🔒 On Hold</span>' : '<span class="badge b-green">✓ Available</span>';
     const nat = profile.nat || '—';
-    const lang = profile.lang ? profile.lang.slice(0,2).join(', ') + (profile.lang.length>2?'…':'') : '—';
+    const lang = profile.lang ? profile.lang.join(', ') : '—';
     const assigned = profile.assigned || '—';
-    tb.innerHTML += `<tr style="${isHold?'background:#fef2f2;':''}" onclick="openTMProfile('${t.n.replace(/'/g,"\\'")}')">
-      <td>${i+1}</td>
-      <td style="font-weight:600;color:${isHold?'#7f1d1d':'var(--t)'}"><span style="cursor:pointer;text-decoration:underline;text-decoration-color:transparent" onmouseover="this.style.textDecorationColor='var(--orange)'" onmouseout="this.style.textDecorationColor='transparent'">${t.n}</span></td>
-      <td><span class="badge ${sc}">${t.s}</span></td>
-      <td>${nat}</td>
-      <td style="font-size:12px;color:var(--t2)">${lang}</td>
-      <td><span style="font-weight:700;color:${rColor}">${rating} ⭐</span></td>
-      <td style="color:${t.c25?'#b91c1c':'var(--t3)'};font-weight:${t.c25?'600':'400'}">${t.c25||'—'}</td>
-      <td style="color:${t.c26?'#d97706':'var(--t3)'};font-weight:${t.c26?'600':'400'}">${t.c26||'—'}</td>
-      <td>${assigned !== '—' ? `<span class="badge b-blue">${assigned}</span>` : '—'}</td>
-      <td>${holdbadge}</td>
-      <td><button class="btn btn-sm" onclick="event.stopPropagation();openTMProfile('${t.n.replace(/'/g,"\\'")}')">View Profile</button></td>
+    const tourCount = profile.tours ? profile.tours.length : 0;
+    const rowBg = isHold ? 'background:#fef2f2' : '';
+    const holdBadge = isHold
+      ? '<span class="badge b-red" style="font-size:10px">🔒 Hold</span>'
+      : '<span class="badge b-green" style="font-size:10px">✓ Available</span>';
+
+    tb.innerHTML += `<tr style="cursor:pointer;${rowBg}" onclick="openTMProfile('${t.n.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">
+      <td style="color:var(--t3);font-size:12px">${i+1}</td>
+      <td>
+        <div style="font-weight:700;font-size:13px;color:${isHold?'#7f1d1d':'var(--t)'}">${t.n}</div>
+        ${profile.holdReason ? `<div style="font-size:11px;color:#b91c1c;margin-top:1px">${profile.holdReason.split('—')[0].trim()}</div>` : ''}
+      </td>
+      <td><span class="badge ${sc}" style="font-size:11px">${t.s}</span></td>
+      <td style="font-size:12px;color:var(--t2)">${nat}</td>
+      <td style="font-size:12px;color:var(--t2);max-width:140px">${lang}</td>
+      <td style="font-weight:700;color:${rColor};font-size:13px">${rating}${rating!=='—'?' ⭐':''}</td>
+      <td style="font-size:12px;color:var(--t2);text-align:center">${tourCount}</td>
+      <td style="color:${t.c25?'#b91c1c':'var(--t3)'};font-weight:${t.c25?'600':'400'};font-size:12px">${t.c25||'—'}</td>
+      <td style="color:${t.c26?'#d97706':'var(--t3)'};font-weight:${t.c26?'600':'400'};font-size:12px">${t.c26||'—'}</td>
+      <td>${assigned !== '—' ? `<span class="badge b-blue" style="font-size:11px">${assigned}</span>` : '<span style="font-size:12px;color:var(--t3)">—</span>'}</td>
+      <td>${holdBadge}</td>
+      <td>
+        <button class="btn btn-sm btn-p" style="font-size:11px;padding:4px 10px"
+          onclick="event.stopPropagation();openTMProfile('${t.n.replace(/'/g,"\\'").replace(/"/g,'\\"')}')">
+          View Profile
+        </button>
+      </td>
     </tr>`;
+
     if(asel && t.s==='Contracted' && !isHold){
       const o = document.createElement('option');
       o.value = t.n;
-      o.textContent = `${t.n} — Rating: ${rating}`;
+      o.textContent = `${t.n} — ⭐${rating}`;
       asel.appendChild(o);
     }
   });
+
   const cnt = document.getElementById('tmCount');
-  if(cnt) cnt.textContent = `${list.length} TMs shown · ${list.filter(t=>TM_PROFILES.find(p=>p.n===t.n&&p.hold)).length} on hold`;
+  if(cnt){
+    const onHold = list.filter(t => { const p=TM_PROFILES.find(x=>x.n===t.n); return p&&p.hold; }).length;
+    cnt.textContent = `${list.length} TMs · ${onHold} on hold`;
+  }
 }
 
 function filterTMs(v){buildTMTable(v?TMS.filter(t=>t.n.toLowerCase().includes(v.toLowerCase())):TMS);}
@@ -2349,19 +2386,20 @@ function populateTourSelector(){
 function switchTour(tourId){
   const t = TF_EURO_TOURS.find(x => x.id === tourId);
   if(!t) return;
+
   const badge = document.getElementById('tourSelectorBadge');
-  if(badge){
-    if(tourId === 'WOE2026'){
-      badge.textContent = 'WOE 2026 Active';
-      badge.className = 'badge b-green';
-    } else {
-      badge.textContent = t.name + ' — Demo Mode';
-      badge.className = 'badge b-blue';
-    }
+  const sub = document.getElementById('topbarSub');
+
+  if(tourId === 'WOE2026'){
+    if(badge){ badge.textContent='Active'; badge.style.background='#dcfce7'; badge.style.color='#166534'; }
+    if(sub) sub.textContent = 'Wonders of Europe 2026 · Paris CDG → Rome FCO · 13 Days / 12 Nights · Max 40 Pax';
+  } else {
+    if(badge){ badge.textContent='Demo'; badge.style.background='#dbeafe'; badge.style.color='#1e40af'; }
+    if(sub) sub.textContent = `${t.name} · ${t.route} · ${t.days} Days/${t.nights} Nights · Demo Mode`;
   }
-  // Show a demo toast
-  showToast(`Switched to: ${t.name} · ${t.days} Days · ${t.route}`, tourId === 'WOE2026' ? 'green' : 'blue');
+  showToast(`Switched to: ${t.name} · ${t.days}D · ${t.route}`, tourId==='WOE2026'?'green':'blue');
 }
+
 
 function showToast(msg, color='blue'){
   let toast = document.getElementById('toastMsg');
