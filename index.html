@@ -7,21 +7,21 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#1a3a5c;--orange:#E8541E;--green:#15803d;--red:#b91c1c;--amber:#d97706;--bg:#fff;--bg2:#f8f9fb;--bg3:#eef0f4;--bd:#e2e6ea;--t:#1a2332;--t2:#4a5568;--t3:#8c98a6;--r:8px}
+:root{--blue:#1a3a5c;--orange:#1a3a5c;--green:#15803d;--red:#b91c1c;--amber:#d97706;--bg:#fff;--bg2:#f8f9fb;--bg3:#eef0f4;--bd:#e2e6ea;--t:#1a2332;--t2:#4a5568;--t3:#8c98a6;--r:8px}
 body{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);background:var(--bg3);min-height:100vh}
-.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 16px;display:flex;align-items:center;justify-content:space-between;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.08);gap:0}
-.topbar-left{display:flex;align-items:center;gap:14px}
+.topbar{background:#fff;border-bottom:1px solid var(--bd);padding:0 16px;display:flex;align-items:center;height:60px;position:sticky;top:0;z-index:100;box-shadow:0 1px 6px rgba(0,0,0,.08);gap:0;overflow:hidden}
+.topbar-left{display:flex;align-items:center;gap:12px;flex-shrink:1;min-width:0;overflow:hidden}
 .topbar img{height:40px;object-fit:contain}
 .topbar-divider{width:1px;height:32px;background:var(--bd)}
-.topbar-title{font-size:15px;font-weight:700;color:var(--blue)}
-.topbar-sub{font-size:11px;color:var(--t3);margin-top:2px}
-.topbar-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.owner-tag{background:var(--bg2);border:1px solid var(--bd);border-radius:20px;padding:5px 12px;font-size:12px;font-weight:600;color:var(--t2)}
+.topbar-title{font-size:14px;font-weight:700;color:var(--blue);white-space:nowrap}
+.topbar-sub{font-size:10px;color:var(--t3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:340px}
+.topbar-right{display:flex;align-items:center;gap:6px;flex-wrap:nowrap;flex-shrink:0}
+.owner-tag{background:var(--bg2);border:1px solid var(--bd);border-radius:20px;padding:4px 10px;font-size:11px;font-weight:600;color:var(--t2);white-space:nowrap}
 .owner-tag span{color:var(--orange);margin-right:4px}
 .live-dot{width:8px;height:8px;border-radius:50%;background:#16a34a;animation:pulse 1.5s infinite;display:inline-block}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.nav{background:#fff;border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 20px;gap:0}
-.nav-tab{padding:14px 15px;font-size:13px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:.15s}
+.nav{background:#fff;border-bottom:2px solid var(--bd);display:flex;overflow-x:auto;padding:0 16px;gap:0;scrollbar-width:none}
+.nav-tab{padding:12px 13px;font-size:12.5px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:.15s}
 .nav-tab:hover{color:var(--t2)}
 .nav-tab.on{color:var(--orange);border-bottom-color:var(--orange)}
 .page{display:none;padding:20px;max-width:1400px;margin:0 auto}
@@ -37,7 +37,7 @@ body{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);ba
 .sh{font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:14px 0 8px;border-bottom:1px solid var(--bd);margin-bottom:12px}
 .sh:first-child{padding-top:0}
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
-.b-green{background:#dcfce7;color:#166534}.b-red{background:#fee2e2;color:#991b1b}.b-amber{background:#fef3c7;color:#92400e}.b-blue{background:#dbeafe;color:#1e40af}.b-gray{background:#f3f4f6;color:#374151}.b-purple{background:#ede9fe;color:#5b21b6}.b-orange{background:#ffedd5;color:#9a3412}
+.b-green{background:#dcfce7;color:#166534}.b-red{background:#fee2e2;color:#991b1b}.b-amber{background:#fef3c7;color:#1a3a5c}.b-blue{background:#dbeafe;color:#1e40af}.b-gray{background:#f3f4f6;color:#374151}.b-purple{background:#ede9fe;color:#5b21b6}.b-orange{background:#ffedd5;color:#9a3412}
 .alert{border-radius:7px;padding:12px 14px;margin-bottom:12px;font-size:13px;display:flex;gap:10px;line-height:1.6;border-left:4px solid}
 .a-red{background:#fef2f2;border-color:#ef4444;color:#7f1d1d}
 .a-amber{background:#fffbeb;border-color:#f59e0b;color:#78350f}
@@ -52,7 +52,7 @@ tr:last-child td{border-bottom:none}
 tr:hover td{background:#fafbfc}
 .td-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
 .inp{width:100%;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:inherit;color:var(--t);background:#fff;transition:.15s}
-.inp:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(232,84,30,.1)}
+.inp:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(26,58,92,.1)}
 .sel{width:100%;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:inherit;color:var(--t);background:#fff}
 .btn{padding:8px 16px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:1px solid var(--bd);background:#fff;color:var(--t);font-family:inherit;transition:.15s}
 .btn:hover{background:var(--bg2)}
@@ -64,7 +64,7 @@ tr:hover td{background:#fafbfc}
 .row label{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:4px}
 .dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
 .dep-card{background:#fff;border:1.5px solid var(--bd);border-radius:10px;padding:16px;cursor:pointer;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.dep-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 20px rgba(232,84,30,.15)}
+.dep-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,58,92,.15)}
 .dep-card.critical{border-color:#ef4444}
 .dep-card.warning{border-color:#f59e0b}
 .dep-id{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:2px}
@@ -129,7 +129,7 @@ tr:hover td{background:#fafbfc}
 .visa-exp{color:var(--red);font-weight:600}
 .chk-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #f1f3f5;font-size:13px;align-items:flex-start}
 .chk-row:last-child{border:none}
-.nav-grp{padding:8px 12px 3px;font-size:9px;font-weight:800;color:var(--t3);text-transform:uppercase;letter-spacing:.9px;white-space:nowrap;cursor:default;user-select:none}
+.nav-div{width:1px;height:24px;background:var(--bd);margin:0 4px;align-self:center;flex-shrink:0}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.dep-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.g2,.g3,.g4,.dep-grid{grid-template-columns:1fr}}
 </style>
@@ -146,7 +146,7 @@ tr:hover td{background:#fafbfc}
   </div>
   <div style="display:flex;align-items:center;gap:8px;padding:0 16px;border-left:1px solid var(--bd);border-right:1px solid var(--bd);flex-shrink:0">
     <span style="font-size:11px;font-weight:700;color:var(--t3);white-space:nowrap;text-transform:uppercase;letter-spacing:.4px">Tour</span>
-    <select id="tourSelector" style="border:1.5px solid var(--orange);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--blue);background:#fff;cursor:pointer;max-width:260px" onchange="switchTour(this.value)">
+    <select id="tourSelector" style="border:1.5px solid var(--blue);border-radius:6px;padding:5px 10px;font-size:12px;font-weight:700;color:var(--blue);background:#fff;cursor:pointer;max-width:240px" onchange="switchTour(this.value)">
       <option value="WOE2026">★ Wonders of Europe 2026</option>
     </select>
     <span id="tourSelectorBadge" style="background:#dcfce7;color:#166534;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;white-space:nowrap">Active</span>
@@ -159,25 +159,24 @@ tr:hover td{background:#fafbfc}
   </div>
 </div>
 <div class="nav" id="mainNav">
-  <div class="nav-grp">Overview</div>
   <div class="nav-tab on" onclick="showPage('home')">🏠 Home</div>
   <div class="nav-tab" onclick="showPage('calendar')">📅 Calendar</div>
-  <div class="nav-grp">Finance</div>
+  <div class="nav-div"></div>
   <div class="nav-tab" onclick="showPage('itin')">📍 Costing Sheet</div>
   <div class="nav-tab" onclick="showPage('expenses')">🧾 Expenses</div>
-  <div class="nav-grp">Operations</div>
+  <div class="nav-div"></div>
   <div class="nav-tab" onclick="showPage('pax')">👥 Passengers</div>
   <div class="nav-tab" onclick="showPage('tms')">🧭 Tour Managers</div>
-  <div class="nav-tab" onclick="showPage('seema')">⚙️ Seema — Ops</div>
+  <div class="nav-tab" onclick="showPage('seema')">⚙️ Ops</div>
   <div class="nav-tab" onclick="showPage('workflow')">🔄 Workflow</div>
-  <div class="nav-grp">Sales</div>
-  <div class="nav-tab" onclick="showPage('sachin')">📈 Sachin — Sales</div>
-  <div class="nav-tab" onclick="showPage('sales')">🛒 On-Tour Sales</div>
-  <div class="nav-grp">Compliance</div>
+  <div class="nav-div"></div>
+  <div class="nav-tab" onclick="showPage('sachin')">📈 Sales</div>
+  <div class="nav-tab" onclick="showPage('sales')">🛒 On-Tour</div>
+  <div class="nav-div"></div>
   <div class="nav-tab" onclick="showPage('policy')">📋 Policies</div>
-  <div class="nav-tab" onclick="showPage('gaps')">⚡ Policy Gaps</div>
-  <div class="nav-grp">Resources</div>
-  <div class="nav-tab" onclick="showPage('docs')">📁 Documents</div>
+  <div class="nav-tab" onclick="showPage('gaps')">⚡ Gaps</div>
+  <div class="nav-div"></div>
+  <div class="nav-tab" onclick="showPage('docs')">📁 Docs</div>
 </div>
 
 
@@ -210,7 +209,7 @@ tr:hover td{background:#fafbfc}
     </div>
     <div class="card">
       <div class="fl" style="margin-bottom:10px">
-        <div style="width:42px;height:42px;border-radius:50%;background:#fef3c7;color:#92400e;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0">SK</div>
+        <div style="width:42px;height:42px;border-radius:50%;background:#fef3c7;color:#1a3a5c;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;flex-shrink:0">SK</div>
         <div><div style="font-weight:700;font-size:14px">Sachin Keni — Nexus</div><div style="font-size:12px;color:var(--t3)">Sales Lead</div></div>
       </div>
       <div style="font-size:13px;color:var(--t2);line-height:1.9">✓ Agent bookings + deposit collection (§06)<br>✓ Balances settled before departure — T-3 (§03)<br>✓ Fill rate monitoring — alert at &lt;70% (§07)<br>✓ Merge/cancel recommendation at &lt;50%<br>✓ All leads recorded officially (§06)<br>✓ Pre-tour optional upsell<br>✓ New agent onboarding</div>
@@ -598,7 +597,7 @@ tr:hover td{background:#fafbfc}
 
 
 <div class="page" id="pg-sachin">
-  <div style="background:linear-gradient(135deg,#92400e,#b45309);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px">
+  <div style="background:linear-gradient(135deg,#1a3a5c,#1e4a72);color:#fff;border-radius:10px;padding:16px 20px;margin-bottom:16px;display:flex;align-items:center;gap:14px">
     <div style="width:50px;height:50px;border-radius:50%;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;flex-shrink:0">SK</div>
     <div><div style="font-size:16px;font-weight:700">Sachin Keni — Sales Dashboard</div><div style="font-size:13px;color:rgba(255,255,255,.7);margin-top:2px">Fill rate monitoring · Revenue at risk · Merge/cancel decisions · Agent push</div></div>
   </div>
@@ -1416,7 +1415,7 @@ function buildItin(){
   ITIN.forEach(day=>{
     const ec=day.items.filter(i=>i.c==='inc').reduce((s,i)=>s+i.cost,0);
     const el=document.createElement('div');el.className='itin-day';
-    el.innerHTML=`<div class="itin-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span>Day ${day.d} — ${day.city}</span><div style="display:flex;gap:8px;align-items:center">${ec?`<span style="background:#fef3c7;color:#92400e;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">Est. £${ec.toLocaleString()}</span>`:''}<span style="background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-size:11px">${day.hotel}</span><span style="font-size:11px;opacity:.7">▼</span></div></div><div class="itin-body">${day.items.map(it=>`<div class="act-row"><div class="act-dot" style="background:${it.c==='opt'?'#d97706':'#E8541E'}"></div><div style="flex:1">${it.t}</div>${it.c==='opt'?'<span class="badge b-amber">Optional §04</span>':'<span class="badge b-green">Included</span>'}${it.cost>0?`<input class="cost-inp" value="${it.cost}" title="Edit cost £">`:''}</div>`).join('')}</div>`;
+    el.innerHTML=`<div class="itin-hdr" onclick="this.nextElementSibling.classList.toggle('open')"><span>Day ${day.d} — ${day.city}</span><div style="display:flex;gap:8px;align-items:center">${ec?`<span style="background:#fef3c7;color:#1a3a5c;padding:2px 8px;border-radius:4px;font-size:11px;font-weight:700">Est. £${ec.toLocaleString()}</span>`:''}<span style="background:rgba(255,255,255,.15);padding:2px 8px;border-radius:4px;font-size:11px">${day.hotel}</span><span style="font-size:11px;opacity:.7">▼</span></div></div><div class="itin-body">${day.items.map(it=>`<div class="act-row"><div class="act-dot" style="background:${it.c==='opt'?'#d97706':'#1a3a5c'}"></div><div style="flex:1">${it.t}</div>${it.c==='opt'?'<span class="badge b-amber">Optional §04</span>':'<span class="badge b-green">Included</span>'}${it.cost>0?`<input class="cost-inp" value="${it.cost}" title="Edit cost £">`:''}</div>`).join('')}</div>`;
     c.appendChild(el);
   });
 }
@@ -1670,7 +1669,7 @@ function buildCostingTable(){
   const riskBg = {ok:'',amber:'background:#fffbeb',red:'background:#fef2f2',missing:'background:#fef2f2'};
   const typeTag = {
     hotel:    '<span style="background:#dbeafe;color:#1e40af;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🏨 Hotel</span>',
-    activity: '<span style="background:#fef3c7;color:#92400e;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🎡 Activity</span>',
+    activity: '<span style="background:#fef3c7;color:#1a3a5c;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🎡 Activity</span>',
     meal:     '<span style="background:#dcfce7;color:#166534;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🍽 Meal</span>',
     group:    '<span style="background:#ede9fe;color:#5b21b6;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">👥 Group÷pax</span>',
     transport:'<span style="background:#e0f2fe;color:#0c4a6e;border-radius:3px;padding:1px 5px;font-size:10px;font-weight:700;white-space:nowrap">🚌 Transport</span>',
@@ -2517,7 +2516,7 @@ function showToast(msg, color='blue'){
     toast.style.cssText = 'position:fixed;bottom:20px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:7px;font-size:13px;font-weight:600;color:#fff;z-index:9999;transition:opacity .4s;pointer-events:none';
     document.body.appendChild(toast);
   }
-  const colors = {green:'#15803d',blue:'#1a3a5c',orange:'#E8541E',red:'#b91c1c'};
+  const colors = {green:'#15803d',blue:'#1a3a5c',orange:'#1a3a5c',red:'#b91c1c'};
   toast.style.background = colors[color]||colors.blue;
   toast.style.opacity = '1';
   toast.textContent = msg;
