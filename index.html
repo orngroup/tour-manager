@@ -130,6 +130,19 @@ tr:hover td{background:#fafbfc}
 .chk-row{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid #f1f3f5;font-size:13px;align-items:flex-start}
 .chk-row:last-child{border:none}
 .nav-div{width:1px;height:24px;background:var(--bd);margin:0 4px;align-self:center;flex-shrink:0}
+.role-btn{display:flex;align-items:center;gap:6px;padding:6px 12px;border-radius:6px;border:1.5px solid var(--bd);background:transparent;font-family:inherit;font-size:12px;font-weight:700;cursor:pointer;transition:.15s;color:var(--t2);white-space:nowrap}
+.role-btn:hover{border-color:var(--blue);color:var(--blue)}
+.role-btn.active-role{color:#fff}
+.role-btn.role-manager.active-role{background:var(--blue);border-color:var(--blue)}
+.role-btn.role-pre.active-role{background:#0369a1;border-color:#0369a1}
+.role-btn.role-post.active-role{background:#166534;border-color:#166534}
+.role-indicator{display:none;position:fixed;top:62px;right:14px;z-index:200;padding:4px 12px;border-radius:0 0 6px 6px;font-size:11px;font-weight:700;color:#fff;letter-spacing:.3px}
+.role-indicator.show{display:block}
+.role-indicator.role-manager{background:var(--blue)}
+.role-indicator.role-pre{background:#0369a1}
+.role-indicator.role-post{background:#166534}
+.nav-tab.role-hidden{display:none!important}
+.nav-div.role-hidden{display:none!important}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.dep-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.g2,.g3,.g4,.dep-grid{grid-template-columns:1fr}}
 </style>
@@ -151,6 +164,12 @@ tr:hover td{background:#fafbfc}
     </select>
     <span id="tourSelectorBadge" style="background:#dcfce7;color:#166534;border-radius:4px;padding:2px 7px;font-size:11px;font-weight:700;white-space:nowrap">Active</span>
   </div>
+  <div style="display:flex;align-items:center;gap:6px;padding:0 14px;border-left:1px solid var(--bd);flex-shrink:0">
+    <span style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;white-space:nowrap">View</span>
+    <button class="role-btn role-manager active-role" id="rb-manager" onclick="setRole('manager')">👤 Manager</button>
+    <button class="role-btn role-pre" id="rb-pre" onclick="setRole('pre')">✈️ Pre-Travel</button>
+    <button class="role-btn role-post" id="rb-post" onclick="setRole('post')">🗺️ On Tour</button>
+  </div>
   <div class="topbar-right">
     <div class="owner-tag"><span>Ops:</span>Seema Tabbasum</div>
     <div class="owner-tag"><span>Sales:</span>Sachin Keni</div>
@@ -158,25 +177,26 @@ tr:hover td{background:#fafbfc}
     <div style="display:flex;align-items:center;gap:6px;font-size:12px;color:#15803d;font-weight:700"><div class="live-dot"></div>Live</div>
   </div>
 </div>
+<div id="roleIndicator" class="role-indicator role-manager"></div>
 <div class="nav" id="mainNav">
-  <div class="nav-tab on" onclick="showPage('home')">🏠 Home</div>
-  <div class="nav-tab" onclick="showPage('calendar')">📅 Calendar</div>
+  <div class="nav-tab on" onclick="showPage('home')" data-roles="manager,pre,post">🏠 Home</div>
+  <div class="nav-tab" onclick="showPage('calendar')" data-roles="manager,pre">📅 Calendar</div>
   <div class="nav-div"></div>
-  <div class="nav-tab" onclick="showPage('itin')">📍 Costing Sheet</div>
-  <div class="nav-tab" onclick="showPage('expenses')">🧾 Expenses</div>
+  <div class="nav-tab" onclick="showPage('itin')" data-roles="manager">📍 Costing Sheet</div>
+  <div class="nav-tab" onclick="showPage('expenses')" data-roles="manager">🧾 Expenses</div>
   <div class="nav-div"></div>
-  <div class="nav-tab" onclick="showPage('pax')">👥 Passengers</div>
-  <div class="nav-tab" onclick="showPage('tms')">🧭 Tour Managers</div>
-  <div class="nav-tab" onclick="showPage('seema')">⚙️ Ops</div>
-  <div class="nav-tab" onclick="showPage('workflow')">🔄 Workflow</div>
+  <div class="nav-tab" onclick="showPage('pax')" data-roles="manager,pre,post">👥 Passengers</div>
+  <div class="nav-tab" onclick="showPage('tms')" data-roles="manager,post">🧭 Tour Managers</div>
+  <div class="nav-tab" onclick="showPage('seema')" data-roles="manager,post">⚙️ Ops</div>
+  <div class="nav-tab" onclick="showPage('workflow')" data-roles="manager,post">🔄 Workflow</div>
   <div class="nav-div"></div>
-  <div class="nav-tab" onclick="showPage('sachin')">📈 Sales</div>
-  <div class="nav-tab" onclick="showPage('sales')">🛒 On-Tour</div>
+  <div class="nav-tab" onclick="showPage('sachin')" data-roles="manager,pre">📈 Sales</div>
+  <div class="nav-tab" onclick="showPage('sales')" data-roles="manager,pre,post">🛒 On-Tour</div>
   <div class="nav-div"></div>
-  <div class="nav-tab" onclick="showPage('policy')">📋 Policies</div>
+  <div class="nav-tab" onclick="showPage('policy')" data-roles="manager,pre">📋 Policies</div>
   <div class="nav-div"></div>
-  <div class="nav-tab" onclick="showPage('docs')">📁 Docs</div>
-  <div class="nav-tab" onclick="showPage('fleet')">🚌 Fleet</div>
+  <div class="nav-tab" onclick="showPage('docs')" data-roles="manager,pre,post">📁 Docs</div>
+  <div class="nav-tab" onclick="showPage('fleet')" data-roles="manager">🚌 Fleet</div>
 </div>
 
 
@@ -967,53 +987,7 @@ tr:hover td{background:#fafbfc}
             </div>
             <div id="plWarnings"></div>
           </div>
-        </div>
-      </div>
-
-      <div class="mpane" id="mt1">
-        <div class="g2">
-          <div>
-            <div class="kpi" style="margin-bottom:14px"><div class="kpi-lbl">Fill Rate</div><div class="kpi-val" id="sFill">—</div><div class="kpi-sub" id="sFillSub">—</div></div>
-            <div id="sFillAlert"></div>
-            <div class="sh">Booking Breakdown</div>
-            <div class="tbl-wrap"><table><thead><tr><th>Agent / Channel</th><th>Pax</th><th>Balance Status</th><th>Confirmed</th></tr></thead>
-            <tbody id="sBookings"></tbody></table></div>
-          </div>
-          <div>
-            <div class="sh">Sales Notes</div>
-            <div class="card" id="salesNotes" style="font-size:13px;color:var(--t2);line-height:1.7;margin-bottom:14px">—</div>
-            <div class="sh">Log Sales Activity (§06)</div>
-            <div class="card">
-              <div class="row"><label>Activity Type</label><select class="sel"><option>Agent call</option><option>Email campaign</option><option>WhatsApp broadcast</option><option>Walk-in enquiry</option><option>Price offer sent</option></select></div>
-              <div class="row"><label>Agent / Contact</label><input class="inp" placeholder="Name"></div>
-              <div class="row"><label>Outcome / Notes</label><input class="inp" placeholder="What happened, next step"></div>
-              <button class="btn btn-p btn-sm">Log Activity (§06)</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mpane" id="mt2">
-        <div id="actionItems"></div>
-      </div>
-
-      <div class="mpane" id="mt3">
-        <div class="g2">
-          <div>
-            <div class="sh">Pre-Departure Checklist (§13 / §19 / §03)</div>
-            <div id="preDepChecks"></div>
-          </div>
-          <div>
-            <div class="sh">Daily TM Checklist — On Tour (§19 Windows A–D)</div>
-            <div id="dailyChecks"></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
+  
 <script>
 const DEPS=[
   {id:'WOE-01',date:'09 May 2026',ref:'WOE090526',pax:38,cap:40,status:'Active',risk:'critical',note:'On tour now — Day 14',issues:['Jungfrau €6,300 company cash not declared (§04)','Daily report overdue (§21)']},
@@ -1036,6 +1010,13 @@ const PAX=[
 ];
 
 function showPage(id){
+  // Role guard — block access to tabs not in current role
+  if(typeof currentRole !== 'undefined' && typeof ROLES !== 'undefined'){
+    if(ROLES[currentRole] && !ROLES[currentRole].pages.includes(id)){
+      showToast('Not available in ' + ROLES[currentRole].label, 'blue');
+      return;
+    }
+  }
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.nav-tab').forEach(t=>t.classList.remove('on'));
   document.getElementById('pg-'+id).classList.add('on');
@@ -2335,6 +2316,108 @@ function buildPolicies(){
 buildPolicies();
 
 
+// ═══ ROLE / VIEW SYSTEM ═══
+const ROLES = {
+  manager: {
+    label: '👤 Manager View — Full Access',
+    color: 'role-manager',
+    pages: ['home','calendar','itin','expenses','pax','tms','seema','workflow','sachin','sales','policy','docs','fleet'],
+    defaultPage: 'home',
+  },
+  pre: {
+    label: '✈️ Pre-Travel View — Bookings & Sales',
+    color: 'role-pre',
+    pages: ['home','calendar','pax','sachin','sales','policy','docs'],
+    defaultPage: 'home',
+  },
+  post: {
+    label: '🗺️ On-Tour View — Operations & Escalations',
+    color: 'role-post',
+    pages: ['home','pax','tms','seema','workflow','sales','docs'],
+    defaultPage: 'home',
+  },
+};
+
+let currentRole = 'manager';
+
+function setRole(role){
+  currentRole = role;
+  const cfg = ROLES[role];
+
+  // Update role buttons
+  document.querySelectorAll('.role-btn').forEach(b => b.classList.remove('active-role'));
+  const btn = document.getElementById('rb-'+role);
+  if(btn) btn.classList.add('active-role');
+
+  // Update role indicator
+  const ind = document.getElementById('roleIndicator');
+  if(ind){
+    ind.className = 'role-indicator show ' + cfg.color;
+    ind.textContent = cfg.label;
+    // Hide indicator for manager (they see everything, no need for flag)
+    if(role === 'manager') ind.classList.remove('show');
+  }
+
+  // Show/hide nav tabs based on role
+  const tabs = document.querySelectorAll('#mainNav .nav-tab');
+  tabs.forEach(tab => {
+    const roles = (tab.getAttribute('data-roles')||'manager').split(',');
+    if(roles.includes(role)){
+      tab.classList.remove('role-hidden');
+    } else {
+      tab.classList.add('role-hidden');
+    }
+  });
+
+  // Hide orphan nav dividers (where all following tabs until next divider are hidden)
+  updateNavDividers();
+
+  // Toast notification
+  const msgs = {
+    manager: '👤 Manager View — all tabs visible',
+    pre: '✈️ Pre-Travel View — Bookings, Passengers, Sales & Docs',
+    post: '🗺️ On-Tour View — TMs, Ops, Escalations & On-Tour Sales',
+  };
+  showToast(msgs[role], role==='manager'?'blue':role==='pre'?'blue':'green');
+
+  // If current page is not accessible, switch to default
+  const active = document.querySelector('.page.on');
+  const activeId = active ? active.id.replace('pg-','') : 'home';
+  if(!cfg.pages.includes(activeId)){
+    showPage(cfg.defaultPage);
+  }
+}
+
+function updateNavDividers(){
+  const nav = document.getElementById('mainNav');
+  if(!nav) return;
+  const children = Array.from(nav.children);
+
+  children.forEach((el, i) => {
+    if(el.classList.contains('nav-div')){
+      // Check if any visible tab exists before this divider (after last divider)
+      // and after this divider (before next divider)
+      const tabsBefore = [], tabsAfter = [];
+      for(let j = i-1; j >= 0; j--){
+        if(children[j].classList.contains('nav-div')) break;
+        if(children[j].classList.contains('nav-tab')) tabsBefore.push(children[j]);
+      }
+      for(let j = i+1; j < children.length; j++){
+        if(children[j].classList.contains('nav-div')) break;
+        if(children[j].classList.contains('nav-tab')) tabsAfter.push(children[j]);
+      }
+      const anyVisibleBefore = tabsBefore.some(t => !t.classList.contains('role-hidden'));
+      const anyVisibleAfter  = tabsAfter.some(t => !t.classList.contains('role-hidden'));
+      if(!anyVisibleBefore || !anyVisibleAfter){
+        el.classList.add('role-hidden');
+      } else {
+        el.classList.remove('role-hidden');
+      }
+    }
+  });
+}
+
+
 // ═══ TRIPFACTORY EUROPEAN TOUR CATALOGUE ═══
 const TF_EURO_TOURS = [
   {id:'WOE2026',  name:'Wonders of Europe 2026',              days:13, nights:12, route:'Paris → Rome',                    price:'£2,500',         status:'active',  tag:'Flagship'},
@@ -2719,6 +2802,40 @@ function openAddVehicle(){
 }
 
 
+function filterFleet(query){
+  const typeEl = document.getElementById('fleetTypeFilter');
+  const statusEl = document.getElementById('fleetStatusFilter');
+  const q = query || (document.getElementById('fleetSearch')?document.getElementById('fleetSearch').value:'');
+  let list = FLEET_DATA;
+  if(typeEl && typeEl.value) list = list.filter(v=>v.type===typeEl.value);
+  if(statusEl && statusEl.value) list = list.filter(v=>v.status===statusEl.value);
+  if(q) list = list.filter(v=>v.reg.toLowerCase().includes(q.toLowerCase())||v.make.toLowerCase().includes(q.toLowerCase()));
+  renderFleetTable(list);
+}
+
+function showFleetCat(cat){
+  const typeEl = document.getElementById('fleetTypeFilter');
+  if(typeEl) typeEl.value = cat;
+  filterFleet();
+  showPage('fleet');
+}
+
+function openAddVehicle(){
+  showToast('Add Vehicle form — connect to your vehicle management system', 'blue');
+}
+
+
+// ── INITIALISE ALL MODULES ──
+initCosting();
+buildCalendar();
+buildTMTable(TMS);
+initDocHub();
+initFleet();
+buildDepAssignGrid();
+buildDepCards();
+populateTourSelector();
+buildPolicies();
+
 // ── INITIALISE ALL MODULES ──
 initCosting();
 buildCalendar();
@@ -2767,5 +2884,6 @@ buildPolicies();
     <tbody id="deadlineTable"></tbody>
   </table></div>
 </div>
+</script>
 </body>
 </html>
