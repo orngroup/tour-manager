@@ -146,6 +146,21 @@ tr:hover td{background:#fafbfc}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.dep-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.g2,.g3,.g4,.dep-grid{grid-template-columns:1fr}}
 </style>
+<script>
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('on'); });
+  var pg = document.getElementById('pg-' + id);
+  if (pg) pg.classList.add('on');
+  document.querySelectorAll('.nav-tab').forEach(function(t) {
+    var oc = t.getAttribute('onclick') || '';
+    if (oc.indexOf("'" + id + "'") > -1) t.classList.add('on');
+    else t.classList.remove('on');
+  });
+}
+function showToast() {}
+function setRole() {}
+function filterTMVisa() {}
+</script>
 </head>
 <body>
 <div class="topbar">
@@ -196,10 +211,91 @@ tr:hover td{background:#fafbfc}
   <div class="nav-tab" onclick="showPage('policy')" data-roles="manager,pre">📋 Policies</div>
   <div class="nav-div"></div>
   <div class="nav-tab" onclick="showPage('docs')" data-roles="manager,pre,post">📁 Docs</div>
+  <div class="nav-tab" onclick="showPage('lerms')" data-roles="manager,post">🧾 LERMS</div>
   <div class="nav-tab" onclick="showPage('fleet')" data-roles="manager">🚌 Fleet</div>
 </div>
 
 
+<div class="page" id="pg-lerms">
+  <div class="sh">TM LERMS &#8212; Euro Card Loading Sheet</div>
+  <div class="alert a-blue" style="margin-bottom:14px">
+    <div class="a-icon">&#128179;</div>
+    <div>WOE 2026 standard rates pre-loaded (LERMS 1 format). Select departure to auto-fill TM name and pax counts. All rows are editable. Euro Card column auto-calculates.</div>
+  </div>
+  <div class="g4" style="margin-bottom:14px">
+    <div class="card" style="padding:12px 14px">
+      <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Departure</div>
+      <select class="sel" id="lermsDepSel" onchange="lermsSetDep(this.value)" style="width:100%">
+        <option value="WOE-01">WOE-01 &middot; 09 May 2026</option>
+        <option value="WOE-02">WOE-02 &middot; 30 May 2026</option>
+        <option value="WOE-03">WOE-03 &middot; 20 Jun 2026</option>
+        <option value="WOE-04">WOE-04 &middot; 11 Jul 2026</option>
+        <option value="WOE-05">WOE-05 &middot; 01 Aug 2026</option>
+        <option value="WOE-06">WOE-06 &middot; 05 Sep 2026</option>
+      </select>
+    </div>
+    <div class="card" style="padding:12px 14px">
+      <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Tour Manager</div>
+      <div id="lermsTmName" style="font-size:13px;font-weight:700;color:var(--blue)">Mahesh Jagannath Nyayanit</div>
+    </div>
+    <div class="card" style="padding:12px 14px">
+      <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px">Pax Counts</div>
+      <div style="display:flex;gap:8px;font-size:12px;align-items:center;flex-wrap:wrap">
+        <label>Adult <input class="inp" id="lermsAdult" type="number" value="38" min="0" style="width:52px;padding:3px 6px" oninput="lermsCalc()"></label>
+        <label>Child <input class="inp" id="lermsChild" type="number" value="0" min="0" style="width:46px;padding:3px 6px" oninput="lermsCalc()"></label>
+        <label>Infant <input class="inp" id="lermsInfant" type="number" value="0" min="0" style="width:46px;padding:3px 6px"></label>
+      </div>
+    </div>
+    <div class="card" style="padding:12px 14px">
+      <div style="font-size:10px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Card Status</div>
+      <div style="font-size:11px;color:var(--t2);margin-bottom:5px">Balance in card: <input class="inp" id="lermsBalance" type="number" value="0" style="width:70px;padding:3px 6px" oninput="lermsCalc()"> &euro;</div>
+      <div style="font-size:13px;font-weight:700;color:var(--blue)">To Load: <span id="lermsToLoad">&euro;0.00</span></div>
+    </div>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead>
+        <tr style="background:#1a3a5c">
+          <th style="color:#fff;width:32px">#</th>
+          <th style="color:#fff">Particulars</th>
+          <th style="color:#fff;text-align:right;width:65px">Days</th>
+          <th style="color:#fff;text-align:right;width:75px">Amt &euro;</th>
+          <th style="color:#fff;text-align:right;width:85px">Adult Price</th>
+          <th style="color:#fff;text-align:right;width:85px">Child Price</th>
+          <th style="color:#fff;text-align:right;width:100px">Euro Card &euro;</th>
+          <th style="color:#fff">Remark</th>
+        </tr>
+      </thead>
+      <tbody id="lermsBody"></tbody>
+      <tfoot>
+        <tr style="background:#1a3a5c">
+          <td colspan="6" style="color:#fff;font-weight:700;padding:8px 10px">Loading Lerms</td>
+          <td style="color:#C9862F;font-weight:800;font-size:15px;text-align:right;padding:8px 10px" id="lermsTotal">&euro;0.00</td>
+          <td></td>
+        </tr>
+        <tr style="background:#f0f4f8">
+          <td colspan="6" style="font-weight:600;color:var(--t2);padding:7px 10px">Balance in the card</td>
+          <td style="text-align:right;font-weight:600;padding:7px 10px" id="lermsBalanceDisp">&euro;0.00</td>
+          <td></td>
+        </tr>
+        <tr style="background:#fff7ed;border-top:2px solid #C9862F">
+          <td colspan="6" style="font-weight:700;color:var(--blue);padding:8px 10px">Balance to Load</td>
+          <td style="text-align:right;font-weight:800;font-size:15px;color:var(--blue);padding:8px 10px" id="lermsToLoadFoot">&euro;0.00</td>
+          <td></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <div class="sh" style="margin-top:14px">Optional &#8212; Paris by Night (&#167;04)</div>
+  <div class="card" style="font-size:12px;color:var(--t2)">
+    Coach &euro;400 &nbsp;&middot;&nbsp; Van &euro;150 &nbsp;&middot;&nbsp; Sell at &euro;40&#8211;50/person &nbsp;&middot;&nbsp; Collect via ORN App &nbsp;&middot;&nbsp; Declare same day
+  </div>
+  <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap">
+    <button class="btn btn-p" onclick="lermsCalc()">&#x1F504; Recalculate</button>
+    <button class="btn" onclick="lermsReset()">&#x21BA; Reset to Defaults</button>
+    <button class="btn" onclick="window.print()">&#x1F5A8; Print / Save PDF</button>
+  </div>
+</div>
 <div class="page on" id="pg-home">
 
   <div class="sh">Season Snapshot — 2026</div>
@@ -384,15 +480,25 @@ tr:hover td{background:#fafbfc}
       <option value="Not Contracted">Not Contracted</option>
       <option value="Freelancer">Freelancer</option>
     </select>
-    <select class="sel" style="width:150px" onchange="filterTMCash(this.value)">
+    <select class="sel" style="width:150px" onchange="filterTMCash(this.value)" id="tmCashFilter">
       <option value="">All cash</option>
       <option value="cash">Outstanding only</option>
       <option value="clear">Clear only</option>
     </select>
-    <select class="sel" style="width:150px" onchange="filterTMHold(this.value)">
+    <select class="sel" style="width:150px" onchange="filterTMHold(this.value)" id="tmHoldFilter">
       <option value="">All TMs</option>
       <option value="hold">On Hold</option>
       <option value="available">Available</option>
+    </select>
+    <select class="sel" style="width:155px" onchange="filterTMVisa('sch',this.value)" id="schFilter">
+      <option value="">Schengen &#8212; All</option>
+      <option value="yes">&#10003; Schengen Yes</option>
+      <option value="no">&#10007; Schengen No</option>
+    </select>
+    <select class="sel" style="width:140px" onchange="filterTMVisa('uk',this.value)" id="ukFilter">
+      <option value="">UK Visa &#8212; All</option>
+      <option value="yes">&#10003; UK Yes</option>
+      <option value="no">&#10007; UK No</option>
     </select>
     <span id="tmCount" style="font-size:12px;color:var(--t3);margin-left:auto"></span>
   </div>
@@ -412,6 +518,8 @@ tr:hover td{background:#fafbfc}
           <th>Cash 2025</th>
           <th>Cash 2026</th>
           <th>WOE 26</th>
+          <th style="text-align:center">Schengen</th>
+          <th style="text-align:center">UK Visa</th>
           <th>Availability</th>
           <th style="width:90px">Profile</th>
         </tr>
@@ -989,6 +1097,7 @@ tr:hover td{background:#fafbfc}
           </div>
   
 <script>
+
 const DEPS=[
   {id:'WOE-01',date:'09 May 2026',ref:'WOE090526',pax:38,cap:40,status:'Active',risk:'critical',note:'On tour now — Day 14',issues:['Jungfrau €6,300 company cash not declared (§04)','Daily report overdue (§21)']},
   {id:'WOE-02',date:'30 May 2026',ref:'WOE300526',pax:40,cap:40,status:'Confirmed',risk:'warning',note:'Departs in 7 days — T-7 voucher check OVERDUE',issues:['T-7 voucher check not completed (§13)']},
@@ -1136,7 +1245,6 @@ function showMTab(i){
   document.querySelectorAll('.mtab').forEach((t,j)=>t.classList.toggle('on',i===j));
   document.querySelectorAll('.mpane').forEach((p,j)=>p.classList.toggle('on',i===j));
 }
-document.getElementById('depModal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 function updatePL(){
   const ids=['vFlights','vAttr','vMeals','vGuides','vTM','vPerms','vMisc'];
   const tot=ids.reduce((s,id)=>s+(parseInt(document.getElementById(id).value)||0),0);
@@ -1159,43 +1267,42 @@ function buildPaxTable(list){
   });
   document.getElementById('paxSummary').textContent=`${list.length} passengers shown · ${list.filter(x=>x.bal!=='Settled').length} with outstanding balances · ${list.filter(x=>x.medical!=='—').length} with medical notes`;
 }
-buildPaxTable(PAX);
 function filterPax(v){buildPaxTable(v?PAX.filter(p=>p.dep===v):PAX);}
 function searchPax(v){buildPaxTable(v?PAX.filter(p=>p.name.toLowerCase().includes(v.toLowerCase())):PAX);}
 
 // ═══ FULL TM PROFILES ═══
 const TM_PROFILES = [
-  {n:'Mahesh Jagannath Nyayanit',s:'Contracted',c25:'',c26:'',age:38,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Eastern Europe'],rating:4.7,tours:['WOE 2024','WOE 2025','European Capitals 2023'],assigned:'WOE-01',fee:'€1,800 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:6,hold:false,holdReason:'',guideAuth:'Approved — Paris, Amsterdam (§09)',skills:{experience:5,feedback:5,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Sep 2025',rating:5,comment:'Exceptional TM. Group loved him. Perfect time management.',action:'None required'},{tour:'WOE-2024',date:'Sep 2024',rating:5,comment:'Best TM we have had. Highly professional.',action:'None required'}],compliance:[]},
-  {n:'Mohd Nadeem Mansoori',s:'Contracted',c25:'',c26:'EUR 3,600',age:35,nat:'Indian',lang:['English','Hindi','Urdu','Arabic'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 3,600 cash outstanding 2026 — Policy §03. Must settle before next assignment.',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:1,operational:4,contribution:3,fairness:3},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Good TM, customers happy. Some delays in Day 7.',action:'Discussed with TM'},{tour:'WOE-2023',date:'Sep 2023',rating:4,comment:'Decent tour delivery.',action:'None'}],compliance:['⚠️ EUR 3,600 cash not settled — §03 violation. On hold until cleared.']},
-  {n:'Nikhil Kambli',s:'Contracted',c25:'',c26:'',age:32,nat:'Indian',lang:['English','Hindi','Kannada'],routes:['Europe Classic','Western Europe'],rating:4.5,tours:['WOE 2024','WOE 2025','European Highlights 2023'],assigned:'WOE-02',fee:'€1,700 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Approved — Rome, Florence (§09)',skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Jun 2025',rating:5,comment:'Superb. Customers very happy. Great optional sales.',action:'None'},{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Good overall. Minor timing issues Day 3.',action:'Noted'}],compliance:[]},
-  {n:'Neeraj Kambli',s:'Contracted',c25:'',c26:'',age:30,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2024','European Highlights 2025'],assigned:'WOE-03',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Solid tour delivery. Good with senior groups.',action:'None'}],compliance:[]},
-  {n:'Masooma Sayed',s:'Contracted',c25:'',c26:'',age:34,nat:'Indian',lang:['English','Hindi','French'],routes:['Europe Classic','France Focus'],rating:4.6,tours:['WOE 2023','WOE 2024','France 2025'],assigned:'WOE-04',fee:'€1,750 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:5,hold:false,holdReason:'',guideAuth:'Approved — Paris full day (§09)',skills:{experience:4,feedback:5,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:5,comment:'Masooma was outstanding. French language a huge plus in Paris.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Very professional throughout.',action:'None'}],compliance:[]},
-  {n:'Subodh Chandrakant Thakur',s:'Contracted',c25:'',c26:'EUR 1,000',age:40,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Eastern Europe'],rating:4.1,tours:['WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:7,hold:true,holdReason:'EUR 1,000 cash outstanding 2026 — Policy §03. Must settle before assignment.',guideAuth:'Not authorised',skills:{experience:4,feedback:4,financial:2,operational:4,contribution:3,fairness:4},feedback:[{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Experienced TM. Group management good.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Reliable and professional.',action:'None'}],compliance:['⚠️ EUR 1,000 cash outstanding — §03. On hold.']},
-  {n:'Anita Kapadia',s:'Contracted',c25:'EUR 306',c26:'EUR 1,200',age:36,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic'],rating:3.8,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 306 (2025) + EUR 1,200 (2026) cash outstanding. Both must clear before any assignment (§03).',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:1,operational:3,contribution:3,fairness:4},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:4,comment:'Good TM overall. Customers happy.',action:'None'}],compliance:['⚠️ EUR 306 (2025) + EUR 1,200 (2026) not settled — §03 double violation. On hold.']},
-  {n:'Rohan Manohar Apke',s:'Contracted',c25:'EUR 5,340',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Western Europe'],rating:3.5,tours:['WOE 2022','WOE 2023','WOE 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:5,hold:true,holdReason:'EUR 5,340 cash outstanding from 2025 — largest outstanding on roster. CRITICAL §03 violation. No assignment until fully settled and Vinay approves.',guideAuth:'Not authorised',skills:{experience:4,feedback:3,financial:1,operational:3,contribution:2,fairness:4},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:3,comment:'Some customer complaints about time management.',action:'Formal discussion held'},{tour:'WOE-2023',date:'May 2023',rating:4,comment:'Decent delivery.',action:'None'}],compliance:['🚨 EUR 5,340 OUTSTANDING (2025) — Critical §03 violation. Escalated to Vinay. Assignment blocked.','⚠️ Customer complaint — time management issues on WOE-2025.']},
-  {n:'Ashish Vijay Chandoskar',s:'Contracted',c25:'',c26:'',age:37,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2024','European Highlights 2025'],assigned:'WOE-05',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good TM, clean billing, group liked him.',action:'None'}],compliance:[]},
-  {n:'Anirudh Govindram Saini',s:'Contracted',c25:'',c26:'',age:31,nat:'Indian',lang:['English','Hindi','Punjabi'],routes:['Europe Classic','Scandinavia'],rating:4.4,tours:['WOE 2024','European Capitals 2025'],assigned:'WOE-06',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:5,comment:'Very professional. Customers loved the tour.',action:'None'},{tour:'European Capitals 2025',date:'Sep 2025',rating:4,comment:'Great energy throughout.',action:'None'}],compliance:[]},
-  {n:'Raaj Dinesh Navgrahe',s:'Contracted',c25:'EUR 900 + INR 40,000',c26:'',age:39,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2022','WOE 2023'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:6,hold:true,holdReason:'EUR 900 + INR 40,000 cash outstanding from 2025 — §03 violation. Must settle before assignment.',guideAuth:'Not authorised',skills:{experience:4,feedback:4,financial:1,operational:3,contribution:3,fairness:4},feedback:[{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Experienced TM. Good group management.',action:'None'}],compliance:['⚠️ EUR 900 + INR 40,000 outstanding (2025) — §03. On hold.']},
-  {n:'Syed Zeeshan Musser',s:'Contracted',c25:'',c26:'',age:34,nat:'Indian',lang:['English','Hindi','Arabic'],routes:['Europe Classic','Middle East'],rating:4.5,tours:['WOE 2024','WOE 2025'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'May 2025',rating:5,comment:'Excellent TM. Arabic-speaking groups especially happy.',action:'None'},{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Very good delivery.',action:'None'}],compliance:[]},
-  {n:'Jitu Kataria',s:'Contracted',c25:'',c26:'',age:42,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic','Eastern Europe'],rating:4.4,tours:['WOE 2021','WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,750',payterms:'50% pre-tour, 50% post',years:8,hold:false,holdReason:'',guideAuth:'Approved — Multiple cities, senior TM (§09)',skills:{experience:5,feedback:4,financial:5,operational:5,contribution:4,fairness:4},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Very experienced. Excellent crisis handling.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:5,comment:'Best group manager on the roster.',action:'None'}],compliance:[]},
-  {n:'Zubin Sarosh Patel',s:'Contracted',c25:'',c26:'',age:35,nat:'Indian (Parsi)',lang:['English','Gujarati','Hindi'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:4,comment:'Solid TM. Gujarati-speaking clients very happy.',action:'None'}],compliance:[]},
-  {n:'Karishma Kherani',s:'Contracted',c25:'',c26:'',age:28,nat:'Indian',lang:['English','Hindi','Sindhi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2024','European Highlights 2025'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Good first WOE tour. Customer happy.',action:'None'}],compliance:[]},
-  {n:'Saher Nawab',s:'Contracted',c25:'',c26:'',age:29,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:4.0,tours:['European Highlights 2025'],assigned:'',fee:'€1,550',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Jun 2025',rating:4,comment:'Promising TM. Needs more Europe experience.',action:'Monitor on next assignment'}],compliance:[]},
-  {n:'Ketan Krishan Sharma',s:'Contracted',c25:'EUR 4,600',c26:'',age:38,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic','Eastern Europe'],rating:3.2,tours:['WOE 2021','WOE 2022','WOE 2023'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:6,hold:true,holdReason:'EUR 4,600 cash outstanding from 2025 — §03 critical violation. No assignment. Vinay to review contract status.',guideAuth:'Not authorised',skills:{experience:4,feedback:3,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2023',date:'May 2023',rating:3,comment:'Multiple customer complaints about delays.',action:'Written warning issued'},{tour:'WOE-2022',date:'Jun 2022',rating:3,comment:'Average performance. Financial discipline concerns.',action:'Flagged to Seema'}],compliance:['🚨 EUR 4,600 OUTSTANDING (2025) — §03 critical. Vinay to review contract.','⚠️ Written warning for customer complaints WOE-2023 — §22 borderline.']},
-  {n:'Vijay Vithalbhai Panchal',s:'Contracted',c25:'',c26:'',age:44,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic','Western Europe'],rating:4.5,tours:['WOE 2020','WOE 2021','WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,800',payterms:'50% pre-tour, 50% post',years:9,hold:false,holdReason:'',guideAuth:'Approved — Senior TM, multiple cities (§09)',skills:{experience:5,feedback:5,financial:5,operational:5,contribution:5,fairness:4},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:5,comment:'Elite TM. 9 seasons, never a major issue.',action:'None'},{tour:'WOE-2023',date:'Jul 2023',rating:5,comment:'Customers always ask for Vijay.',action:'None'}],compliance:[]},
-  {n:'Mekail Mistry',s:'Contracted',c25:'',c26:'',age:31,nat:'Indian (Parsi)',lang:['English','Gujarati','Hindi'],routes:['Europe Classic'],rating:4.1,tours:['WOE 2024','European Capitals 2025'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good first WOE. Clean billing. Customers satisfied.',action:'None'}],compliance:[]},
-  {n:'Mohammedshahid Sayed',s:'Contracted',c25:'',c26:'',age:36,nat:'Indian',lang:['English','Hindi','Urdu','Arabic'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2023','WOE 2024','WOE 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:4,comment:'Strong performance, customers happy.',action:'None'}],compliance:[]},
-  {n:'Shweta Vijay',s:'Contracted',c25:'',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Tamil'],routes:['Europe Classic'],rating:4.4,tours:['WOE 2024','European Highlights 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Excellent organisation. Very customer-centric.',action:'None'}],compliance:[]},
-  {n:'William S. Almeida',s:'Contracted',c25:'',c26:'EUR 800',age:40,nat:'Indian (Goan)',lang:['English','Hindi','Konkani','Portuguese'],routes:['Europe Classic','Portugal & Spain'],rating:4.2,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 800 cash outstanding 2026 — §03. Must clear before next assignment.',guideAuth:'Approved — Lisbon, Porto, Rome (§09)',skills:{experience:3,feedback:4,financial:2,operational:4,contribution:4,fairness:4},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Good TM. Portuguese useful in Lisbon tours.',action:'None'}],compliance:['⚠️ EUR 800 outstanding (2026) — §03. On hold.']},
-  {n:'Anees Fatima Rizvi',s:'Contracted',c25:'',c26:'',age:30,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:4.1,tours:['European Highlights 2025'],assigned:'',fee:'€1,550',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Sep 2025',rating:4,comment:'Good debut. Customer feedback positive.',action:'None'}],compliance:[]},
-  {n:"Assumption Milagres D'Costa",s:'Contracted',c25:'',c26:'',age:37,nat:'Indian (Goan)',lang:['English','Hindi','Konkani'],routes:['Europe Classic'],rating:4.0,tours:['WOE 2023','European Highlights 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:3,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Solid performance. Group happy.',action:'None'}],compliance:[]},
-  {n:'Kevin Harding',s:'Contracted',c25:'',c26:'',age:35,nat:'Indian (Anglo)',lang:['English','Hindi'],routes:['Europe Classic','UK Focus'],rating:4.5,tours:['WOE 2024','WOE 2025','UK Highlights 2023'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Approved — London, Edinburgh (§09)',skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Jun 2025',rating:5,comment:'Kevin is exceptional with UK-heavy groups.',action:'None'},{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Great TM.',action:'None'}],compliance:[]},
-  {n:'Yash Anil Shah',s:'Contracted',c25:'',c26:'',age:27,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic'],rating:4.0,tours:['European Highlights 2025'],assigned:'',fee:'€1,500',payterms:'50% pre-tour, 50% post',years:1,hold:false,holdReason:'',guideAuth:'Not authorised — first season (§08 shadowing required)',skills:{experience:1,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Jul 2025',rating:4,comment:'Strong debut. Very organised for first timer.',action:'Monitor — first WOE assignment needs supervision'}],compliance:['ℹ️ First season — §08 requires shadowing/monitoring on first WOE tour.']},
-  {n:'Avinash Dattaram Ghatge',s:'Contracted',c25:'',c26:'',age:39,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2022','WOE 2023','WOE 2024','WOE 2025'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:5,hold:false,holdReason:'',guideAuth:'Not authorised',skills:{experience:4,feedback:4,financial:5,operational:4,contribution:4,fairness:3},feedback:[{tour:'WOE-2025',date:'Sep 2025',rating:4,comment:'Good TM. Experienced on route.',action:'None'}],compliance:['⚠️ §06 flag — NOTE: May have conducted AFC Holidays tour between ORN assignments using ORN/Nexus Schengen visa. Seema to verify. Vinay decision pending.']},
-  {n:'Sagar Dusane',s:'Not Contracted',c25:'EUR 1,487',c26:'',age:32,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:3.7,tours:['WOE 2024'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 1,487 outstanding (2025) + No contract in place. Cannot assign without contract or cash clearance.',guideAuth:'Not authorised',skills:{experience:2,feedback:3,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:3,comment:'Average performance. Some customer complaints.',action:'Noted — no contract, no priority'}],compliance:['⚠️ EUR 1,487 outstanding (2025). No active contract — §07 priority goes to contracted TMs first.']},
-  {n:'Bhavesh Pokhriyal',s:'Freelancer',c25:'EUR 1,200',c26:'',age:34,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:3.8,tours:['WOE 2023'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 1,200 outstanding (2025) + Freelancer status. Contracted TMs must be offered assignment first per §07.',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2023',date:'Jul 2023',rating:4,comment:'Good performance. Freelancer, reliable.',action:'None'}],compliance:['⚠️ EUR 1,200 outstanding (2025). Freelancer — §07: contracted TMs have priority.']},
-  {n:'Asif Sayed',s:'Not Contracted',c25:'EUR 800',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2024'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:1,hold:true,holdReason:'EUR 800 outstanding (2025) + No contract. Contracted TMs have priority (§07).',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good first tour. Positive feedback.',action:'None'}],compliance:['⚠️ EUR 800 outstanding (2025). No active contract.']},
-  {n:'Gaurav Morawar',s:'Freelancer',c25:'',c26:'EUR 2,150',age:35,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:4.0,tours:['WOE 2025'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 2,150 outstanding (2026) + Freelancer status. Cannot assign until settled (§03).',guideAuth:'Not authorised',skills:{experience:2,feedback:4,financial:1,operational:3,contribution:3,fairness:3},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:4,comment:'Good performance on WOE-2025.',action:'None'}],compliance:['⚠️ EUR 2,150 outstanding (2026) — §03. On hold. Freelancer — contracted TMs have priority (§07).']}
+  {n:'Mahesh Jagannath Nyayanit',s:'Contracted',c25:'',c26:'',age:38,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Eastern Europe'],rating:4.7,tours:['WOE 2024','WOE 2025','European Capitals 2023'],assigned:'WOE-01',fee:'€1,800 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:6,hold:false,holdReason:'',guideAuth:'Approved — Paris, Amsterdam (§09)',schengenVisa:true,ukVisa:true,skills:{experience:5,feedback:5,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Sep 2025',rating:5,comment:'Exceptional TM. Group loved him. Perfect time management.',action:'None required'},{tour:'WOE-2024',date:'Sep 2024',rating:5,comment:'Best TM we have had. Highly professional.',action:'None required'}],compliance:[]},
+  {n:'Mohd Nadeem Mansoori',s:'Contracted',c25:'',c26:'EUR 3,600',age:35,nat:'Indian',lang:['English','Hindi','Urdu','Arabic'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 3,600 cash outstanding 2026 — Policy §03. Must settle before next assignment.',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:1,operational:4,contribution:3,fairness:3},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Good TM, customers happy. Some delays in Day 7.',action:'Discussed with TM'},{tour:'WOE-2023',date:'Sep 2023',rating:4,comment:'Decent tour delivery.',action:'None'}],compliance:['⚠️ EUR 3,600 cash not settled — §03 violation. On hold until cleared.']},
+  {n:'Nikhil Kambli',s:'Contracted',c25:'',c26:'',age:32,nat:'Indian',lang:['English','Hindi','Kannada'],routes:['Europe Classic','Western Europe'],rating:4.5,tours:['WOE 2024','WOE 2025','European Highlights 2023'],assigned:'WOE-02',fee:'€1,700 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Approved — Rome, Florence (§09)',schengenVisa:true,ukVisa:true,skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Jun 2025',rating:5,comment:'Superb. Customers very happy. Great optional sales.',action:'None'},{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Good overall. Minor timing issues Day 3.',action:'Noted'}],compliance:[]},
+  {n:'Neeraj Kambli',s:'Contracted',c25:'',c26:'',age:30,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2024','European Highlights 2025'],assigned:'WOE-03',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Solid tour delivery. Good with senior groups.',action:'None'}],compliance:[]},
+  {n:'Masooma Sayed',s:'Contracted',c25:'',c26:'',age:34,nat:'Indian',lang:['English','Hindi','French'],routes:['Europe Classic','France Focus'],rating:4.6,tours:['WOE 2023','WOE 2024','France 2025'],assigned:'WOE-04',fee:'€1,750 + €50/day allowance',payterms:'50% pre-tour, 50% post',years:5,hold:false,holdReason:'',guideAuth:'Approved — Paris full day (§09)',schengenVisa:true,ukVisa:true,skills:{experience:4,feedback:5,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:5,comment:'Masooma was outstanding. French language a huge plus in Paris.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Very professional throughout.',action:'None'}],compliance:[]},
+  {n:'Subodh Chandrakant Thakur',s:'Contracted',c25:'',c26:'EUR 1,000',age:40,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Eastern Europe'],rating:4.1,tours:['WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:7,hold:true,holdReason:'EUR 1,000 cash outstanding 2026 — Policy §03. Must settle before assignment.',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:4,feedback:4,financial:2,operational:4,contribution:3,fairness:4},feedback:[{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Experienced TM. Group management good.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Reliable and professional.',action:'None'}],compliance:['⚠️ EUR 1,000 cash outstanding — §03. On hold.']},
+  {n:'Anita Kapadia',s:'Contracted',c25:'EUR 306',c26:'EUR 1,200',age:36,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic'],rating:3.8,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 306 (2025) + EUR 1,200 (2026) cash outstanding. Both must clear before any assignment (§03).',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:1,operational:3,contribution:3,fairness:4},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:4,comment:'Good TM overall. Customers happy.',action:'None'}],compliance:['⚠️ EUR 306 (2025) + EUR 1,200 (2026) not settled — §03 double violation. On hold.']},
+  {n:'Rohan Manohar Apke',s:'Contracted',c25:'EUR 5,340',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic','Western Europe'],rating:3.5,tours:['WOE 2022','WOE 2023','WOE 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:5,hold:true,holdReason:'EUR 5,340 cash outstanding from 2025 — largest outstanding on roster. CRITICAL §03 violation. No assignment until fully settled and Vinay approves.',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:4,feedback:3,financial:1,operational:3,contribution:2,fairness:4},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:3,comment:'Some customer complaints about time management.',action:'Formal discussion held'},{tour:'WOE-2023',date:'May 2023',rating:4,comment:'Decent delivery.',action:'None'}],compliance:['🚨 EUR 5,340 OUTSTANDING (2025) — Critical §03 violation. Escalated to Vinay. Assignment blocked.','⚠️ Customer complaint — time management issues on WOE-2025.']},
+  {n:'Ashish Vijay Chandoskar',s:'Contracted',c25:'',c26:'',age:37,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2024','European Highlights 2025'],assigned:'WOE-05',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good TM, clean billing, group liked him.',action:'None'}],compliance:[]},
+  {n:'Anirudh Govindram Saini',s:'Contracted',c25:'',c26:'',age:31,nat:'Indian',lang:['English','Hindi','Punjabi'],routes:['Europe Classic','Scandinavia'],rating:4.4,tours:['WOE 2024','European Capitals 2025'],assigned:'WOE-06',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:5,comment:'Very professional. Customers loved the tour.',action:'None'},{tour:'European Capitals 2025',date:'Sep 2025',rating:4,comment:'Great energy throughout.',action:'None'}],compliance:[]},
+  {n:'Raaj Dinesh Navgrahe',s:'Contracted',c25:'EUR 900 + INR 40,000',c26:'',age:39,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2022','WOE 2023'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:6,hold:true,holdReason:'EUR 900 + INR 40,000 cash outstanding from 2025 — §03 violation. Must settle before assignment.',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:4,feedback:4,financial:1,operational:3,contribution:3,fairness:4},feedback:[{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Experienced TM. Good group management.',action:'None'}],compliance:['⚠️ EUR 900 + INR 40,000 outstanding (2025) — §03. On hold.']},
+  {n:'Syed Zeeshan Musser',s:'Contracted',c25:'',c26:'',age:34,nat:'Indian',lang:['English','Hindi','Arabic'],routes:['Europe Classic','Middle East'],rating:4.5,tours:['WOE 2024','WOE 2025'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:true,skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'May 2025',rating:5,comment:'Excellent TM. Arabic-speaking groups especially happy.',action:'None'},{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Very good delivery.',action:'None'}],compliance:[]},
+  {n:'Jitu Kataria',s:'Contracted',c25:'',c26:'',age:42,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic','Eastern Europe'],rating:4.4,tours:['WOE 2021','WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,750',payterms:'50% pre-tour, 50% post',years:8,hold:false,holdReason:'',guideAuth:'Approved — Multiple cities, senior TM (§09)',schengenVisa:true,ukVisa:true,skills:{experience:5,feedback:4,financial:5,operational:5,contribution:4,fairness:4},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Very experienced. Excellent crisis handling.',action:'None'},{tour:'WOE-2023',date:'Jun 2023',rating:5,comment:'Best group manager on the roster.',action:'None'}],compliance:[]},
+  {n:'Zubin Sarosh Patel',s:'Contracted',c25:'',c26:'',age:35,nat:'Indian (Parsi)',lang:['English','Gujarati','Hindi'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:4,comment:'Solid TM. Gujarati-speaking clients very happy.',action:'None'}],compliance:[]},
+  {n:'Karishma Kherani',s:'Contracted',c25:'',c26:'',age:28,nat:'Indian',lang:['English','Hindi','Sindhi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2024','European Highlights 2025'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Good first WOE tour. Customer happy.',action:'None'}],compliance:[]},
+  {n:'Saher Nawab',s:'Contracted',c25:'',c26:'',age:29,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:4.0,tours:['European Highlights 2025'],assigned:'',fee:'€1,550',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Jun 2025',rating:4,comment:'Promising TM. Needs more Europe experience.',action:'Monitor on next assignment'}],compliance:[]},
+  {n:'Ketan Krishan Sharma',s:'Contracted',c25:'EUR 4,600',c26:'',age:38,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic','Eastern Europe'],rating:3.2,tours:['WOE 2021','WOE 2022','WOE 2023'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:6,hold:true,holdReason:'EUR 4,600 cash outstanding from 2025 — §03 critical violation. No assignment. Vinay to review contract status.',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:4,feedback:3,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2023',date:'May 2023',rating:3,comment:'Multiple customer complaints about delays.',action:'Written warning issued'},{tour:'WOE-2022',date:'Jun 2022',rating:3,comment:'Average performance. Financial discipline concerns.',action:'Flagged to Seema'}],compliance:['🚨 EUR 4,600 OUTSTANDING (2025) — §03 critical. Vinay to review contract.','⚠️ Written warning for customer complaints WOE-2023 — §22 borderline.']},
+  {n:'Vijay Vithalbhai Panchal',s:'Contracted',c25:'',c26:'',age:44,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic','Western Europe'],rating:4.5,tours:['WOE 2020','WOE 2021','WOE 2022','WOE 2023','WOE 2024'],assigned:'',fee:'€1,800',payterms:'50% pre-tour, 50% post',years:9,hold:false,holdReason:'',guideAuth:'Approved — Senior TM, multiple cities (§09)',schengenVisa:true,ukVisa:true,skills:{experience:5,feedback:5,financial:5,operational:5,contribution:5,fairness:4},feedback:[{tour:'WOE-2024',date:'Sep 2024',rating:5,comment:'Elite TM. 9 seasons, never a major issue.',action:'None'},{tour:'WOE-2023',date:'Jul 2023',rating:5,comment:'Customers always ask for Vijay.',action:'None'}],compliance:[]},
+  {n:'Mekail Mistry',s:'Contracted',c25:'',c26:'',age:31,nat:'Indian (Parsi)',lang:['English','Gujarati','Hindi'],routes:['Europe Classic'],rating:4.1,tours:['WOE 2024','European Capitals 2025'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good first WOE. Clean billing. Customers satisfied.',action:'None'}],compliance:[]},
+  {n:'Mohammedshahid Sayed',s:'Contracted',c25:'',c26:'',age:36,nat:'Indian',lang:['English','Hindi','Urdu','Arabic'],routes:['Europe Classic'],rating:4.3,tours:['WOE 2023','WOE 2024','WOE 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:4,comment:'Strong performance, customers happy.',action:'None'}],compliance:[]},
+  {n:'Shweta Vijay',s:'Contracted',c25:'',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Tamil'],routes:['Europe Classic'],rating:4.4,tours:['WOE 2024','European Highlights 2025'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:5,contribution:4,fairness:5},feedback:[{tour:'WOE-2024',date:'Jul 2024',rating:4,comment:'Excellent organisation. Very customer-centric.',action:'None'}],compliance:[]},
+  {n:'William S. Almeida',s:'Contracted',c25:'',c26:'EUR 800',age:40,nat:'Indian (Goan)',lang:['English','Hindi','Konkani','Portuguese'],routes:['Europe Classic','Portugal & Spain'],rating:4.2,tours:['WOE 2023','WOE 2024'],assigned:'',fee:'€1,650',payterms:'50% pre-tour, 50% post',years:4,hold:true,holdReason:'EUR 800 cash outstanding 2026 — §03. Must clear before next assignment.',guideAuth:'Approved — Lisbon, Porto, Rome (§09)',schengenVisa:true,ukVisa:true,skills:{experience:3,feedback:4,financial:2,operational:4,contribution:4,fairness:4},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:4,comment:'Good TM. Portuguese useful in Lisbon tours.',action:'None'}],compliance:['⚠️ EUR 800 outstanding (2026) — §03. On hold.']},
+  {n:'Anees Fatima Rizvi',s:'Contracted',c25:'',c26:'',age:30,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:4.1,tours:['European Highlights 2025'],assigned:'',fee:'€1,550',payterms:'50% pre-tour, 50% post',years:2,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Sep 2025',rating:4,comment:'Good debut. Customer feedback positive.',action:'None'}],compliance:[]},
+  {n:"Assumption Milagres D'Costa",s:'Contracted',c25:'',c26:'',age:37,nat:'Indian (Goan)',lang:['English','Hindi','Konkani'],routes:['Europe Classic'],rating:4.0,tours:['WOE 2023','European Highlights 2024'],assigned:'',fee:'€1,600',payterms:'50% pre-tour, 50% post',years:3,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:3,feedback:4,financial:5,operational:4,contribution:3,fairness:5},feedback:[{tour:'WOE-2023',date:'Jun 2023',rating:4,comment:'Solid performance. Group happy.',action:'None'}],compliance:[]},
+  {n:'Kevin Harding',s:'Contracted',c25:'',c26:'',age:35,nat:'Indian (Anglo)',lang:['English','Hindi'],routes:['Europe Classic','UK Focus'],rating:4.5,tours:['WOE 2024','WOE 2025','UK Highlights 2023'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:4,hold:false,holdReason:'',guideAuth:'Approved — London, Edinburgh (§09)',schengenVisa:true,ukVisa:true,skills:{experience:4,feedback:5,financial:5,operational:4,contribution:4,fairness:5},feedback:[{tour:'WOE-2025',date:'Jun 2025',rating:5,comment:'Kevin is exceptional with UK-heavy groups.',action:'None'},{tour:'WOE-2024',date:'May 2024',rating:4,comment:'Great TM.',action:'None'}],compliance:[]},
+  {n:'Yash Anil Shah',s:'Contracted',c25:'',c26:'',age:27,nat:'Indian',lang:['English','Hindi','Gujarati'],routes:['Europe Classic'],rating:4.0,tours:['European Highlights 2025'],assigned:'',fee:'€1,500',payterms:'50% pre-tour, 50% post',years:1,hold:false,holdReason:'',guideAuth:'Not authorised — first season (§08 shadowing required)',schengenVisa:false,ukVisa:false,skills:{experience:1,feedback:4,financial:5,operational:3,contribution:3,fairness:5},feedback:[{tour:'European Highlights 2025',date:'Jul 2025',rating:4,comment:'Strong debut. Very organised for first timer.',action:'Monitor — first WOE assignment needs supervision'}],compliance:['ℹ️ First season — §08 requires shadowing/monitoring on first WOE tour.']},
+  {n:'Avinash Dattaram Ghatge',s:'Contracted',c25:'',c26:'',age:39,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:4.2,tours:['WOE 2022','WOE 2023','WOE 2024','WOE 2025'],assigned:'',fee:'€1,700',payterms:'50% pre-tour, 50% post',years:5,hold:false,holdReason:'',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:4,feedback:4,financial:5,operational:4,contribution:4,fairness:3},feedback:[{tour:'WOE-2025',date:'Sep 2025',rating:4,comment:'Good TM. Experienced on route.',action:'None'}],compliance:['⚠️ §06 flag — NOTE: May have conducted AFC Holidays tour between ORN assignments using ORN/Nexus Schengen visa. Seema to verify. Vinay decision pending.']},
+  {n:'Sagar Dusane',s:'Not Contracted',c25:'EUR 1,487',c26:'',age:32,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:3.7,tours:['WOE 2024'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 1,487 outstanding (2025) + No contract in place. Cannot assign without contract or cash clearance.',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:3,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2024',date:'Aug 2024',rating:3,comment:'Average performance. Some customer complaints.',action:'Noted — no contract, no priority'}],compliance:['⚠️ EUR 1,487 outstanding (2025). No active contract — §07 priority goes to contracted TMs first.']},
+  {n:'Bhavesh Pokhriyal',s:'Freelancer',c25:'EUR 1,200',c26:'',age:34,nat:'Indian',lang:['English','Hindi'],routes:['Europe Classic'],rating:3.8,tours:['WOE 2023'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 1,200 outstanding (2025) + Freelancer status. Contracted TMs must be offered assignment first per §07.',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2023',date:'Jul 2023',rating:4,comment:'Good performance. Freelancer, reliable.',action:'None'}],compliance:['⚠️ EUR 1,200 outstanding (2025). Freelancer — §07: contracted TMs have priority.']},
+  {n:'Asif Sayed',s:'Not Contracted',c25:'EUR 800',c26:'',age:33,nat:'Indian',lang:['English','Hindi','Urdu'],routes:['Europe Classic'],rating:3.9,tours:['WOE 2024'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:1,hold:true,holdReason:'EUR 800 outstanding (2025) + No contract. Contracted TMs have priority (§07).',guideAuth:'Not authorised',schengenVisa:false,ukVisa:false,skills:{experience:2,feedback:4,financial:1,operational:3,contribution:2,fairness:3},feedback:[{tour:'WOE-2024',date:'Jun 2024',rating:4,comment:'Good first tour. Positive feedback.',action:'None'}],compliance:['⚠️ EUR 800 outstanding (2025). No active contract.']},
+  {n:'Gaurav Morawar',s:'Freelancer',c25:'',c26:'EUR 2,150',age:35,nat:'Indian',lang:['English','Hindi','Marathi'],routes:['Europe Classic'],rating:4.0,tours:['WOE 2025'],assigned:'',fee:'Per-tour negotiated',payterms:'On completion',years:2,hold:true,holdReason:'EUR 2,150 outstanding (2026) + Freelancer status. Cannot assign until settled (§03).',guideAuth:'Not authorised',schengenVisa:true,ukVisa:false,skills:{experience:2,feedback:4,financial:1,operational:3,contribution:3,fairness:3},feedback:[{tour:'WOE-2025',date:'Aug 2025',rating:4,comment:'Good performance on WOE-2025.',action:'None'}],compliance:['⚠️ EUR 2,150 outstanding (2026) — §03. On hold. Freelancer — contracted TMs have priority (§07).']}
 ];
 
 // TMS array (keep simple for filtering, profiles in TM_PROFILES)
@@ -1273,6 +1380,8 @@ function buildTMTable(list){
       <td style="color:${t.c25?'#b91c1c':'var(--t3)'};font-weight:${t.c25?'600':'400'};font-size:12px">${t.c25||'—'}</td>
       <td style="color:${t.c26?'#d97706':'var(--t3)'};font-weight:${t.c26?'600':'400'};font-size:12px">${t.c26||'—'}</td>
       <td>${assigned !== '—' ? `<span class="badge b-blue" style="font-size:11px">${assigned}</span>` : '<span style="font-size:12px;color:var(--t3)">—</span>'}</td>
+      <td style="text-align:center">${profile.schengenVisa?'<span class="badge b-green" style="font-size:10px">&#10003; Sch</span>':'<span class="badge b-red" style="font-size:10px">&#10007; Sch</span>'}</td>
+      <td style="text-align:center">${profile.ukVisa?'<span class="badge b-green" style="font-size:10px">&#10003; UK</span>':'<span class="badge b-red" style="font-size:10px">&#10007; UK</span>'}</td>
       <td>${holdBadge}</td>
       <td>
         <button class="btn btn-sm btn-p" style="font-size:11px;padding:4px 10px"
@@ -1297,10 +1406,33 @@ function buildTMTable(list){
   }
 }
 
-function filterTMs(v){buildTMTable(v?TMS.filter(t=>t.n.toLowerCase().includes(v.toLowerCase())):TMS);}
-function filterTMStatus(v){buildTMTable(v?TMS.filter(t=>t.s===v):TMS);}
-function filterTMCash(v){buildTMTable(v==='cash'?TMS.filter(t=>t.c25||t.c26):v==='clear'?TMS.filter(t=>!t.c25&&!t.c26):TMS);}
-function filterTMHold(v){buildTMTable(v==='hold'?TMS.filter(t=>{const p=TM_PROFILES.find(x=>x.n===t.n);return p&&p.hold;}):v==='available'?TMS.filter(t=>{const p=TM_PROFILES.find(x=>x.n===t.n);return p&&!p.hold;}):TMS);}
+function getFilteredTMs() {
+  var q  = (document.getElementById('tmSearch') && document.getElementById('tmSearch').value || '').toLowerCase();
+  var st = document.getElementById('tmStatusFilter') && document.getElementById('tmStatusFilter').value || '';
+  var ca = document.getElementById('tmCashFilter')   && document.getElementById('tmCashFilter').value   || '';
+  var ho = document.getElementById('tmHoldFilter')   && document.getElementById('tmHoldFilter').value   || '';
+  var sch= document.getElementById('schFilter')      && document.getElementById('schFilter').value      || '';
+  var uk = document.getElementById('ukFilter')       && document.getElementById('ukFilter').value       || '';
+  return TMS.filter(function(t) {
+    var p = TM_PROFILES.find(function(x){ return x.n === t.n; }) || {};
+    if (q   && !t.n.toLowerCase().includes(q)) return false;
+    if (st  && t.s !== st)                     return false;
+    if (ca === 'cash'      && !t.c25 && !t.c26) return false;
+    if (ca === 'clear'     && (t.c25 || t.c26)) return false;
+    if (ho === 'hold'      && !p.hold)           return false;
+    if (ho === 'available' &&  p.hold)           return false;
+    if (sch === 'yes' && !p.schengenVisa)        return false;
+    if (sch === 'no'  &&  p.schengenVisa)        return false;
+    if (uk  === 'yes' && !p.ukVisa)              return false;
+    if (uk  === 'no'  &&  p.ukVisa)              return false;
+    return true;
+  });
+}
+function filterTMs(v)         { buildTMTable(getFilteredTMs()); }
+function filterTMStatus(v)    { buildTMTable(getFilteredTMs()); }
+function filterTMCash(v)      { buildTMTable(getFilteredTMs()); }
+function filterTMHold(v)      { buildTMTable(getFilteredTMs()); }
+function filterTMVisa(type,v) { buildTMTable(getFilteredTMs()); }
 
 function openTMProfile(name){
   const p = TM_PROFILES.find(x => x.n === name);
@@ -1411,7 +1543,6 @@ function showTMTab(i){
   document.querySelectorAll('#tmModal .mtab').forEach((t,j)=>t.classList.toggle('on',i===j));
   document.querySelectorAll('#tmModal .mpane').forEach((p,j)=>p.classList.toggle('on',i===j));
 }
-document.getElementById('tmModal').addEventListener('click',function(e){if(e.target===this)closeTMModal();});
 
 
 
@@ -1425,7 +1556,6 @@ function buildSalesFill(){
     tb.innerHTML+=`<tr><td><strong>${d.id}</strong></td><td>${d.date}</td><td>${d.pax}/${d.cap}</td><td><span class="badge ${pc}">${pct}%</span></td><td class="td-num profit-pos">£${rev.toLocaleString()}</td><td class="td-num ${margin>=0?'profit-pos':'profit-neg'}">${margin>=0?'+':''}£${margin.toLocaleString()}</td><td>${act}</td></tr>`;
   });
 }
-buildSalesFill();
 
 const ITIN=[
   {d:1,city:'Paris 🇫🇷',hotel:'The Jangle Hotel CDG',items:[{t:'Arrival Paris CDG · Immigration · Hotel check-in',c:'inc',cost:0},{t:'Welcome dinner — Indian',c:'inc',cost:0}]},
@@ -1452,7 +1582,6 @@ function buildItin(){
     c.appendChild(el);
   });
 }
-buildItin();
 
 const OPT_MAP={'40|15|5':{p:40,tm:15,dr:5},'230|15|5':{p:230,tm:15,dr:5},'80|10|0':{p:80,tm:10,dr:0}};
 const OPT_NAMES={'40|15|5':'Paris by Night','230|15|5':'Jungfrau','80|10|0':'Disneyland extra'};
@@ -2076,6 +2205,124 @@ function addDays(d, n){ const r=new Date(d); r.setDate(r.getDate()+n); return r;
 function parseDt(s){ const [d,m,y]=s.split(' '); const months={Jan:0,Feb:1,Mar:2,Apr:3,May:4,Jun:5,Jul:6,Aug:7,Sep:8,Oct:9,Nov:10,Dec:11}; return new Date(y,months[m],d); }
 
 // Build calendar events from DEPS
+var DEP_SALES = [
+  {id:'WOE-01', date:'09 May 2026', pax:38, cap:40, revenue:95000,  fixedCost:57750, status:'on-tour',  fill:95},
+  {id:'WOE-02', date:'30 May 2026', pax:40, cap:40, revenue:100000, fixedCost:57750, status:'full',     fill:100},
+  {id:'WOE-03', date:'20 Jun 2026', pax:34, cap:40, revenue:85000,  fixedCost:57750, status:'on-track', fill:85},
+  {id:'WOE-04', date:'11 Jul 2026', pax:27, cap:40, revenue:67500,  fixedCost:57750, status:'push',     fill:67},
+  {id:'WOE-05', date:'01 Aug 2026', pax:18, cap:40, revenue:45000,  fixedCost:57750, status:'critical', fill:45},
+  {id:'WOE-06', date:'05 Sep 2026', pax:12, cap:40, revenue:30000,  fixedCost:57750, status:'critical', fill:30},
+];
+var THRESHOLDS = { BREAK_EVEN_PAX:25, TARGET_PAX:35 };
+function daysUntil(ds) { return Math.round((new Date(ds) - TODAY) / 86400000); }
+function getStatusColor(s) {
+  return s==='on-tour'||s==='full' ? '#166534' : s==='on-track' ? '#0369a1' : s==='push' ? '#d97706' : '#b91c1c';
+}
+function buildCalKPIs() {
+  var el = document.getElementById('calKpis'); if (!el) return;
+  var tp = DEP_SALES.reduce(function(s,d){return s+d.pax;}, 0);
+  var tr = DEP_SALES.reduce(function(s,d){return s+d.revenue;}, 0);
+  el.innerHTML =
+    '<div class="kpi"><div class="kpi-lbl">Season Fill</div><div class="kpi-val">' + Math.round(tp/240*100) + '%</div><div class="kpi-sub">' + tp + '/240 pax</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">Season Revenue</div><div class="kpi-val profit-pos">£' + (tr/1000).toFixed(0) + 'K</div><div class="kpi-sub">Target £600K</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">At-Risk Deps</div><div class="kpi-val profit-neg">2</div><div class="kpi-sub">WOE-05 (45%) · WOE-06 (30%)</div></div>' +
+    '<div class="kpi"><div class="kpi-lbl">Break-even</div><div class="kpi-val">25 pax</div><div class="kpi-sub">Per departure</div></div>';
+}
+function buildSalesTracker() {
+  var el = document.getElementById('salesTrackerContent'); if (!el) return;
+  var bg = {'on-tour':'#dcfce7','full':'#dcfce7','on-track':'#dbeafe','push':'#fef3c7','critical':'#fef2f2'};
+  var rows = '';
+  DEP_SALES.forEach(function(d) {
+    var days = daysUntil(d.date), pl = d.revenue - d.fixedCost;
+    var fc = d.fill>=85?'#166534':d.fill>=70?'#d97706':d.fill>=50?'#b45309':'#b91c1c';
+    rows += '<tr style="background:' + (bg[d.status]||'') + '">' +
+      '<td><strong>' + d.id + '</strong></td>' +
+      '<td style="font-size:12px">' + d.date + '</td>' +
+      '<td style="text-align:center"><strong>' + d.pax + '</strong><span style="color:var(--t3)">/' + d.cap + '</span>' +
+        '<div style="height:4px;background:#e2e6ea;border-radius:2px;margin-top:3px"><div style="height:100%;width:' + d.fill + '%;background:' + fc + ';border-radius:2px"></div></div></td>' +
+      '<td style="text-align:center;font-weight:800;color:' + fc + '">' + d.fill + '%</td>' +
+      '<td style="text-align:right;font-weight:600">£' + d.revenue.toLocaleString() + '</td>' +
+      '<td style="text-align:right;color:var(--t3)">£' + d.fixedCost.toLocaleString() + '</td>' +
+      '<td style="text-align:right;font-weight:700;color:' + (pl>=0?'#166534':'#b91c1c') + '">£' + pl.toLocaleString() + '</td>' +
+      '<td style="text-align:center">' + (d.pax>=25 ? '<span class="badge b-green">✓ OK</span>' : '<span class="badge b-red">+' + (25-d.pax) + '</span>') + '</td>' +
+      '<td style="font-size:12px;color:' + (days<=30?'#b91c1c':days<=60?'#d97706':'var(--t2)') + '">' + (days<0?'On tour':days+'d') + '</td>' +
+      '<td><span class="badge" style="background:' + getStatusColor(d.status) + ';color:#fff;font-size:10px">' + d.status.replace('-',' ').toUpperCase() + '</span></td>' +
+      '</tr>';
+  });
+  var tp2 = DEP_SALES.reduce(function(s,d){return s+d.pax;},0);
+  el.innerHTML =
+    '<div class="tbl-wrap"><table>' +
+    '<thead><tr style="background:#1a3a5c">' +
+    '<th style="color:#fff">Dep.</th><th style="color:#fff">Date</th><th style="color:#fff;text-align:center">Pax/Cap</th>' +
+    '<th style="color:#fff;text-align:center">Fill</th><th style="color:#fff;text-align:right">Revenue</th>' +
+    '<th style="color:#fff;text-align:right">Fixed Cost</th><th style="color:#fff;text-align:right">P&amp;L</th>' +
+    '<th style="color:#fff;text-align:center">BE</th><th style="color:#fff">Days</th><th style="color:#fff">Status</th>' +
+    '</tr></thead><tbody>' + rows + '</tbody>' +
+    '<tfoot><tr style="background:#1a3a5c;color:#fff;font-weight:700"><td colspan="2">Season Total</td>' +
+    '<td style="text-align:center">' + tp2 + '/240</td><td style="text-align:center;color:#C9862F">' + Math.round(tp2/240*100) + '%</td>' +
+    '<td style="text-align:right">£' + DEP_SALES.reduce(function(s,d){return s+d.revenue;},0).toLocaleString() + '</td>' +
+    '<td style="text-align:right;opacity:.6">£' + DEP_SALES.reduce(function(s,d){return s+d.fixedCost;},0).toLocaleString() + '</td>' +
+    '<td style="text-align:right;color:#4ade80">£' + DEP_SALES.reduce(function(s,d){return s+d.revenue-d.fixedCost;},0).toLocaleString() + '</td>' +
+    '<td colspan="3"></td></tr></tfoot></table></div>' +
+    '<div class="sh" style="margin-top:12px">Alerts</div>' +
+    '<div style="display:flex;flex-direction:column;gap:7px">' +
+    (function(){
+      var a = '';
+      DEP_SALES.forEach(function(d) {
+        if (d.status==='on-tour') return;
+        var bc = d.fill<50?'#b91c1c':d.fill<70?'#d97706':d.fill>=85?'#166534':'#0369a1';
+        var bg2= d.fill<50?'#fef2f2':d.fill<70?'#fffbeb':d.fill>=85?'#f0fdf4':'#eff6ff';
+        var msg = d.status==='full' ? 'Full — waitlist for 2027' :
+                  d.fill<50 ? '?? Under 50% — MERGE DECISION required' :
+                  d.fill<70 ? '⚠️ Under 70% — agent push needed now' :
+                  '✓ ' + d.fill + '% on track';
+        a += '<div style="background:' + bg2 + ';border-left:4px solid ' + bc + ';padding:8px 14px;border-radius:0 6px 6px 0;display:flex;gap:12px">' +
+             '<strong style="min-width:60px">' + d.id + '</strong><span style="font-size:12px">' + msg + '</span></div>';
+      });
+      return a;
+    })() +
+    '</div>';
+}
+function buildForecast() {
+  var el = document.getElementById('forecastContent'); if (!el) return;
+  var rows = '';
+  DEP_SALES.forEach(function(d) {
+    if (d.status==='on-tour'||d.status==='full') return;
+    var days = daysUntil(d.date), pl = d.revenue - d.fixedCost;
+    var bc = d.fill<50&&days<=60 ? '#b91c1c' : d.fill<70&&days<=60 ? '#d97706' : '#0369a1';
+    var acts = [];
+    if (d.fill<50 && days<=60) acts.push('?? MERGE DECISION required — contact Vinay now.');
+    if (d.fill<70 && days<=60) acts.push('?? Agent push: blast all agents + commission bonus.');
+    if (d.pax < 25)            acts.push('⚠️ Below break-even — need ' + (25-d.pax) + ' more pax.');
+    if (d.fill < 85)           acts.push('?? Urgency posts: only ' + (d.cap-d.pax) + ' seats left.');
+    if (!acts.length)          acts.push('✓ On track — push for final seats.');
+    rows +=
+      '<div style="border:1px solid ' + bc + ';border-radius:8px;overflow:hidden;margin-bottom:8px">' +
+      '<div style="background:' + bc + ';color:#fff;padding:8px 14px;font-weight:700;font-size:13px;display:flex;justify-content:space-between">' +
+      '<span>' + d.id + ' · ' + d.date + ' · ' + d.fill + '%</span>' +
+      '<span style="font-size:11px;opacity:.85">' + (days<0?'On tour':days+'d') + ' · P&amp;L £' + pl.toLocaleString() + '</span>' +
+      '</div>' +
+      '<div style="padding:8px 14px;background:#fff">' +
+      acts.map(function(a){ return '<div style="padding:3px 0;border-bottom:1px solid #f1f3f5;font-size:12px">' + a + '</div>'; }).join('') +
+      '</div></div>';
+  });
+  el.innerHTML = '<div class="sh">Per-Departure Actions</div>' + rows;
+}
+function switchCalView(view) {
+  ['calendar','sales','forecast'].forEach(function(v) {
+    var el = document.getElementById('calView-' + v);
+    var btn = document.getElementById('cvt-' + v);
+    if (el)  el.style.display = v===view ? 'block' : 'none';
+    if (btn) {
+      btn.classList.toggle('on', v===view);
+      btn.style.borderBottom = v===view ? '2px solid var(--blue)' : '2px solid transparent';
+      btn.style.color = v===view ? 'var(--blue)' : '';
+    }
+  });
+  if (view==='sales')    buildSalesTracker();
+  if (view==='forecast') buildForecast();
+}
+
 function buildCalendarEvents(){
   const events = [];
   DEPS.forEach(d => {
@@ -2179,6 +2426,7 @@ function buildCalendar(){
 
   // Build deadline list
   buildDeadlines(events);
+  buildCalKPIs();
 }
 
 function buildDeadlines(events){
@@ -2269,7 +2517,6 @@ function buildWF(data,id){
     el.appendChild(d);
   });
 }
-buildWF(WF1,'wf1');buildWF(WF2,'wf2');buildWF(WF3,'wf3');
 
 const POLICIES=[
   {num:'§01',title:'The Core Principle',body:`<em style="font-size:13px;color:var(--t3)">SECTION ONE · FEATURE</em><br><br>A Tour Manager represents ORN in front of the customer. Eight responsibilities ride on that fact.<br><br><strong>A TOUR MANAGER IS RESPONSIBLE FOR:</strong><ul><li>Customer comfort</li><li>Time discipline</li><li>Honest accounting</li><li>Smooth coordination</li><li>Company interest</li><li>Sales-opportunity reporting</li><li>Crisis handling</li><li>Zero leakage of company revenue</li></ul><div style="background:var(--bg2);border-radius:7px;padding:12px 14px;margin-top:10px;text-align:center"><strong>SIMPLE RULE</strong><br><em style="font-size:15px;color:var(--blue);font-weight:700">Play fair. Play long.</em><br><span style="font-size:12px;color:var(--t2)">Everything in the rest of this policy is an operational translation of those four words. If a decision on the ground does not pass that test, it is the wrong decision.</span></div><br><em style="color:var(--t3)">"The Tour Manager is the company, made visible — for as long as the tour lasts."</em>`},
@@ -2313,7 +2560,6 @@ function buildPolicies(){
     c.appendChild(d);
   });
 }
-buildPolicies();
 
 
 // ═══ ROLE / VIEW SYSTEM ═══
@@ -2321,19 +2567,19 @@ const ROLES = {
   manager: {
     label: '👤 Manager View — Full Access',
     color: 'role-manager',
-    pages: ['home','calendar','itin','expenses','pax','tms','seema','workflow','sachin','sales','policy','docs','fleet'],
+    pages: ['home','calendar','itin','expenses','pax','tms','seema','workflow','sachin','sales','policy','docs','fleet','lerms'],
     defaultPage: 'home',
   },
   pre: {
     label: '✈️ Pre-Travel View — Bookings & Sales',
     color: 'role-pre',
-    pages: ['home','calendar','pax','sachin','sales','policy','docs'],
+    pages: ['home','calendar','itin','pax','sachin','sales','policy','docs'],
     defaultPage: 'home',
   },
   post: {
     label: '🗺️ On-Tour View — Operations & Escalations',
     color: 'role-post',
-    pages: ['home','pax','tms','seema','workflow','sales','docs'],
+    pages: ['home','pax','tms','seema','workflow','sales','docs','lerms'],
     defaultPage: 'home',
   },
 };
@@ -2834,7 +3080,6 @@ initFleet();
 buildDepAssignGrid();
 buildDepCards();
 populateTourSelector();
-buildPolicies();
 
 // ── INITIALISE ALL MODULES ──
 initCosting();
@@ -2845,45 +3090,144 @@ initFleet();
 buildDepAssignGrid();
 buildDepCards();
 populateTourSelector();
-buildPolicies();
+
+var LERMS_DEFAULT = [
+  {l:'TM Tour Manager Allowance',  d:13, a:70,   ap:null, cp:null, rem:''},
+  {l:'TM Missed Meal - LUNCH',     d:2,  a:13,   ap:null, cp:null, rem:'Arrival & Departure day'},
+  {l:'TM Missed Meal - DINNER',    d:1,  a:13,   ap:null, cp:null, rem:'Departure'},
+  {l:'TM Telephone for Europe',    d:0,  a:20,   ap:null, cp:null, rem:''},
+  {l:'TM Tour Manager Tips - WOE', d:13, a:1,    ap:null, cp:null, rem:''},
+  {l:"TM Driver's Tips",           d:13, a:2,    ap:null, cp:null, rem:'Per day'},
+  {l:"TM Driver's Meals",          d:13, a:30,   ap:null, cp:null, rem:''},
+  {l:'TM Eiffel Tower L2 (24+)',   d:0,  a:null, ap:23.5, cp:null, rem:'Adult 24+'},
+  {l:'TM Eiffel Tower L2 (12-24)', d:0,  a:null, ap:11.8, cp:null, rem:'Youth 12-24'},
+  {l:'TM Eiffel Tower L2 (4-11)',  d:0,  a:null, ap:null, cp:6,    rem:'Child 4-11'},
+  {l:'TM Rome - Guide',            d:0,  a:180,  ap:null, cp:null, rem:'Group cost'},
+  {l:'TM Florence - Guide',        d:0,  a:180,  ap:null, cp:null, rem:'Group cost'},
+  {l:'TM Florence - Headset',      d:0,  a:1.5,  ap:null, cp:null, rem:'Per person'},
+  {l:'TM Venice - Gondola',        d:0,  a:90,   ap:null, cp:null, rem:'Group gondola'},
+  {l:'TM Pisa Train',              d:0,  a:100,  ap:null, cp:null, rem:'TM + driver'},
+  {l:'TM Waffles',                 d:1,  a:3,    ap:null, cp:null, rem:'Belgium goodwill'},
+  {l:'TM Gelato',                  d:1,  a:2,    ap:null, cp:null, rem:'Italy goodwill'},
+];
+var LERMS_ROWS = JSON.parse(JSON.stringify(LERMS_DEFAULT));
+
+function lermsVal(row, a, c) {
+  if (row.ap !== null) return row.ap * a;
+  if (row.cp !== null) return row.cp * c;
+  if (row.d > 0 && row.a !== null) return row.d * row.a;
+  if (row.a !== null) return row.a;
+  return 0;
+}
+function lermsSetDep(dep) {
+  var TM = {
+    'WOE-01':'Mahesh Jagannath Nyayanit', 'WOE-02':'Nikhil Kambli',
+    'WOE-03':'Neeraj Kambli',             'WOE-04':'Masooma Sayed',
+    'WOE-05':'Ashish Vijay Chandoskar',   'WOE-06':'Anirudh Govindram Saini'
+  };
+  var PX = {
+    'WOE-01':{a:38,c:0}, 'WOE-02':{a:40,c:0}, 'WOE-03':{a:34,c:0},
+    'WOE-04':{a:27,c:0}, 'WOE-05':{a:18,c:0}, 'WOE-06':{a:12,c:0}
+  };
+  var n = document.getElementById('lermsTmName');
+  if (n) n.textContent = TM[dep] || 'TBC';
+  var px = PX[dep] || {a:0, c:0};
+  var ae = document.getElementById('lermsAdult');
+  var ce = document.getElementById('lermsChild');
+  if (ae) ae.value = px.a;
+  if (ce) ce.value = px.c;
+  lermsCalc();
+}
+function lermsBuild() {
+  var tb = document.getElementById('lermsBody'); if (!tb) return;
+  var a = parseInt((document.getElementById('lermsAdult')  || {value:'0'}).value) || 0;
+  var c = parseInt((document.getElementById('lermsChild')  || {value:'0'}).value) || 0;
+  tb.innerHTML = LERMS_ROWS.map(function(row, i) {
+    var v = lermsVal(row, a, c);
+    var bg = i % 2 ? 'background:#fafbfc' : '';
+    return '<tr style="' + bg + '">' +
+      '<td style="padding:5px 8px;font-size:11px;color:var(--t3)">' + (i+1) + '</td>' +
+      '<td style="padding:5px 8px;font-size:12px">' + row.l + '</td>' +
+      '<td style="padding:4px 8px;text-align:right">' +
+        '<input class="inp" type="number" value="' + (row.d||0) + '" style="width:46px;padding:2px 4px;font-size:12px;text-align:right"' +
+        ' oninput="LERMS_ROWS[' + i + '].d=parseFloat(this.value)||0;lermsCalc()"></td>' +
+      '<td style="padding:4px 8px;text-align:right">' +
+        '<input class="inp" type="number" value="' + (row.a!==null?row.a:'') + '" step="0.01" style="width:58px;padding:2px 4px;font-size:12px;text-align:right"' +
+        ' oninput="LERMS_ROWS[' + i + '].a=this.value.length?parseFloat(this.value):null;lermsCalc()"></td>' +
+      '<td style="padding:4px 8px;text-align:right">' + (row.ap!==null ?
+        '<input class="inp" type="number" value="' + row.ap + '" step="0.1" style="width:58px;padding:2px 4px;font-size:12px;text-align:right"' +
+        ' oninput="LERMS_ROWS[' + i + '].ap=parseFloat(this.value)||0;lermsCalc()">' : '-') + '</td>' +
+      '<td style="padding:4px 8px;text-align:right">' + (row.cp!==null ?
+        '<input class="inp" type="number" value="' + row.cp + '" step="0.1" style="width:58px;padding:2px 4px;font-size:12px;text-align:right"' +
+        ' oninput="LERMS_ROWS[' + i + '].cp=parseFloat(this.value)||0;lermsCalc()">' : '-') + '</td>' +
+      '<td style="padding:5px 10px;text-align:right;font-weight:' + (v>0?'700':'400') + ';color:' + (v>0?'var(--blue)':'var(--t3)') + '">' +
+        (v>0 ? '€' + v.toFixed(2) : '-') + '</td>' +
+      '<td style="padding:5px 8px;font-size:11px;color:var(--t3)">' + row.rem + '</td>' +
+      '</tr>';
+  }).join('');
+}
+function lermsCalc() {
+  var a   = parseInt((document.getElementById('lermsAdult')   || {value:'0'}).value) || 0;
+  var c   = parseInt((document.getElementById('lermsChild')   || {value:'0'}).value) || 0;
+  var bal = parseFloat((document.getElementById('lermsBalance') || {value:'0'}).value) || 0;
+  lermsBuild();
+  var total  = LERMS_ROWS.reduce(function(s,r){ return s + lermsVal(r,a,c); }, 0);
+  var toLoad = Math.max(0, total - bal);
+  function fmt(v) { return '€' + v.toFixed(2); }
+  var map = {lermsTotal:fmt(total), lermsBalanceDisp:fmt(bal), lermsToLoad:fmt(toLoad), lermsToLoadFoot:fmt(toLoad)};
+  Object.keys(map).forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.textContent = map[id];
+  });
+}
+function lermsReset() {
+  LERMS_ROWS = JSON.parse(JSON.stringify(LERMS_DEFAULT));
+  lermsSetDep((document.getElementById('lermsDepSel') || {value:'WOE-01'}).value || 'WOE-01');
+}
+function initLerms() { lermsBuild(); lermsCalc(); }
+
+document.addEventListener('DOMContentLoaded', function(){
+  var dm = document.getElementById('depModal');
+  if (dm) dm.addEventListener('click', function(e){ if (e.target===this) closeModal(); });
+  var tm = document.getElementById('tmModal');
+  if (tm) tm.addEventListener('click', function(e){ if (e.target===this) closeTMModal(); });
+  if (typeof buildPaxTable === 'function') buildPaxTable(PAX);
+  if (typeof buildSalesFill === 'function') buildSalesFill();
+  if (typeof buildItin === 'function') buildItin();
+  if (typeof buildWF === 'function') { buildWF(WF1,'wf1'); buildWF(WF2,'wf2'); buildWF(WF3,'wf3'); }
+  if (typeof buildPolicies === 'function') buildPolicies();
+  initCosting();
+  buildCalendar();
+  buildTMTable(TMS);
+  initDocHub();
+  initFleet();
+  buildDepAssignGrid();
+  buildDepCards();
+  populateTourSelector();
+  if (typeof initLerms === 'function') initLerms();
+});
+
 </script>
 
 <div class="page" id="pg-calendar">
-  <div class="alert a-blue"><div class="a-icon">📅</div><div><strong>Season Calendar — WOE 2026.</strong> All 6 departures with key financial deadlines, operational milestones, and critical sell-or-merge decision dates. Red dates = money-losing risk. Amber = action required. Green = on track.</div></div>
-
-  <!-- LEGEND -->
-  <div class="fl" style="gap:10px;margin-bottom:16px;flex-wrap:wrap">
-    <div style="font-size:12px;font-weight:700;color:var(--t2)">Legend:</div>
-    <div class="fl" style="gap:5px"><div style="width:14px;height:14px;border-radius:3px;background:#fee2e2;border:2px solid #ef4444"></div><span style="font-size:12px">Merge/cancel decision deadline</span></div>
-    <div class="fl" style="gap:5px"><div style="width:14px;height:14px;border-radius:3px;background:#fef3c7;border:2px solid #f59e0b"></div><span style="font-size:12px">Ops action required</span></div>
-    <div class="fl" style="gap:5px"><div style="width:14px;height:14px;border-radius:3px;background:#dbeafe;border:2px solid #3b82f6"></div><span style="font-size:12px">Departure day</span></div>
-    <div class="fl" style="gap:5px"><div style="width:14px;height:14px;border-radius:3px;background:#dcfce7;border:2px solid #22c55e"></div><span style="font-size:12px">Tour active / return</span></div>
-    <div class="fl" style="gap:5px"><div style="width:14px;height:14px;border-radius:3px;background:#f3e8ff;border:2px solid #a855f7"></div><span style="font-size:12px">Financial decision / deadline</span></div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px" id="calKpis"></div>
+  <div style="display:flex;gap:6px;margin-bottom:14px;border-bottom:2px solid var(--bd);padding-bottom:0">
+    <button class="btn on" id="cvt-calendar" onclick="switchCalView('calendar')" style="border-radius:6px 6px 0 0;margin-bottom:-2px;border-bottom:2px solid var(--blue);color:var(--blue)">&#128197; Calendar</button>
+    <button class="btn" id="cvt-sales" onclick="switchCalView('sales')" style="border-radius:6px 6px 0 0;margin-bottom:-2px">&#128202; Sales Tracker</button>
+    <button class="btn" id="cvt-forecast" onclick="switchCalView('forecast')" style="border-radius:6px 6px 0 0;margin-bottom:-2px">&#127919; Forecast &amp; Actions</button>
   </div>
-
-  <!-- BREAK-EVEN QUICK REFERENCE -->
-  <div class="sh">Break-Even Quick Reference</div>
-  <div class="tbl-wrap" style="margin-bottom:16px"><table>
-    <thead><tr><th>Departure</th><th>Date</th><th>Pax Now</th><th>Fill %</th><th>Revenue Now</th><th>Fixed Costs</th><th>P&amp;L Now</th><th>Break-Even Pax</th><th>Seats to B/E</th><th>Decision Deadline</th><th>Status</th></tr></thead>
-    <tbody id="beTable"></tbody>
-  </table></div>
-
-  <!-- MONTHLY CALENDAR VIEWS -->
-  <div id="calendarMonths"></div>
-
-  <!-- TIMELINE BAR VIEW -->
-  <div class="sh" style="margin-top:16px">Tour Timeline — Season at a Glance</div>
-  <div class="card" style="overflow-x:auto;padding:20px">
-    <div id="timelineWrap"></div>
+  <div id="calView-calendar">
+    <div style="display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap" id="monthTabs"></div>
+    <div id="calendarWrap"></div>
+    <div class="sh" style="margin-top:16px">Upcoming Deadlines &#8212; Next 60 Days</div>
+    <div class="tbl-wrap"><table>
+      <thead><tr><th>Date</th><th>Days Away</th><th>Departure</th><th>Deadline Type</th><th>Action Required</th><th>Owner</th><th>Status</th></tr></thead>
+      <tbody id="deadlineBody"></tbody>
+    </table></div>
   </div>
-
-  <!-- KEY DEADLINES LIST -->
-  <div class="sh" style="margin-top:16px">All Key Deadlines — Sorted by Date</div>
-  <div class="tbl-wrap"><table>
-    <thead><tr><th>Date</th><th>Days Away</th><th>Departure</th><th>Milestone</th><th>Owner</th><th>Policy</th><th>Status</th></tr></thead>
-    <tbody id="deadlineTable"></tbody>
-  </table></div>
+  <div id="calView-sales" style="display:none"><div id="salesTrackerContent"></div></div>
+  <div id="calView-forecast" style="display:none"><div id="forecastContent"></div></div>
 </div>
-</script>
+
 </body>
 </html>
