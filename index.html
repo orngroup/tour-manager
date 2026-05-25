@@ -24,32 +24,32 @@ body{font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;color:var(--t);ba
 .nav-tab{padding:14px 17px;font-size:13.5px;font-weight:600;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;white-space:nowrap;transition:.15s}
 .nav-tab:hover{color:var(--t2)}
 .nav-tab.on{color:var(--orange);border-bottom-color:var(--orange)}
-.page{display:none;padding:20px 20px;width:100%;box-sizing:border-box}
+.page{display:none;padding:22px 22px;width:100%;box-sizing:border-box}
 .page.on{display:block}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
-.card{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
-.kpi{background:#fff;border:1px solid var(--bd);border-radius:var(--r);padding:14px 16px;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{background:#fff;border:1px solid #d1d5db;border-radius:var(--r);padding:16px;box-shadow:0 2px 6px rgba(0,0,0,.07)}
+.kpi{background:#fff;border:1px solid #d1d5db;border-radius:var(--r);padding:14px 16px;box-shadow:0 2px 6px rgba(0,0,0,.06)}
 .kpi-lbl{font-size:11px;font-weight:700;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px}
 .kpi-val{font-size:24px;font-weight:700;color:var(--t);line-height:1}
 .kpi-sub{font-size:11px;color:var(--t3);margin-top:4px}
-.sh{font-size:12px;font-weight:700;color:var(--t2);text-transform:uppercase;letter-spacing:.5px;padding:14px 0 8px;border-bottom:1px solid var(--bd);margin-bottom:12px}
+.sh{font-size:12px;font-weight:800;color:#1e293b;text-transform:uppercase;letter-spacing:.6px;padding:14px 0 9px 10px;border-bottom:2px solid #e2e8f0;border-left:3px solid #c9682f;margin-bottom:14px}
 .sh:first-child{padding-top:0}
 .badge{display:inline-flex;align-items:center;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600;white-space:nowrap}
 .b-green{background:#dcfce7;color:#166534}.b-red{background:#fee2e2;color:#991b1b}.b-amber{background:#fef3c7;color:#1a3a5c}.b-blue{background:#dbeafe;color:#1e40af}.b-gray{background:#f3f4f6;color:#374151}.b-purple{background:#ede9fe;color:#5b21b6}.b-orange{background:#ffedd5;color:#9a3412}
-.alert{border-radius:7px;padding:12px 14px;margin-bottom:12px;font-size:13px;display:flex;gap:10px;line-height:1.6;border-left:4px solid}
+.alert{border-radius:8px;padding:13px 16px;margin-bottom:14px;font-size:13px;display:flex;gap:10px;line-height:1.6;border-left:4px solid}
 .a-red{background:#fef2f2;border-color:#ef4444;color:#7f1d1d}
 .a-amber{background:#fffbeb;border-color:#f59e0b;color:#78350f}
 .a-blue{background:#eff6ff;border-color:#3b82f6;color:#1e3a8a}
 .a-green{background:#f0fdf4;border-color:#22c55e;color:#14532d}
 .a-icon{font-size:16px;flex-shrink:0;margin-top:1px}
-.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:1px solid var(--bd);width:100%}
+.tbl-wrap{overflow-x:auto;border-radius:var(--r);border:2px solid #d1d5db;width:100%}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{background:var(--bg2);font-size:11px;font-weight:700;color:var(--t2);padding:9px 12px;text-align:left;border-bottom:1px solid var(--bd);text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
-td{padding:10px 12px;border-bottom:1px solid #f1f3f5;vertical-align:middle}
+th{background:#f1f5f9;font-size:11px;font-weight:700;color:#374151;padding:9px 12px;text-align:left;border-bottom:2px solid #d1d5db;border-right:1px solid #e5e7eb;text-transform:uppercase;letter-spacing:.3px;white-space:nowrap}
+td{padding:10px 12px;border-bottom:1px solid #e5e7eb;border-right:1px solid #f3f4f6;vertical-align:middle}
 tr:last-child td{border-bottom:none}
-tr:hover td{background:#fafbfc}
+tr:hover td{background:#f8faff}
 .td-num{text-align:right;font-variant-numeric:tabular-nums;font-weight:500}
 .inp{width:100%;padding:7px 10px;border:1px solid var(--bd);border-radius:6px;font-size:13px;font-family:inherit;color:var(--t);background:#fff;transition:.15s}
 .inp:focus{outline:none;border-color:var(--orange);box-shadow:0 0 0 3px rgba(26,58,92,.1)}
@@ -63,14 +63,14 @@ tr:hover td{background:#fafbfc}
 .row{margin-bottom:10px}
 .row label{display:block;font-size:12px;font-weight:600;color:var(--t2);margin-bottom:4px}
 .dep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
-.dep-card{background:#fff;border:1.5px solid var(--bd);border-radius:10px;padding:16px;cursor:pointer;transition:.18s;box-shadow:0 1px 3px rgba(0,0,0,.06)}
+.dep-card{background:#fff;border:1.5px solid #d1d5db;border-radius:10px;padding:16px;cursor:pointer;transition:.18s;box-shadow:0 2px 8px rgba(0,0,0,.08);border-top:3px solid #1a3a5c}
 .dep-card:hover{border-color:var(--orange);transform:translateY(-2px);box-shadow:0 6px 20px rgba(26,58,92,.15)}
 .dep-card.critical{border-color:#ef4444}
 .dep-card.warning{border-color:#f59e0b}
 .dep-id{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:2px}
 .dep-date{font-size:12px;color:var(--t2);margin-bottom:8px}
 .dep-badges{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}
-.prog{background:var(--bg3);border-radius:20px;height:6px;overflow:hidden;margin:6px 0 4px}
+.prog{background:#e5e7eb;border-radius:20px;height:7px;overflow:hidden;margin:7px 0 5px}
 .prog-b{height:100%;border-radius:20px}
 .dep-stat{display:flex;justify-content:space-between;font-size:11px;color:var(--t3)}
 .risk-flag{margin-top:9px;padding:6px 9px;border-radius:5px;font-size:12px;font-weight:600;border-left:3px solid}
@@ -145,6 +145,35 @@ tr:hover td{background:#fafbfc}
 .nav-div.role-hidden{display:none!important}
 @media(max-width:900px){.g4{grid-template-columns:repeat(2,1fr)}.dep-grid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.g2,.g3,.g4,.dep-grid{grid-template-columns:1fr}}
+
+/* Section containers */
+.section{background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:18px 20px;margin-bottom:16px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.section-hd{font-size:13px;font-weight:800;color:#1e293b;text-transform:uppercase;letter-spacing:.5px;padding-bottom:12px;border-bottom:2px solid #e2e8f0;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.divider{height:1px;background:#e5e7eb;margin:16px 0}
+/* Last column no right border */
+td:last-child,th:last-child{border-right:none}
+/* First column subtle left accent */
+tr td:first-child{border-left:2px solid transparent}
+tr:hover td:first-child{border-left-color:#c9682f}
+/* Zebra striping */
+tbody tr:nth-child(even) td{background:#fafbfd}
+tbody tr:nth-child(even):hover td{background:#f0f4ff}
+/* Table outer border on rows */
+tbody tr:last-child td{border-bottom:none}
+
+/* Section spacing improvements */
+.g4+.sh,.g3+.sh,.g2+.sh,.tbl-wrap+.sh,.card+.sh{margin-top:22px;padding-top:18px}
+/* Table header row stronger visual */
+thead tr{border-bottom:2px solid #d1d5db}
+/* Striped tbody already in - reinforce */
+tbody tr{border-bottom:1px solid #e9ecef}
+/* dep-card critical gets red top border, warning gets amber */
+.dep-card.critical{border-top-color:#b91c1c}
+.dep-card.warning{border-top-color:#d97706}
+/* kpi left accent */
+.kpi{border-left:3px solid #e5e7eb}
+/* card top label bar */
+.card>.sh:first-child{margin:-16px -16px 12px;padding:10px 16px;background:#f8fafc;border-radius:8px 8px 0 0;border-bottom:1px solid #e5e7eb;border-left:none}
 </style>
 <script>
 function showPage(id) {
@@ -307,9 +336,9 @@ function filterTMVisa() {}
   </div>
 
   <div class="sh">All Departures — Click any card to open full P&amp;L, Sales Status &amp; Action Plan</div>
-  <div class="dep-grid" id="depGrid"></div>
+  <div class="dep-grid" id="depGrid" style="border:1px solid #e5e7eb;border-radius:10px;padding:14px;background:#f8fafc;gap:12px"></div>
 
-  <div class="sh">Accountability Matrix</div>
+  <div style="background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:16px 18px;margin-top:4px;box-shadow:0 1px 5px rgba(0,0,0,.05)"><div class="sh">Accountability Matrix</div>
   <div class="g3">
     <div class="card">
       <div class="fl" style="margin-bottom:10px">
@@ -332,7 +361,7 @@ function filterTMVisa() {}
       </div>
       <div style="font-size:13px;color:var(--t2);line-height:1.9">✓ Policy violations — final decision (§22)<br>✓ TM contracts + blacklist decisions<br>✓ Finance approvals &gt;€500<br>✓ Merge/cancel sign-off<br>✓ Major supplier disputes<br>✓ Incentive &amp; salary structure (§07)<br>✓ Seasonal strategy</div>
     </div>
-  </div>
+  </div></div>
 </div>
 
 
@@ -468,11 +497,11 @@ function filterTMVisa() {}
   <div class="alert a-amber"><div class="a-icon">⚠️</div><div><strong>Policy §07 — Allocation:</strong> "Tour allocation must be fair, transparent, and merit-driven. Six factors, weighed together — not one above the rest." Contracted TMs have priority. No lobbying. No personal favouritism.</div></div>
 
   <!-- DEPARTURES PANEL -->
-  <div class="sh">WOE 2026 — Departure Assignments (click to view TM profile)</div>
-  <div id="depAssignGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px"></div>
+  <div style="background:#fff;border:1px solid #d1d5db;border-radius:10px;padding:16px 18px;margin-bottom:16px;box-shadow:0 1px 5px rgba(0,0,0,.05)"><div class="sh">WOE 2026 — Departure Assignments (click to view TM profile)</div>
+  <div id="depAssignGrid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px"></div></div>
 
   <!-- FILTERS -->
-  <div style="display:flex;gap:10px;margin-bottom:12px;flex-wrap:wrap;align-items:center">
+  <div style="background:#fff;border:1px solid #d1d5db;border-radius:8px;padding:12px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.04);display:flex;gap:10px;flex-wrap:wrap;align-items:center">
     <input class="inp" style="max-width:220px" placeholder="🔍 Search name..." oninput="filterTMs(this.value)" id="tmSearch">
     <select class="sel" style="width:150px" onchange="filterTMStatus(this.value)" id="tmStatusFilter">
       <option value="">All statuses</option>
@@ -2325,106 +2354,207 @@ function switchCalView(view) {
 
 function buildCalendarEvents(){
   const events = [];
-  DEPS.forEach(d => {
+  // Sales intelligence lookup
+  const salesMap = {};
+  DEP_SALES.forEach(function(d){ salesMap[d.id] = d; });
+
+  DEPS.forEach(function(d){
     const dep = parseDt(d.date);
-    const pct = Math.round(d.pax/d.cap*100);
-    // departure itself
-    events.push({date:dep, dep:d.id, type:'departure', label:d.id+' Departure', color:'#1a3a5c', pax:d.pax, cap:d.cap});
-    // T-7 voucher check
-    events.push({date:addDays(dep,-7), dep:d.id, type:'voucher', label:d.id+' T-7 Vouchers', color:'#7c3aed', owner:'Seema'});
-    // T-3 final check
-    events.push({date:addDays(dep,-3), dep:d.id, type:'balance', label:d.id+' T-3 Final Check', color:'#d97706', owner:'Seema+Sachin'});
-    // T-1 TM ready
-    events.push({date:addDays(dep,-1), dep:d.id, type:'tm', label:d.id+' TM Ready', color:'#0891b2', owner:'Seema'});
-    // Financial deadlines for at-risk deps
+    const ds  = salesMap[d.id] || {};
+    const fill = ds.fill || 0;
+    const pax  = ds.pax  || d.pax;
+    const cap  = ds.cap  || d.cap;
+
+    // Traffic-light colour for this departure
+    let tl, tlLabel, action;
+    if (ds.status === 'on-tour') {
+      tl = '#166534'; tlLabel = 'On Tour'; action = 'Tour in progress';
+    } else if (ds.status === 'full') {
+      tl = '#166534'; tlLabel = 'Full'; action = 'Open waitlist for 2027';
+    } else if (fill >= 75) {
+      tl = '#15803d'; tlLabel = 'Filling Well'; action = 'Monitor — push for final seats';
+    } else if (fill >= 50) {
+      tl = '#d97706'; tlLabel = 'Needs Selling'; action = 'Agent push + social urgency campaign';
+    } else {
+      tl = '#b91c1c'; tlLabel = 'At Risk'; action = 'MERGE DECISION required — contact Vinay';
+    }
+
+    // Merge candidate: WOE-05 and WOE-06 are under 50% — flag for merge consideration
+    const mergeable = fill < 50 && ds.status !== 'on-tour';
+
+    events.push({
+      date:dep, dep:d.id, type:'departure',
+      label: d.id + ' Departure',
+      color: tl,
+      tlLabel: tlLabel,
+      action: action,
+      pax: pax, cap: cap, fill: fill,
+      mergeable: mergeable,
+      revenue: ds.revenue || 0,
+      status: ds.status || ''
+    });
+
+    // Operational milestones
+    events.push({date:addDays(dep,-14), dep:d.id, type:'supplier', label:d.id+' T-14 Suppliers',  color:'#059669', owner:'Seema'});
+    events.push({date:addDays(dep,-7),  dep:d.id, type:'voucher',  label:d.id+' T-7 Vouchers',    color:'#7c3aed', owner:'Seema'});
+    events.push({date:addDays(dep,-3),  dep:d.id, type:'balance',  label:d.id+' T-3 Final Check', color:'#d97706', owner:'Seema+Sachin'});
+    events.push({date:addDays(dep,-1),  dep:d.id, type:'tm',       label:d.id+' TM Ready',         color:'#0891b2', owner:'Seema'});
+
+    // Sales pressure deadlines for at-risk deps
     if(d.id==='WOE-05'){
       events.push({date:new Date('2026-07-15'), dep:d.id, type:'merge', label:'WOE-05 Merge/Cancel Decision', color:'#b91c1c', owner:'Sachin+Vinay', urgent:true});
-      events.push({date:new Date('2026-06-15'), dep:d.id, type:'push', label:'WOE-05 Agent Push Deadline', color:'#d97706', owner:'Sachin'});
+      events.push({date:new Date('2026-06-15'), dep:d.id, type:'push',  label:'WOE-05 Agent Push Deadline',   color:'#d97706', owner:'Sachin'});
     }
     if(d.id==='WOE-06'){
       events.push({date:new Date('2026-06-30'), dep:d.id, type:'merge', label:'WOE-06 Merge/Cancel Decision', color:'#b91c1c', owner:'Sachin+Vinay', urgent:true});
-      events.push({date:new Date('2026-06-01'), dep:d.id, type:'push', label:'WOE-06 Agent Push Start', color:'#d97706', owner:'Sachin'});
+      events.push({date:new Date('2026-06-01'), dep:d.id, type:'push',  label:'WOE-06 Agent Push Start',      color:'#d97706', owner:'Sachin'});
     }
     if(d.id==='WOE-04'){
-      events.push({date:new Date('2026-06-20'), dep:d.id, type:'push', label:'WOE-04 Agent Push Deadline', color:'#d97706', owner:'Sachin'});
+      events.push({date:new Date('2026-06-11'), dep:d.id, type:'push',  label:'WOE-04 Push Campaign',         color:'#d97706', owner:'Sachin'});
     }
-    // T-14 supplier confirmations
-    events.push({date:addDays(dep,-14), dep:d.id, type:'supplier', label:d.id+' T-14 Suppliers', color:'#059669', owner:'Seema'});
   });
   return events;
 }
 
 function buildCalendar(){
-  const calWrap = document.getElementById('calendarWrap');
-  const monthTabs = document.getElementById('monthTabs');
-  if(!calWrap) return;
-  const events = buildCalendarEvents();
-  const months = [
+  var calWrap   = document.getElementById('calendarWrap');
+  var monthTabs = document.getElementById('monthTabs');
+  if (!calWrap) return;
+  var events = buildCalendarEvents();
+  var months = [
     {y:2026, m:4, label:'May 2026'},
     {y:2026, m:5, label:'Jun 2026'},
     {y:2026, m:6, label:'Jul 2026'},
     {y:2026, m:7, label:'Aug 2026'},
     {y:2026, m:8, label:'Sep 2026'},
   ];
-  let currentMonth = 0; // default to May
+  var typeIcons = {departure:'✈️', voucher:'📋', balance:'💰', tm:'🧭', merge:'🚨', push:'📣', supplier:'✅'};
+
+  function fillBar(fill, color){
+    return '<div style="height:4px;background:rgba(255,255,255,.3);border-radius:2px;margin:3px 0;overflow:hidden">' +
+      '<div style="height:100%;width:' + fill + '%;background:#fff;border-radius:2px;opacity:.9"></div></div>';
+  }
+  function tlDot(color){
+    return '<span style="display:inline-block;width:9px;height:9px;border-radius:50%;background:' + color + ';margin-right:5px;vertical-align:middle"></span>';
+  }
 
   function renderMonth(mi){
-    const {y, m, label} = months[mi];
-    // Update tab active
-    document.querySelectorAll('.cal-month-tab').forEach((t,i) => t.classList.toggle('on', i===mi));
-    const firstDay = new Date(y, m, 1);
-    const lastDay = new Date(y, m+1, 0);
-    const startDow = firstDay.getDay(); // 0=Sun
+    var mo = months[mi];
+    var y = mo.y, m = mo.m, label = mo.label;
+    document.querySelectorAll('.cal-month-tab').forEach(function(t,i){ t.classList.toggle('on', i===mi); });
+    var firstDay  = new Date(y, m, 1);
+    var lastDay   = new Date(y, m+1, 0);
+    var startDow  = firstDay.getDay();
+    var monthEvents = events.filter(function(e){ return e.date.getFullYear()===y && e.date.getMonth()===m; });
 
-    // Get events for this month
-    const monthEvents = events.filter(e => e.date.getFullYear()===y && e.date.getMonth()===m);
+    var html = '<div style="background:#fff;border:1px solid var(--bd);border-radius:10px;overflow:hidden">' +
+      '<div style="background:var(--blue);color:#fff;padding:13px 18px;font-size:15px;font-weight:700;display:flex;align-items:center">' +
+      '<span>' + label + '</span>' +
+      '<div style="margin-left:auto;display:flex;gap:14px;font-size:11px;font-weight:500;opacity:.85">' +
+      '<span>' + tlDot('#15803d') + 'Filling well</span>' +
+      '<span>' + tlDot('#d97706') + 'Needs selling</span>' +
+      '<span>' + tlDot('#b91c1c') + 'At risk</span>' +
+      '<span>' + tlDot('#166534') + 'Full / On Tour</span>' +
+      '<span style="display:flex;align-items:center;gap:4px"><span style="display:inline-block;width:11px;height:11px;background:#bfdbfe;border:1.5px solid #3b82f6;border-radius:2px"></span>Merge candidate</span>' +
+      '</div></div>' +
+      '<div style="display:grid;grid-template-columns:repeat(7,1fr);background:#f1f5f9;border-bottom:1px solid #e2e8f0">';
 
-    // Build grid
-    const typeIcons = {departure:'✈️', voucher:'📋', balance:'💰', tm:'🧭', merge:'🚨', push:'📣', supplier:'✅'};
-
-    let html = `<div style="background:#fff;border:1px solid var(--bd);border-radius:10px;overflow:hidden">
-      <div style="background:var(--blue);color:#fff;padding:14px 16px;font-size:15px;font-weight:700">${label}</div>
-      <div style="display:grid;grid-template-columns:repeat(7,1fr);background:var(--bg2);border-bottom:1px solid var(--bd)">`;
-    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(d => {
-      html += `<div style="padding:8px;text-align:center;font-size:11px;font-weight:700;color:var(--t3)">${d}</div>`;
+    ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'].forEach(function(d){
+      html += '<div style="padding:7px 4px;text-align:center;font-size:11px;font-weight:700;color:#64748b;letter-spacing:.3px">' + d + '</div>';
     });
     html += '</div><div style="display:grid;grid-template-columns:repeat(7,1fr)">';
 
-    // Empty cells before first day
-    for(let i=0;i<startDow;i++) html += '<div style="min-height:80px;border:1px solid #f1f3f5"></div>';
-
-    for(let day=1; day<=lastDay.getDate(); day++){
-      const thisDate = new Date(y, m, day);
-      const dayEvents = monthEvents.filter(e => e.date.getDate()===day);
-      const isToday = daysBetween(TODAY, thisDate)===0;
-      const isPast = thisDate < TODAY;
-      html += `<div style="min-height:80px;border:1px solid #f1f3f5;padding:4px;background:${isToday?'#fff7ed':isPast?'#fafbfc':'#fff'}">
-        <div style="font-size:12px;font-weight:${isToday?'700':'600'};color:${isToday?'var(--orange)':'var(--t2)'};margin-bottom:3px">${day}${isToday?' ★':''}</div>`;
-      dayEvents.forEach(ev => {
-        html += `<div style="background:${ev.color};color:#fff;border-radius:4px;padding:2px 5px;font-size:10px;font-weight:600;margin-bottom:2px;cursor:pointer;line-height:1.4" title="${ev.owner||''}">${typeIcons[ev.type]||''} ${ev.label}</div>`;
-      });
-      html += '</div>';
+    // Leading blanks
+    for (var p=0; p<startDow; p++) {
+      html += '<div style="min-height:130px;border:1px solid #f1f5f9;background:#f8fafc"></div>';
     }
-    // Fill remaining cells
-    const totalCells = startDow + lastDay.getDate();
-    const remainder = totalCells % 7;
-    if(remainder > 0){ for(let i=0;i<7-remainder;i++) html += '<div style="min-height:80px;border:1px solid #f1f3f5;background:#fafbfc"></div>'; }
-    html += '</div></div>';
+
+    for (var day=1; day<=lastDay.getDate(); day++){
+      var thisDate  = new Date(y, m, day);
+      var dayEvents = monthEvents.filter(function(e){ return e.date.getDate()===day; });
+      var isToday   = daysBetween(TODAY, thisDate)===0;
+      var isPast    = thisDate < TODAY && !isToday;
+      var depEvent  = dayEvents.find(function(e){ return e.type==='departure'; });
+      var otherEvts = dayEvents.filter(function(e){ return e.type!=='departure'; });
+
+      if (depEvent) {
+        // ── FULL-CELL DEPARTURE CARD ──
+        var tl      = depEvent.color;
+        var fill    = depEvent.fill;
+        var isMrg   = depEvent.mergeable;
+        // Border left = thicker accent
+        var border  = isMrg ? '3px solid #3b82f6' : '3px solid ' + tl;
+        // Cell bg = traffic light colour at low opacity, or merge blue
+        var cellBg  = isMrg ? '#eff6ff' : (isPast ? 'rgba(0,0,0,.03)' : '#fff');
+
+        html += '<div style="min-height:130px;border:1px solid #e2e8f0;border-left:' + border + ';background:' + cellBg + ';display:flex;flex-direction:column;overflow:hidden">';
+
+        // ── Top colour band: dep ID + day number ──
+        html += '<div style="background:' + tl + ';color:#fff;padding:5px 8px;display:flex;align-items:center;justify-content:space-between">' +
+          '<span style="font-size:12px;font-weight:800;letter-spacing:.3px">' + depEvent.dep + '</span>' +
+          '<span style="font-size:11px;font-weight:700;opacity:.9">' + day + (isToday?' ◀':'') + '</span>' +
+          '</div>';
+
+        // ── Line 1: Fill bar + percentage ──
+        html += '<div style="padding:5px 8px 0">' + fillBar(fill, tl).replace('rgba(255,255,255,.3)','#e2e8f0').replace('background:#fff;border-radius:2px;opacity:.9','background:'+tl+';border-radius:2px') + '</div>';
+        html += '<div style="padding:0 8px;display:flex;align-items:center;justify-content:space-between;margin-top:1px">' +
+          '<span style="font-size:12px;font-weight:800;color:' + tl + '">' + fill + '% full</span>' +
+          '<span style="font-size:11px;color:#475569;font-weight:600">' + (depEvent.pax||'?') + '/' + (depEvent.cap||40) + ' pax</span>' +
+          '</div>';
+
+        // ── Line 2: Revenue ──
+        html += '<div style="padding:2px 8px;font-size:11px;color:#374151;font-weight:600">' +
+          '\xa3' + Math.round((depEvent.revenue||0)/1000) + 'K revenue</div>';
+
+        // ── Line 3: Merge badge OR status ──
+        if (isMrg) {
+          html += '<div style="margin:3px 8px;background:#bfdbfe;color:#1e40af;font-size:10px;font-weight:700;border-radius:3px;padding:2px 6px;border:1px solid #93c5fd;display:inline-block">🔵 Merge candidate</div>';
+        } else {
+          html += '<div style="padding:2px 8px;font-size:10px;font-weight:700;color:' + tl + '">' + depEvent.tlLabel + '</div>';
+        }
+
+        // ── Line 4: Action (coloured bg) ──
+        var actBg = isMrg ? '#fef3c7' : (fill<50 ? '#fef2f2' : fill<75 ? '#fffbeb' : '#f0fdf4');
+        var actBd = isMrg ? '#fcd34d' : (fill<50 ? '#fca5a5' : fill<75 ? '#fcd34d' : '#86efac');
+        var actCol= isMrg ? '#92400e' : (fill<50 ? '#7f1d1d' : fill<75 ? '#78350f' : '#14532d');
+        html += '<div style="margin:3px 8px 5px;background:' + actBg + ';border:1px solid ' + actBd + ';border-radius:4px;padding:3px 6px;font-size:10px;font-weight:600;color:' + actCol + ';line-height:1.35">' +
+          depEvent.action + '</div>';
+
+        html += '</div>'; // end departure card cell
+
+      } else {
+        // ── REGULAR CELL ──
+        var regBg = isToday ? '#fff7ed' : isPast ? '#f8fafc' : '#fff';
+        html += '<div style="min-height:130px;border:1px solid #e2e8f0;padding:5px;background:' + regBg + '">';
+        html += '<div style="font-size:12px;font-weight:' + (isToday?'800':'600') + ';color:' + (isToday?'#ea580c':'#374151') + ';margin-bottom:3px">' + day + (isToday?' ◀':'') + '</div>';
+        otherEvts.forEach(function(ev){
+          html += '<div style="background:' + ev.color + ';color:#fff;border-radius:3px;padding:2px 5px;font-size:9.5px;font-weight:600;margin-bottom:2px;line-height:1.4" title="' + (ev.owner||'') + '">' +
+            (typeIcons[ev.type]||'') + ' ' + ev.label.replace(ev.dep+' ','') + '</div>';
+        });
+        html += '</div>';
+      }
+    }
+
+    // Trailing blanks
+    var totalCells = startDow + lastDay.getDate();
+    var rem = totalCells % 7;
+    if (rem > 0) { for (var t=0; t<7-rem; t++) html += '<div style="min-height:130px;border:1px solid #f1f5f9;background:#f8fafc"></div>'; }
+
+    html += '</div></div>'; // close grid + outer card
     calWrap.innerHTML = html;
   }
 
-  // Build month tabs
+  // Month tabs
   monthTabs.innerHTML = '';
-  months.forEach(({label}, i) => {
-    const btn = document.createElement('button');
+  months.forEach(function(mo, i){
+    var btn = document.createElement('button');
     btn.className = 'btn cal-month-tab' + (i===0?' btn-p':'');
-    btn.textContent = label;
-    btn.onclick = () => renderMonth(i);
-    if(monthTabs) monthTabs.appendChild(btn);
+    btn.textContent = mo.label;
+    btn.onclick = (function(idx){ return function(){ renderMonth(idx); }; })(i);
+    if (monthTabs) monthTabs.appendChild(btn);
   });
   renderMonth(0);
 
-  // Build deadline list
   buildDeadlines(events);
   buildCalKPIs();
 }
